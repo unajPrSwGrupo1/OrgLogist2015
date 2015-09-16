@@ -11,6 +11,12 @@ use app\models\ContactForm;
 
 class SiteController extends Controller
 {
+    
+    public function actionAbm_usuario()
+    {
+        return $this->render("abm_usuario");
+    }
+    
     public function behaviors()
     {
         return [
