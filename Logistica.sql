@@ -578,7 +578,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `StockTransporteLogistica`.`Autenticación`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`Autenticación` (
+CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`Autenticacion` (
   `idAutenticación` INT NOT NULL AUTO_INCREMENT,
   `Usuario` VARCHAR(45) NOT NULL,
   `Password` VARCHAR(45) NOT NULL,
