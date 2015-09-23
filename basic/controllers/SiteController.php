@@ -12,10 +12,12 @@ use app\models\ContactForm;
 class SiteController extends Controller
 {
     
-    public function actionAbm_usuario()
+	public function actionMenu()
     {
-        return $this->render("abm_usuario");
+     return $this->render('menu');
     }
+	
+ 
     
     public function behaviors()
     {
