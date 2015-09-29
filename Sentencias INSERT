@@ -1,5 +1,5 @@
-INSERT INTO `StockTransporteLogistica`.`TipoRRHH` (`idTipoRRHH`, `Tipo`) VALUES ('1000', 'Chofer'), ('1001', 'Administrador');
+INSERT INTO `StockTransporteLogistica`.`tiporrhh` (`idTipoRRHH`, `Tipo`) VALUES ('1000', 'Chofer'), ('1001', 'Administrador');
 
-INSERT INTO `StockTransporteLogistica`.`RRHH` (`idRRHH`, `Nombre`, `Apellido`, `Edad`, `Salario`, `Jefe`, `TipoRRHH_idTipoRRHH`) VALUES ('10', 'Jose', 'Perez', '22', '1500', NULL, '1000'), ('11', 'Alberto', 'Juarez', '40', '20000', NULL, '1001');
+INSERT INTO `StockTransporteLogistica`.`rrhh` (`idRRHH`, `Nombre`, `Apellido`, `Edad`, `Salario`, `Jefe`, `TipoRRHH_idTipoRRHH`) VALUES ('10', 'Jose', 'Perez', '22', '1500', NULL, '1000'), ('11', 'Alberto', 'Juarez', '40', '20000', NULL, '1001');
 
-INSERT INTO `StockTransporteLogistica`.`Autenticacion` (`idAutenticación`, `Usuario`, `Password`, `Mail`, `Authkey`, `Token`, `RRHH_idRRHH`, `RRHH_TipoRRHH_idTipoRRHH`, `Fecha`, `Hora`) VALUES ('100', 'admin', 'admin1234', 'cualqui@gmail.com', 'asflj12l4kjlakjsfd', '0', '10', '1000', '2015-09-08', '12:22:24')
+INSERT INTO `StockTransporteLogistica`.`user` (`idAutenticación`, `username`, `password`, `Mail`, `Authkey`, `Token`, `RRHH_idRRHH`, `RRHH_TipoRRHH_idTipoRRHH`, `Fecha`, `Hora`, `activate`) VALUES ('100', 'admin', 'admin1234', 'cualqui@gmail.com', 'asflj12l4kjlakjsfd', '0', '10', '1000', '2015-09-08', '12:22:24', '1')

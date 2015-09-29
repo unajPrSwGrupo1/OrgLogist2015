@@ -1,5 +1,6 @@
 <?php
-
+use yii\helpers\Html;
+use yii\widgets\ActiveForm;
 ?>
 
 <html lang="en-us">
@@ -51,14 +52,12 @@ ul li{height:40px; margin:15px 0; list-style:none}
 .links a{display:block; float:left; height:40px; line-height:40px; padding:0 20px; background:#fff; text-decoration:none; margin-left:5px; font-size:16px; font-weight:bold; color:#09F}
 
 
-
-
 </style>
 </head>
 <body>
     
     <div class="add1"><ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-9033581641953966" data-ad-slot="6617384532"></ins></div>   
-<div 
+<div> 
 
     <h1></h1>
     
@@ -67,29 +66,60 @@ ul li{height:40px; margin:15px 0; list-style:none}
 
 </script>
 
+<!-- <div class="form"> -->
+<!-- <div class="header"><h2>Iniciar Sesi&oacuten</h2></div> -->
+<!-- <div class="login"> -->
+<!-- <form action=""> -->
+<!-- <ul> -->
+<!-- <li> -->
+<!-- <span class="un"><i class="fa fa-user"></i></span><input type="text" required class="text" placeholder="Nombre de Usuario"/></li> -->
+<!-- <li> -->
+<!-- <span class="un"><i class="fa fa-lock"></i></span><input type="password" required class="text" placeholder="Contrase&ntilde;a"/></li> -->
+<!-- <li> -->
+<!-- <p><a class="btn btn-lg btn-success" href="http://localhost/basic/web/index.php?r=site/menu">Iniciar</a></p> -->
 
+<!-- </li> -->
+<!-- <li><div class="span"><span class="ch"><input type="checkbox" id="r"> <label for="r">Recuerdame</label> </span> <span class="ch"><a href="#">Olvid&oacute Su Contrase&ntilde;a?</a></span></div></li> -->
+<!-- </ul> -->
+<!-- </form> -->
+<?php
+
+$form1 = ActiveForm::begin ( [ 
+		'method' => "post",
+		"id" => "login",
+		"enableClientValidation" => false,
+		"enableAjaxValidation" => true 
+] );
+?>
 <div class="form">
 <div class="header"><h2>Iniciar Sesi&oacuten</h2></div>
 <div class="login">
 <form action="">
 <ul>
-<li>
-<span class="un"><i class="fa fa-user"></i></span><input type="text" required class="text" placeholder="Nombre de Usuario"/></li>
-<li>
-<span class="un"><i class="fa fa-lock"></i></span><input type="password" required class="text" placeholder="Contrase&ntilde;a"/></li>
-<li>
-<p><a class="btn btn-lg btn-success" href="http://localhost/basic/web/index.php?r=site/menu">Iniciar</a></p>
+<span class="un"><i class="fa fa-user"></i></span><?= $form1->field($model, "username")->input("text") ?>
 
-</li>
-<li><div class="span"><span class="ch"><input type="checkbox" id="r"> <label for="r">Recuerdame</label> </span> <span class="ch"><a href="#">Olvid&oacute Su Contrase&ntilde;a?</a></span></div></li>
+<span class="un"><i class="fa fa-lock"></i></span><?= $form1->field($model, "password")->input("password") ?> 
+
+<!-- <div class="form-group"><i class="fa fa-user"></i> -->
+  
+<!-- </div> -->
+<!-- <div class="form-group"><i class="fa fa-lock"></i> -->
+ 
+<!-- </div> -->
+
+<?= Html::submitButton("Iniciar",  ["class" =>"btn btn-primary"])?>
+
+<div class="span"><span class="ch">
+<?= $form1 -> field($model,'rememberMe')->checkbox(['value'=>true])
+// ->label('Recuérdame')
+;?> 
+</span> <span class="ch"><a href="#">Olvid&oacute Su Contrase&ntilde;a?</a></span></div>
+<?php $form1->end() ?>
+
 </ul>
 </form>
 
 
-
-<div 
-
-</div>
 <script>
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>

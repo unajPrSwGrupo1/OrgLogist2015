@@ -20,7 +20,7 @@ USE `StockTransporteLogistica` ;
 -- -----------------------------------------------------
 -- Table `StockTransporteLogistica`.`TipoStageArea`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`TipoStageArea` (
+CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`tipostagearea` (
   `idTipoStageArea` INT NOT NULL AUTO_INCREMENT,
   `Tipo` VARCHAR(45) NULL,
   PRIMARY KEY (`idTipoStageArea`))
@@ -30,14 +30,14 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `StockTransporteLogistica`.`StageArea`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`StageArea` (
+CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`stagearea` (
   `idStageArea` INT NOT NULL AUTO_INCREMENT,
   `TipoStageArea_idTipoStageArea` INT NOT NULL,
   PRIMARY KEY (`idStageArea`, `TipoStageArea_idTipoStageArea`),
   INDEX `fk_StageArea_TipoStageArea_idx` (`TipoStageArea_idTipoStageArea` ASC),
   CONSTRAINT `fk_StageArea_TipoStageArea`
     FOREIGN KEY (`TipoStageArea_idTipoStageArea`)
-    REFERENCES `StockTransporteLogistica`.`TipoStageArea` (`idTipoStageArea`)
+    REFERENCES `StockTransporteLogistica`.`tipostagearea` (`idTipoStageArea`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -46,7 +46,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `StockTransporteLogistica`.`DarsenaEstado`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`DarsenaEstado` (
+CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`darsenaestado` (
   `idDarsenaEstado` INT NOT NULL AUTO_INCREMENT,
   `Estado` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idDarsenaEstado`))
@@ -56,7 +56,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `StockTransporteLogistica`.`Darsena`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`Darsena` (
+CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`darsena` (
   `idDarsena` INT NOT NULL AUTO_INCREMENT,
   `Nombre` VARCHAR(45) NULL,
   `Descripcion` VARCHAR(80) NULL,
@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`Darsena` (
   INDEX `fk_Darsena_DarsenaEstado1_idx` (`DarsenaEstado_idDarsenaEstado` ASC),
   CONSTRAINT `fk_Darsena_DarsenaEstado1`
     FOREIGN KEY (`DarsenaEstado_idDarsenaEstado`)
-    REFERENCES `StockTransporteLogistica`.`DarsenaEstado` (`idDarsenaEstado`)
+    REFERENCES `StockTransporteLogistica`.`darsenaestado` (`idDarsenaEstado`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -74,7 +74,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `StockTransporteLogistica`.`EstanteEstado`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`EstanteEstado` (
+CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`estanteestado` (
   `idEstanteEstado` INT NOT NULL AUTO_INCREMENT,
   `Estado` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idEstanteEstado`))
@@ -84,7 +84,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `StockTransporteLogistica`.`Estante`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`Estante` (
+CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`estante` (
   `idEstante` INT NOT NULL AUTO_INCREMENT,
   `Fila` VARCHAR(45) NOT NULL,
   `Columna` VARCHAR(45) NOT NULL,
@@ -93,7 +93,7 @@ CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`Estante` (
   INDEX `fk_Estante_EstanteEstado1_idx` (`EstanteEstado_idEstanteEstado` ASC),
   CONSTRAINT `fk_Estante_EstanteEstado1`
     FOREIGN KEY (`EstanteEstado_idEstanteEstado`)
-    REFERENCES `StockTransporteLogistica`.`EstanteEstado` (`idEstanteEstado`)
+    REFERENCES `StockTransporteLogistica`.`estanteestado` (`idEstanteEstado`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -102,7 +102,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `StockTransporteLogistica`.`TipoCaja`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`TipoCaja` (
+CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`tipocaja` (
   `idTipoCaja` INT NOT NULL AUTO_INCREMENT,
   `Tipo` VARCHAR(45) NULL,
   PRIMARY KEY (`idTipoCaja`))
@@ -112,7 +112,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `StockTransporteLogistica`.`Caja`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`Caja` (
+CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`caja` (
   `idCaja` INT NOT NULL AUTO_INCREMENT,
   `Peso` INT NOT NULL,
   `Volumen` INT NOT NULL,
@@ -121,7 +121,7 @@ CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`Caja` (
   INDEX `fk_Caja_TipoCaja1_idx` (`TipoCaja_idTipoCaja` ASC),
   CONSTRAINT `fk_Caja_TipoCaja1`
     FOREIGN KEY (`TipoCaja_idTipoCaja`)
-    REFERENCES `StockTransporteLogistica`.`TipoCaja` (`idTipoCaja`)
+    REFERENCES `StockTransporteLogistica`.`tipocaja` (`idTipoCaja`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -130,7 +130,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `StockTransporteLogistica`.`Pallet`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`Pallet` (
+CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`pallet` (
   `idPallet` INT NOT NULL AUTO_INCREMENT,
   `cantCajas` INT NULL,
   `Peso` INT NULL,
@@ -142,7 +142,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `StockTransporteLogistica`.`TIpoTransporte`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`TIpoTransporte` (
+CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`tipotransporte` (
   `idTIpoTransporte` INT NOT NULL AUTO_INCREMENT,
   `Tipo` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idTIpoTransporte`))
@@ -152,7 +152,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `StockTransporteLogistica`.`TipoRRHH`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`TipoRRHH` (
+CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`tiporrhh` (
   `idTipoRRHH` INT NOT NULL AUTO_INCREMENT,
   `Tipo` VARCHAR(45) NULL,
   PRIMARY KEY (`idTipoRRHH`))
@@ -162,7 +162,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `StockTransporteLogistica`.`RRHH`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`RRHH` (
+CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`rrhh` (
   `idRRHH` INT NOT NULL AUTO_INCREMENT,
   `Nombre` VARCHAR(45) NOT NULL,
   `Apellido` VARCHAR(45) NOT NULL,
@@ -174,7 +174,7 @@ CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`RRHH` (
   INDEX `fk_RRHH_TipoRRHH1_idx` (`TipoRRHH_idTipoRRHH` ASC),
   CONSTRAINT `fk_RRHH_TipoRRHH1`
     FOREIGN KEY (`TipoRRHH_idTipoRRHH`)
-    REFERENCES `StockTransporteLogistica`.`TipoRRHH` (`idTipoRRHH`)
+    REFERENCES `StockTransporteLogistica`.`tiporrhh` (`idTipoRRHH`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -183,7 +183,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `StockTransporteLogistica`.`Transporte`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`Transporte` (
+CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`transporte` (
   `idTransporte` INT NOT NULL AUTO_INCREMENT,
   `Matricula` VARCHAR(45) NOT NULL,
   `Peso` INT NOT NULL,
@@ -195,12 +195,12 @@ CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`Transporte` (
   INDEX `fk_Transporte_RRHH1_idx` (`RRHH_idRRHH` ASC, `RRHH_TipoRRHH_idTipoRRHH` ASC),
   CONSTRAINT `fk_Transporte_TIpoTransporte1`
     FOREIGN KEY (`TIpoTransporte_idTIpoTransporte`)
-    REFERENCES `StockTransporteLogistica`.`TIpoTransporte` (`idTIpoTransporte`)
+    REFERENCES `StockTransporteLogistica`.`tipotransporte` (`idTIpoTransporte`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Transporte_RRHH1`
     FOREIGN KEY (`RRHH_idRRHH` , `RRHH_TipoRRHH_idTipoRRHH`)
-    REFERENCES `StockTransporteLogistica`.`RRHH` (`idRRHH` , `TipoRRHH_idTipoRRHH`)
+    REFERENCES `StockTransporteLogistica`.`rrhh` (`idRRHH` , `TipoRRHH_idTipoRRHH`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -209,7 +209,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `StockTransporteLogistica`.`MotivoTicket`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`MotivoTicket` (
+CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`motivoticket` (
   `idMotivoTicket` INT NOT NULL AUTO_INCREMENT,
   `Motivo` VARCHAR(45) NULL,
   PRIMARY KEY (`idMotivoTicket`))
@@ -219,7 +219,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `StockTransporteLogistica`.`Ticket`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`Ticket` (
+CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`ticket` (
   `idTicket` INT NOT NULL AUTO_INCREMENT,
   `Descripcion` VARCHAR(80) NULL,
   `MotivoTicket_idMotivoTicket` INT NOT NULL,
@@ -237,17 +237,17 @@ CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`Ticket` (
   INDEX `fk_Ticket_Transporte1_idx` (`Transporte_idTransporte` ASC, `Transporte_TIpoTransporte_idTIpoTransporte` ASC, `Transporte_RRHH_idRRHH` ASC, `Transporte_RRHH_TipoRRHH_idTipoRRHH` ASC),
   CONSTRAINT `fk_Ticket_MotivoTicket1`
     FOREIGN KEY (`MotivoTicket_idMotivoTicket`)
-    REFERENCES `StockTransporteLogistica`.`MotivoTicket` (`idMotivoTicket`)
+    REFERENCES `StockTransporteLogistica`.`motivoticket` (`idMotivoTicket`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Ticket_RRHH1`
     FOREIGN KEY (`RRHH_idRRHH` , `RRHH_TipoRRHH_idTipoRRHH`)
-    REFERENCES `StockTransporteLogistica`.`RRHH` (`idRRHH` , `TipoRRHH_idTipoRRHH`)
+    REFERENCES `StockTransporteLogistica`.`rrhh` (`idRRHH` , `TipoRRHH_idTipoRRHH`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Ticket_Transporte1`
     FOREIGN KEY (`Transporte_idTransporte` , `Transporte_TIpoTransporte_idTIpoTransporte` , `Transporte_RRHH_idRRHH` , `Transporte_RRHH_TipoRRHH_idTipoRRHH`)
-    REFERENCES `StockTransporteLogistica`.`Transporte` (`idTransporte` , `TIpoTransporte_idTIpoTransporte` , `RRHH_idRRHH` , `RRHH_TipoRRHH_idTipoRRHH`)
+    REFERENCES `StockTransporteLogistica`.`transporte` (`idTransporte` , `TIpoTransporte_idTIpoTransporte` , `RRHH_idRRHH` , `RRHH_TipoRRHH_idTipoRRHH`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -256,7 +256,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `StockTransporteLogistica`.`StockCenter`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`StockCenter` (
+CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`stockcenter` (
   `idStockCenter` INT NOT NULL AUTO_INCREMENT,
   `CantEstantes` INT NOT NULL,
   `RRHH_idRRHH` INT NOT NULL,
@@ -265,7 +265,7 @@ CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`StockCenter` (
   INDEX `fk_StockCenter_RRHH1_idx` (`RRHH_idRRHH` ASC, `RRHH_TipoRRHH_idTipoRRHH` ASC),
   CONSTRAINT `fk_StockCenter_RRHH1`
     FOREIGN KEY (`RRHH_idRRHH` , `RRHH_TipoRRHH_idTipoRRHH`)
-    REFERENCES `StockTransporteLogistica`.`RRHH` (`idRRHH` , `TipoRRHH_idTipoRRHH`)
+    REFERENCES `StockTransporteLogistica`.`rrhh` (`idRRHH` , `TipoRRHH_idTipoRRHH`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -274,7 +274,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `StockTransporteLogistica`.`StockCenter_has_StageArea`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`StockCenter_has_StageArea` (
+CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`stockcenter_has_stagearea` (
   `StockCenter_idStockCenter` INT NOT NULL,
   `StageArea_idStageArea` INT NOT NULL,
   `StageArea_TipoStageArea_idTipoStageArea` INT NOT NULL,
@@ -283,12 +283,12 @@ CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`StockCenter_has_StageArea
   INDEX `fk_StockCenter_has_StageArea_StageArea1_idx` (`StageArea_idStageArea` ASC, `StageArea_TipoStageArea_idTipoStageArea` ASC),
   CONSTRAINT `fk_StockCenter_has_StageArea_StockCenter1`
     FOREIGN KEY (`StockCenter_idStockCenter`)
-    REFERENCES `StockTransporteLogistica`.`StockCenter` (`idStockCenter`)
+    REFERENCES `StockTransporteLogistica`.`stockcenter` (`idStockCenter`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_StockCenter_has_StageArea_StageArea1`
     FOREIGN KEY (`StageArea_idStageArea` , `StageArea_TipoStageArea_idTipoStageArea`)
-    REFERENCES `StockTransporteLogistica`.`StageArea` (`idStageArea` , `TipoStageArea_idTipoStageArea`)
+    REFERENCES `StockTransporteLogistica`.`stagearea` (`idStageArea` , `TipoStageArea_idTipoStageArea`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -297,7 +297,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `StockTransporteLogistica`.`StockCenter_has_Estante`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`StockCenter_has_Estante` (
+CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`stockcenter_has_estante` (
   `StockCenter_idStockCenter` INT NOT NULL,
   `Estante_idEstante` INT NOT NULL,
   `Estante_EstanteEstado_idEstanteEstado` INT NOT NULL,
@@ -306,12 +306,12 @@ CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`StockCenter_has_Estante` 
   INDEX `fk_StockCenter_has_Estante_Estante1_idx` (`Estante_idEstante` ASC, `Estante_EstanteEstado_idEstanteEstado` ASC),
   CONSTRAINT `fk_StockCenter_has_Estante_StockCenter1`
     FOREIGN KEY (`StockCenter_idStockCenter`)
-    REFERENCES `StockTransporteLogistica`.`StockCenter` (`idStockCenter`)
+    REFERENCES `StockTransporteLogistica`.`stockcenter` (`idStockCenter`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_StockCenter_has_Estante_Estante1`
     FOREIGN KEY (`Estante_idEstante` , `Estante_EstanteEstado_idEstanteEstado`)
-    REFERENCES `StockTransporteLogistica`.`Estante` (`idEstante` , `EstanteEstado_idEstanteEstado`)
+    REFERENCES `StockTransporteLogistica`.`estante` (`idEstante` , `EstanteEstado_idEstanteEstado`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -320,7 +320,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `StockTransporteLogistica`.`StockCenter_has_Darsena`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`StockCenter_has_Darsena` (
+CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`stockcenter_has_darsena` (
   `StockCenter_idStockCenter` INT NOT NULL,
   `Darsena_idDarsena` INT NOT NULL,
   `Darsena_DarsenaEstado_idDarsenaEstado` INT NOT NULL,
@@ -329,12 +329,12 @@ CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`StockCenter_has_Darsena` 
   INDEX `fk_StockCenter_has_Darsena_Darsena1_idx` (`Darsena_idDarsena` ASC, `Darsena_DarsenaEstado_idDarsenaEstado` ASC),
   CONSTRAINT `fk_StockCenter_has_Darsena_StockCenter1`
     FOREIGN KEY (`StockCenter_idStockCenter`)
-    REFERENCES `StockTransporteLogistica`.`StockCenter` (`idStockCenter`)
+    REFERENCES `StockTransporteLogistica`.`stockcenter` (`idStockCenter`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_StockCenter_has_Darsena_Darsena1`
     FOREIGN KEY (`Darsena_idDarsena` , `Darsena_DarsenaEstado_idDarsenaEstado`)
-    REFERENCES `StockTransporteLogistica`.`Darsena` (`idDarsena` , `DarsenaEstado_idDarsenaEstado`)
+    REFERENCES `StockTransporteLogistica`.`darsena` (`idDarsena` , `DarsenaEstado_idDarsenaEstado`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -343,7 +343,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `StockTransporteLogistica`.`StockCenter_has_Caja`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`StockCenter_has_Caja` (
+CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`stockcenter_has_caja` (
   `StockCenter_idStockCenter` INT NOT NULL,
   `Caja_idCaja` INT NOT NULL,
   `Caja_TipoCaja_idTipoCaja` INT NOT NULL,
@@ -352,12 +352,12 @@ CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`StockCenter_has_Caja` (
   INDEX `fk_StockCenter_has_Caja_Caja1_idx` (`Caja_idCaja` ASC, `Caja_TipoCaja_idTipoCaja` ASC),
   CONSTRAINT `fk_StockCenter_has_Caja_StockCenter1`
     FOREIGN KEY (`StockCenter_idStockCenter`)
-    REFERENCES `StockTransporteLogistica`.`StockCenter` (`idStockCenter`)
+    REFERENCES `StockTransporteLogistica`.`stockcenter` (`idStockCenter`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_StockCenter_has_Caja_Caja1`
     FOREIGN KEY (`Caja_idCaja` , `Caja_TipoCaja_idTipoCaja`)
-    REFERENCES `StockTransporteLogistica`.`Caja` (`idCaja` , `TipoCaja_idTipoCaja`)
+    REFERENCES `StockTransporteLogistica`.`caja` (`idCaja` , `TipoCaja_idTipoCaja`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -366,7 +366,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `StockTransporteLogistica`.`Pallet_has_Caja`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`Pallet_has_Caja` (
+CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`pallet_has_caja` (
   `Pallet_idPallet` INT NOT NULL,
   `Caja_idCaja` INT NOT NULL,
   `Caja_TipoCaja_idTipoCaja` INT NOT NULL,
@@ -375,12 +375,12 @@ CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`Pallet_has_Caja` (
   INDEX `fk_Pallet_has_Caja_Caja1_idx` (`Caja_idCaja` ASC, `Caja_TipoCaja_idTipoCaja` ASC),
   CONSTRAINT `fk_Pallet_has_Caja_Pallet1`
     FOREIGN KEY (`Pallet_idPallet`)
-    REFERENCES `StockTransporteLogistica`.`Pallet` (`idPallet`)
+    REFERENCES `StockTransporteLogistica`.`pallet` (`idPallet`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Pallet_has_Caja_Caja1`
     FOREIGN KEY (`Caja_idCaja` , `Caja_TipoCaja_idTipoCaja`)
-    REFERENCES `StockTransporteLogistica`.`Caja` (`idCaja` , `TipoCaja_idTipoCaja`)
+    REFERENCES `StockTransporteLogistica`.`caja` (`idCaja` , `TipoCaja_idTipoCaja`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -389,7 +389,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `StockTransporteLogistica`.`StageArea_has_Pallet`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`StageArea_has_Pallet` (
+CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`stagearea_has_pallet` (
   `StageArea_idStageArea` INT NOT NULL,
   `StageArea_TipoStageArea_idTipoStageArea` INT NOT NULL,
   `Pallet_idPallet` INT NOT NULL,
@@ -398,12 +398,12 @@ CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`StageArea_has_Pallet` (
   INDEX `fk_StageArea_has_Pallet_Pallet1_idx` (`Pallet_idPallet` ASC),
   CONSTRAINT `fk_StageArea_has_Pallet_StageArea1`
     FOREIGN KEY (`StageArea_idStageArea` , `StageArea_TipoStageArea_idTipoStageArea`)
-    REFERENCES `StockTransporteLogistica`.`StageArea` (`idStageArea` , `TipoStageArea_idTipoStageArea`)
+    REFERENCES `StockTransporteLogistica`.`stagearea` (`idStageArea` , `TipoStageArea_idTipoStageArea`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_StageArea_has_Pallet_Pallet1`
     FOREIGN KEY (`Pallet_idPallet`)
-    REFERENCES `StockTransporteLogistica`.`Pallet` (`idPallet`)
+    REFERENCES `StockTransporteLogistica`.`pallet` (`idPallet`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -412,7 +412,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `StockTransporteLogistica`.`Transporte_has_Caja`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`Transporte_has_Caja` (
+CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`transporte_has_caja` (
   `Transporte_idTransporte` INT NOT NULL,
   `Transporte_TIpoTransporte_idTIpoTransporte` INT NOT NULL,
   `Transporte_RRHH_idRRHH` INT NOT NULL,
@@ -424,12 +424,12 @@ CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`Transporte_has_Caja` (
   INDEX `fk_Transporte_has_Caja_Caja1_idx` (`Caja_idCaja` ASC, `Caja_TipoCaja_idTipoCaja` ASC),
   CONSTRAINT `fk_Transporte_has_Caja_Transporte1`
     FOREIGN KEY (`Transporte_idTransporte` , `Transporte_TIpoTransporte_idTIpoTransporte` , `Transporte_RRHH_idRRHH` , `Transporte_RRHH_TipoRRHH_idTipoRRHH`)
-    REFERENCES `StockTransporteLogistica`.`Transporte` (`idTransporte` , `TIpoTransporte_idTIpoTransporte` , `RRHH_idRRHH` , `RRHH_TipoRRHH_idTipoRRHH`)
+    REFERENCES `StockTransporteLogistica`.`transporte` (`idTransporte` , `TIpoTransporte_idTIpoTransporte` , `RRHH_idRRHH` , `RRHH_TipoRRHH_idTipoRRHH`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Transporte_has_Caja_Caja1`
     FOREIGN KEY (`Caja_idCaja` , `Caja_TipoCaja_idTipoCaja`)
-    REFERENCES `StockTransporteLogistica`.`Caja` (`idCaja` , `TipoCaja_idTipoCaja`)
+    REFERENCES `StockTransporteLogistica`.`caja` (`idCaja` , `TipoCaja_idTipoCaja`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -438,7 +438,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `StockTransporteLogistica`.`Transporte_has_Pallet`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`Transporte_has_Pallet` (
+CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`transporte_has_pallet` (
   `Transporte_idTransporte` INT NOT NULL,
   `Transporte_TIpoTransporte_idTIpoTransporte` INT NOT NULL,
   `Transporte_RRHH_idRRHH` INT NOT NULL,
@@ -449,12 +449,12 @@ CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`Transporte_has_Pallet` (
   INDEX `fk_Transporte_has_Pallet_Pallet1_idx` (`Pallet_idPallet` ASC),
   CONSTRAINT `fk_Transporte_has_Pallet_Transporte1`
     FOREIGN KEY (`Transporte_idTransporte` , `Transporte_TIpoTransporte_idTIpoTransporte` , `Transporte_RRHH_idRRHH` , `Transporte_RRHH_TipoRRHH_idTipoRRHH`)
-    REFERENCES `StockTransporteLogistica`.`Transporte` (`idTransporte` , `TIpoTransporte_idTIpoTransporte` , `RRHH_idRRHH` , `RRHH_TipoRRHH_idTipoRRHH`)
+    REFERENCES `StockTransporteLogistica`.`transporte` (`idTransporte` , `TIpoTransporte_idTIpoTransporte` , `RRHH_idRRHH` , `RRHH_TipoRRHH_idTipoRRHH`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Transporte_has_Pallet_Pallet1`
     FOREIGN KEY (`Pallet_idPallet`)
-    REFERENCES `StockTransporteLogistica`.`Pallet` (`idPallet`)
+    REFERENCES `StockTransporteLogistica`.`pallet` (`idPallet`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -463,7 +463,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `StockTransporteLogistica`.`Estante_has_Caja`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`Estante_has_Caja` (
+CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`estante_has_caja` (
   `Estante_idEstante` INT NOT NULL,
   `Estante_EstanteEstado_idEstanteEstado` INT NOT NULL,
   `Caja_idCaja` INT NOT NULL,
@@ -473,12 +473,12 @@ CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`Estante_has_Caja` (
   INDEX `fk_Estante_has_Caja_Estante1_idx` (`Estante_idEstante` ASC, `Estante_EstanteEstado_idEstanteEstado` ASC),
   CONSTRAINT `fk_Estante_has_Caja_Estante1`
     FOREIGN KEY (`Estante_idEstante` , `Estante_EstanteEstado_idEstanteEstado`)
-    REFERENCES `StockTransporteLogistica`.`Estante` (`idEstante` , `EstanteEstado_idEstanteEstado`)
+    REFERENCES `StockTransporteLogistica`.`estante` (`idEstante` , `EstanteEstado_idEstanteEstado`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Estante_has_Caja_Caja1`
     FOREIGN KEY (`Caja_idCaja` , `Caja_TipoCaja_idTipoCaja`)
-    REFERENCES `StockTransporteLogistica`.`Caja` (`idCaja` , `TipoCaja_idTipoCaja`)
+    REFERENCES `StockTransporteLogistica`.`caja` (`idCaja` , `TipoCaja_idTipoCaja`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -487,7 +487,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `StockTransporteLogistica`.`Cliente`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`Cliente` (
+CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`cliente` (
   `idCliente` INT NOT NULL AUTO_INCREMENT,
   `Nombre` VARCHAR(45) NULL,
   `Telefono` VARCHAR(45) NULL,
@@ -501,7 +501,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `StockTransporteLogistica`.`Pedido`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`Pedido` (
+CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`pedido` (
   `idPedido` INT NOT NULL,
   `cantCajas` INT NULL,
   `cantPallets` INT NULL,
@@ -515,12 +515,12 @@ CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`Pedido` (
   INDEX `fk_Pedido_Cliente1_idx` (`Cliente_idCliente` ASC),
   CONSTRAINT `fk_Pedido_RRHH1`
     FOREIGN KEY (`RRHH_idRRHH` , `RRHH_TipoRRHH_idTipoRRHH`)
-    REFERENCES `StockTransporteLogistica`.`RRHH` (`idRRHH` , `TipoRRHH_idTipoRRHH`)
+    REFERENCES `StockTransporteLogistica`.`rrhh` (`idRRHH` , `TipoRRHH_idTipoRRHH`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Pedido_Cliente1`
     FOREIGN KEY (`Cliente_idCliente`)
-    REFERENCES `StockTransporteLogistica`.`Cliente` (`idCliente`)
+    REFERENCES `StockTransporteLogistica`.`cliente` (`idCliente`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -529,7 +529,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `StockTransporteLogistica`.`Factura`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`Factura` (
+CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`factura` (
   `idFactura` INT NOT NULL AUTO_INCREMENT,
   `Monto` DECIMAL(10,2) NOT NULL,
   `RRHH_idRRHH` INT NOT NULL,
@@ -542,12 +542,12 @@ CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`Factura` (
   INDEX `fk_Factura_Cliente1_idx` (`Cliente_idCliente` ASC),
   CONSTRAINT `fk_Factura_RRHH1`
     FOREIGN KEY (`RRHH_idRRHH` , `RRHH_TipoRRHH_idTipoRRHH`)
-    REFERENCES `StockTransporteLogistica`.`RRHH` (`idRRHH` , `TipoRRHH_idTipoRRHH`)
+    REFERENCES `StockTransporteLogistica`.`rrhh` (`idRRHH` , `TipoRRHH_idTipoRRHH`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Factura_Cliente1`
     FOREIGN KEY (`Cliente_idCliente`)
-    REFERENCES `StockTransporteLogistica`.`Cliente` (`idCliente`)
+    REFERENCES `StockTransporteLogistica`.`cliente` (`idCliente`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -556,7 +556,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `StockTransporteLogistica`.`HojaRuta`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`HojaRuta` (
+CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`hojaruta` (
   `idHojaRuta` INT NOT NULL AUTO_INCREMENT,
   `Destino` VARCHAR(45) NOT NULL,
   `cantCajas` INT NOT NULL,
@@ -569,7 +569,7 @@ CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`HojaRuta` (
   INDEX `fk_HojaRuta_Transporte1_idx` (`Transporte_idTransporte` ASC, `Transporte_TIpoTransporte_idTIpoTransporte` ASC, `Transporte_RRHH_idRRHH` ASC, `Transporte_RRHH_TipoRRHH_idTipoRRHH` ASC),
   CONSTRAINT `fk_HojaRuta_Transporte1`
     FOREIGN KEY (`Transporte_idTransporte` , `Transporte_TIpoTransporte_idTIpoTransporte` , `Transporte_RRHH_idRRHH` , `Transporte_RRHH_TipoRRHH_idTipoRRHH`)
-    REFERENCES `StockTransporteLogistica`.`Transporte` (`idTransporte` , `TIpoTransporte_idTIpoTransporte` , `RRHH_idRRHH` , `RRHH_TipoRRHH_idTipoRRHH`)
+    REFERENCES `StockTransporteLogistica`.`transporte` (`idTransporte` , `TIpoTransporte_idTIpoTransporte` , `RRHH_idRRHH` , `RRHH_TipoRRHH_idTipoRRHH`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -578,10 +578,10 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `StockTransporteLogistica`.`Autenticación`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`Autenticacion` (
+CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`user` (
   `idAutenticación` INT NOT NULL AUTO_INCREMENT,
-  `Usuario` VARCHAR(45) NOT NULL,
-  `Password` VARCHAR(45) NOT NULL,
+  `username` VARCHAR(45) NOT NULL,
+  `password` VARCHAR(45) NOT NULL,
   `Mail` VARCHAR(45) NOT NULL,
   `Authkey` VARCHAR(45) NULL,
   `Token` VARCHAR(45) NULL,
@@ -589,11 +589,12 @@ CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`Autenticacion` (
   `RRHH_TipoRRHH_idTipoRRHH` INT NOT NULL,
   `Fecha` DATE NULL,
   `Hora` TIME NULL,
+  `activate` TINYINT NOT NULL DEFAULT(0),
   PRIMARY KEY (`idAutenticación`, `RRHH_idRRHH`, `RRHH_TipoRRHH_idTipoRRHH`),
   INDEX `fk_Autenticación_RRHH1_idx` (`RRHH_idRRHH` ASC, `RRHH_TipoRRHH_idTipoRRHH` ASC),
   CONSTRAINT `fk_Autenticación_RRHH1`
     FOREIGN KEY (`RRHH_idRRHH` , `RRHH_TipoRRHH_idTipoRRHH`)
-    REFERENCES `StockTransporteLogistica`.`RRHH` (`idRRHH` , `TipoRRHH_idTipoRRHH`)
+    REFERENCES `StockTransporteLogistica`.`rrhh` (`idRRHH` , `TipoRRHH_idTipoRRHH`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
