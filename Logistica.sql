@@ -579,20 +579,20 @@ ENGINE = InnoDB;
 -- Table `StockTransporteLogistica`.`Autenticación`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`user` (
-  `idAutenticación` INT NOT NULL AUTO_INCREMENT,
+  `idAutenticacion` INT NOT NULL AUTO_INCREMENT,
   `username` VARCHAR(45) NOT NULL,
-  `password` VARCHAR(45) NOT NULL,
+  `password` VARCHAR(250) NOT NULL,
   `Mail` VARCHAR(45) NOT NULL,
-  `Authkey` VARCHAR(45) NULL,
-  `Token` VARCHAR(45) NULL,
+  `Authkey` VARCHAR(250) NULL,
+  `Token` VARCHAR(250) NULL,
   `RRHH_idRRHH` INT NOT NULL,
   `RRHH_TipoRRHH_idTipoRRHH` INT NOT NULL,
   `Fecha` DATE NULL,
   `Hora` TIME NULL,
   `activate` TINYINT NOT NULL DEFAULT(0),
-  PRIMARY KEY (`idAutenticación`, `RRHH_idRRHH`, `RRHH_TipoRRHH_idTipoRRHH`),
-  INDEX `fk_Autenticación_RRHH1_idx` (`RRHH_idRRHH` ASC, `RRHH_TipoRRHH_idTipoRRHH` ASC),
-  CONSTRAINT `fk_Autenticación_RRHH1`
+  PRIMARY KEY (`idAutenticacion`, `RRHH_idRRHH`, `RRHH_TipoRRHH_idTipoRRHH`),
+  INDEX `fk_Autenticacion_RRHH1_idx` (`RRHH_idRRHH` ASC, `RRHH_TipoRRHH_idTipoRRHH` ASC),
+  CONSTRAINT `fk_Autenticacion_RRHH1`
     FOREIGN KEY (`RRHH_idRRHH` , `RRHH_TipoRRHH_idTipoRRHH`)
     REFERENCES `StockTransporteLogistica`.`rrhh` (`idRRHH` , `TipoRRHH_idTipoRRHH`)
     ON DELETE NO ACTION
