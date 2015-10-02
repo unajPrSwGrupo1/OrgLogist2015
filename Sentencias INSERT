@@ -2,4 +2,9 @@ INSERT INTO `StockTransporteLogistica`.`tiporrhh` (`idTipoRRHH`, `Tipo`) VALUES 
 
 INSERT INTO `StockTransporteLogistica`.`rrhh` (`idRRHH`, `Nombre`, `Apellido`, `Edad`, `Salario`, `Jefe`, `TipoRRHH_idTipoRRHH`) VALUES ('10', 'Jose', 'Perez', '22', '1500', NULL, '1000'), ('11', 'Alberto', 'Juarez', '40', '20000', NULL, '1001');
 
-INSERT INTO `StockTransporteLogistica`.`user` (`idAutenticación`, `username`, `password`, `Mail`, `Authkey`, `Token`, `RRHH_idRRHH`, `RRHH_TipoRRHH_idTipoRRHH`, `Fecha`, `Hora`, `activate`) VALUES ('100', 'admin', 'admin1234', 'cualqui@gmail.com', 'asflj12l4kjlakjsfd', '0', '10', '1000', '2015-09-08', '12:22:24', '1')
+INSERT INTO `user` (`idAutenticación`, `username`, `password`, `Mail`, `Authkey`, `Token`, `RRHH_idRRHH`, `RRHH_TipoRRHH_idTipoRRHH`, `Fecha`, `Hora`, `activate`) VALUES
+(100, 'admin', '00Ko3aqrA3ETk', 'cualqui@gmail.com', '93ead2876301dbb34f9ae1a73430ade9629ab8872ef500ea6daa5b8f51654a513415302b487afbbbfccbda192d4def57ad243b5ea3ef401a23c5434d6f0b5c85f1082cc2518f7f0f92b3c679bea608250848a715efbc5124a3ec0bc1fcd6b5114c0498fe', 'e009894838b9ad0004c1048a6f45daa1011f0bda9f9a3009a211df195b58b602d7738b38138a9eaa711b78a2a61c275552f3491b30c24c323b30948a10dad8680b2bbac40edb063a7d078f8f5bf9ab81d02e04979c8092076754c3985e7506d3c583081f', 10, 1000, '2015-09-08', '12:22:24', 1);
+
+INSERT INTO `tiporrhh` (`idTipoRRHH`, `Tipo`) VALUES (NULL, 'administrador'), (NULL, 'chofer');
+
+INSERT INTO `tiporrhh` (`idTipoRRHH`, `Tipo`) VALUES (NULL, 'administrador'), (NULL, 'chofer');

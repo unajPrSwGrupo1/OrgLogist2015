@@ -13,6 +13,7 @@ class LoginForm extends Model
     public $username;
     public $password;
     public $rememberMe = true;
+    
 
     private $_user = false;
 
@@ -63,8 +64,9 @@ class LoginForm extends Model
      */
     public function validatePassword($attribute, $params)
     {
+    	
     	$table = User::find ()->where ( "password=:password", [
-				":password" => $this->password
+				":password" => crypt($this->password, Yii::$app->params["salt"])
 		] );
 		if ($table->count () == 1){
 	
@@ -99,6 +101,7 @@ class LoginForm extends Model
      */
     public function valid_user($attribute, $params)
     {
+    	$idtipoRRHH = null;
     	$table = User::find ()->where ( "username=:username", 
     			[":username" => $this->username] );
     	if ($table->count () > 0){
@@ -114,6 +117,10 @@ class LoginForm extends Model
     	if ($activ->count () == 1)return true;
     	else return false;
     	 
+    }
+    
+    private function getIdTipoRRHH(){
+    	return Users::find();
     }
     
     
