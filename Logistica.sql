@@ -589,7 +589,7 @@ CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`user` (
   `RRHH_TipoRRHH_idTipoRRHH` INT NOT NULL,
   `Fecha` DATE NULL,
   `Hora` TIME NULL,
-  `activate` TINYINT NOT NULL DEFAULT(0),
+  `activate` TINYINT NOT NULL,
   PRIMARY KEY (`idAutenticacion`, `RRHH_idRRHH`, `RRHH_TipoRRHH_idTipoRRHH`),
   INDEX `fk_Autenticacion_RRHH1_idx` (`RRHH_idRRHH` ASC, `RRHH_TipoRRHH_idTipoRRHH` ASC),
   CONSTRAINT `fk_Autenticacion_RRHH1`
