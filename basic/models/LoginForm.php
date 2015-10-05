@@ -16,8 +16,7 @@ class LoginForm extends Model
     
 
     private $_user = false;
-
-
+    
     /**
      * @return array the validation rules.
      */
@@ -34,26 +33,6 @@ class LoginForm extends Model
 			['password','validatePassword']
         ];
     }
-
-    /**
-     * @inheritdoc
-     */
-    public function attributeLabels()
-    {
-        return [
-            'idAutenticación' => 'Id Autenticación',
-            'username' => 'Username',
-            'password' => 'Password',
-            'Mail' => 'Mail',
-            'Authkey' => 'Authkey',
-            'Token' => 'Token',
-            'RRHH_idRRHH' => 'Rrhh Id Rrhh',
-            'RRHH_TipoRRHH_idTipoRRHH' => 'Rrhh  Tipo Rrhh Id Tipo Rrhh',
-            'Fecha' => 'Fecha',
-            'Hora' => 'Hora',
-        	'activate'=>'Activate'
-        ];
-    }
     
     /**
      * Validates the password.
@@ -64,17 +43,11 @@ class LoginForm extends Model
      */
     public function validatePassword($attribute, $params)
     {
-    	
     	$table = User::find ()->where ( "password=:password", [
 				":password" => crypt($this->password, Yii::$app->params["salt"])
 		] );
-		if ($table->count () == 1){
-	
-			return;
-		}
-		else {
-			$this->addError ( $attribute, "El password es erróneo" );
-		}
+		if ($table->count () == 1)return;
+		else $this->addError ( $attribute, "El password es erróneo" );
     }
 
     /**
@@ -87,12 +60,11 @@ class LoginForm extends Model
         if ($this->_user === false) {
             $this->_user = User::find ()
             	->where ( 
-            			"username=:username", 
-            			[":username" => $this->username]
-            			);
+            		"username=:username", 
+            		[":username" => $this->username]
+            	);
         }
-
-        return $this->_user;
+		return $this->_user;
     }
     
     /**
@@ -101,27 +73,55 @@ class LoginForm extends Model
      */
     public function valid_user($attribute, $params)
     {
-    	$idtipoRRHH = null;
-    	$table = User::find ()->where ( "username=:username", 
-    			[":username" => $this->username] );
-    	if ($table->count () > 0){
-			if($this->activ_user())return;
-    	}
-    	$this->addError ( $attribute, "El usuario no existe" );
+    	if ($this->getUser()->count () > 0 && $this->activ_user())return ;
+    	else $this->addError ( $attribute, "El usuario no existe" );
     }
     
+    /**
+     * @return boolean true si el usuario existe y está activo
+     */
     private function activ_user(){
-    	$activ = User::find ()
+    	$user = User::find ()
     		->where ("username=:username",[":username" => $this->username] )
     		->andWhere("activate=:activate",[":activate" => 1]);
-    	if ($activ->count () == 1)return true;
+    	if ($user->count () == 1)return true;
     	else return false;
     	 
     }
     
-    private function getIdTipoRRHH(){
-    	return Users::find();
+    /**
+     * Relaciona el username del login con su rol id de la tabla user
+     * @param string $username
+     * @return RRHH_TipoRRHH_idTipoRRHH de la tabla user
+     */
+    private function getIdTipoRRHH($username){
+    	return User::findOne(['username'=>$username])->RRHH_TipoRRHH_idTipoRRHH;
     }
     
+    /**
+     * Relaciona el username del login con su rol Tipo de la tabla tiporrhh y renderiza a la página de en construcción en
+     * el caso que no exista el Tipo o la vista.
+     * 
+     * @param string $username provisto en el login
+     * @return string el campo Tipo de la tabla tiporrhh correspondiente a username
+     */
+    public function getRole($username){
+    	$role=Tiporrhh::find()->where("idTipoRRHH=:idTipoRRHH",[":idTipoRRHH" => $this->getIdTipoRRHH($username)]);
+    	$filename=Tiporrhh::findOne(['idTipoRRHH'=>$this->getIdTipoRRHH($username)])->Tipo;
+    	if($role->count()==0||!file_exists(__DIR__ . '/../views/site/'.$filename.'.php'))return "not_has_view";
+    	else return $filename;
+    }
+    /**
+     * Relaciona el username del login con su rol Tipo de la tabla tiporrhh y renderiza a la página de en construcción en
+     * el caso que no exista el Tipo o la vista.
+     *
+     * @param string $username provisto en el login
+     * @return string el campo descript de la tabla tiporrhh correspondiente a username
+     */
+    public function getDescriptRole($username){
+    	$role=Tiporrhh::find()->where("idTipoRRHH=:idTipoRRHH",[":idTipoRRHH" => $this->getIdTipoRRHH($username)]);
+    	if($role->count()==0||!file_exists(__DIR__ . '/../views/site/'.$this->getRole($username).'.php'))return "usuario";
+    	else return Tiporrhh::findOne(['idTipoRRHH'=>$this->getIdTipoRRHH($username)])->descript;;
+    }
     
 }

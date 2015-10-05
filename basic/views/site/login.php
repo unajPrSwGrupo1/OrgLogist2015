@@ -82,8 +82,8 @@ ul li{height:40px; margin:15px 0; list-style:none}
 <!-- <li><div class="span"><span class="ch"><input type="checkbox" id="r"> <label for="r">Recuerdame</label> </span> <span class="ch"><a href="#">Olvid&oacute Su Contrase&ntilde;a?</a></span></div></li> -->
 <!-- </ul> -->
 <!-- </form> -->
+<h3><?= $msg ?></h3>
 <?php
-
 $form1 = ActiveForm::begin ( [ 
 		'method' => "post",
 		"id" => "login",

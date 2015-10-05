@@ -155,6 +155,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`tiporrhh` (
   `idTipoRRHH` INT NOT NULL AUTO_INCREMENT,
   `Tipo` VARCHAR(45) NULL,
+  `descript` varchar(140) NOT NULL,
   PRIMARY KEY (`idTipoRRHH`))
 ENGINE = InnoDB;
 
@@ -589,7 +590,7 @@ CREATE TABLE IF NOT EXISTS `StockTransporteLogistica`.`user` (
   `RRHH_TipoRRHH_idTipoRRHH` INT NOT NULL,
   `Fecha` DATE NULL,
   `Hora` TIME NULL,
-  `activate` TINYINT NOT NULL,
+  `activate` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`idAutenticacion`, `RRHH_idRRHH`, `RRHH_TipoRRHH_idTipoRRHH`),
   INDEX `fk_Autenticacion_RRHH1_idx` (`RRHH_idRRHH` ASC, `RRHH_TipoRRHH_idTipoRRHH` ASC),
   CONSTRAINT `fk_Autenticacion_RRHH1`

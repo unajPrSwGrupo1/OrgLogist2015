@@ -37,8 +37,7 @@ abstract class DockTest extends TestCase
 		$this->markTestIncomplete('implement me...');
 	}
 
-  } // end of member function addTransport
-
+  
   /**
    * tamaño de la cola de la compuerta
    *
@@ -54,7 +53,7 @@ abstract class DockTest extends TestCase
 		$this->markTestIncomplete('implement me...');
 	}
 
-  } // end of member function getQueuesize
+  
 
   /**
    * 
