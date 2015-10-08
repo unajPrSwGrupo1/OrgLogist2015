@@ -43,9 +43,10 @@ class LoginForm extends Model
      */
     public function validatePassword($attribute, $params)
     {
-    	$table = User::find ()->where ( "password=:password", [
-				":password" => crypt($this->password, Yii::$app->params["salt"])
-		] );
+    	$table = User::find ()
+    	->where ( "password=:password", 
+    			[":password" => crypt($this->password, Yii::$app->params["salt"])] )
+    	->andWhere("username=:username", [":username" => $this->username]);
 		if ($table->count () == 1)return;
 		else $this->addError ( $attribute, "El password es erróneo" );
     }
