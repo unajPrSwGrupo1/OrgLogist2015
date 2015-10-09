@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 08-10-2015 a las 18:26:23
+-- Tiempo de generación: 09-10-2015 a las 19:56:05
 -- Versión del servidor: 10.0.21-MariaDB-log
 -- Versión de PHP: 5.6.14
 
@@ -19,8 +19,6 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `StockTransporteLogistica`
 --
-CREATE DATABASE IF NOT EXISTS `StockTransporteLogistica` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `StockTransporteLogistica`;
 
 --
 -- Volcado de datos para la tabla `cliente`
@@ -28,19 +26,6 @@ USE `StockTransporteLogistica`;
 
 INSERT INTO `cliente` (`idCliente`, `Nombre`, `Telefono`, `Mail`, `Direccion`, `Descripcion`) VALUES
 (1, 'cli1', '44444444', 'cli1@email.org', 'calle 234', 'comentario sobre cli1');
-
---
--- Volcado de datos para la tabla `tiporrhh`
---
-
-INSERT INTO `tiporrhh` (`idTipoRRHH`, `Tipo`, `descript`) VALUES
-(1000, 'adm-stock', 'Administrador del Stock Center'),
-(1001, 'adm-transp', 'Administrador del sistema de gestión de transporte'),
-(1002, 'op-stock', 'Operador del sistema de gestión del Stock Center'),
-(1003, 'driver', 'Conductor de transporte'),
-(1004, 'op-dock', 'Operador del sistema de gestión de dársena'),
-(1005, 'op-salepoint', 'Operador del punto de venta del sistema de logística'),
-(1007, 'conf-sys', 'Configurador del sistema');
 
 --
 -- Volcado de datos para la tabla `func_tiporrhh`
@@ -63,7 +48,8 @@ INSERT INTO `func_tiporrhh` (`idFunc`, `link_func`, `desc_func`, `tiporrhh_idTip
 (14, 'http://localhost/basic/web/index.php?r=hojaruta/index', 'Mantenimiento de hojas de ruta', 1000),
 (15, 'http://localhost/basic/web/index.php?r=site/not_has_view', 'Mantenimiento de pallets', 1000),
 (16, 'http://localhost/basic/web/index.php?r=ticket/index', 'Mantenimiento de tickets', 1000),
-(17, 'http://localhost/basic/web/index.php?r=site/not_has_view', 'Reportes varios.', 1000);
+(17, 'http://localhost/basic/web/index.php?r=site/not_has_view', 'Reportes varios.', 1000),
+(18, 'http://localhost/basic/web/index.php?r=func-tiporrhh', 'Tabla func-tiporrhh', 1007);
 
 --
 -- Volcado de datos para la tabla `rrhh`
@@ -75,6 +61,18 @@ INSERT INTO `rrhh` (`idRRHH`, `Nombre`, `Apellido`, `Edad`, `Salario`, `Jefe`, `
 (13, 'conf', 'configurador', 10, '10.00', NULL, 'Comentario sobre el configurador'),
 (14, 'usuario1', 'apellido1', 99, '99.00', 10, 'Comentario sobre el usuario1');
 
+--
+-- Volcado de datos para la tabla `tiporrhh`
+--
+
+INSERT INTO `tiporrhh` (`idTipoRRHH`, `Tipo`, `descript`) VALUES
+(1000, 'adm-stock', 'Administrador del Stock Center'),
+(1001, 'adm-transp', 'Administrador del sistema de gestión de transporte'),
+(1002, 'op-stock', 'Operador del sistema de gestión del Stock Center'),
+(1003, 'driver', 'Conductor de transporte'),
+(1004, 'op-dock', 'Operador del sistema de gestión de dársena'),
+(1005, 'op-salepoint', 'Operador del punto de venta del sistema de logística'),
+(1007, 'conf-sys', 'Configurador del sistema');
 
 --
 -- Volcado de datos para la tabla `user`

@@ -8,7 +8,7 @@ use Yii;
  * This is the model class for table "func_tiporrhh".
  *
  * @property integer $idFunc
- * @property string $name_func
+ * @property string $link_func
  * @property string $desc_func
  * @property integer $tiporrhh_idTipoRRHH
  *
@@ -30,9 +30,9 @@ class FuncTiporrhh extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name_func', 'tiporrhh_idTipoRRHH'], 'required'],
+            [['tiporrhh_idTipoRRHH'], 'required'],
             [['tiporrhh_idTipoRRHH'], 'integer'],
-            [['name_func'], 'string', 'max' => 45],
+            [['link_func'], 'string', 'max' => 200],
             [['desc_func'], 'string', 'max' => 140]
         ];
     }
@@ -44,7 +44,7 @@ class FuncTiporrhh extends \yii\db\ActiveRecord
     {
         return [
             'idFunc' => 'Id Func',
-            'name_func' => 'Name Func',
+            'link_func' => 'Link Func',
             'desc_func' => 'Desc Func',
             'tiporrhh_idTipoRRHH' => 'Tiporrhh Id Tipo Rrhh',
         ];
