@@ -43,14 +43,13 @@ class RrhhController extends Controller
 
     /**
      * Displays a single Rrhh model.
-     * @param integer $idRRHH
-     * @param integer $TipoRRHH_idTipoRRHH
+     * @param integer $id
      * @return mixed
      */
-    public function actionView($idRRHH, $TipoRRHH_idTipoRRHH)
+    public function actionView($id)
     {
         return $this->render('view', [
-            'model' => $this->findModel($idRRHH, $TipoRRHH_idTipoRRHH),
+            'model' => $this->findModel($id),
         ]);
     }
 
@@ -64,7 +63,7 @@ class RrhhController extends Controller
         $model = new Rrhh();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'idRRHH' => $model->idRRHH, 'TipoRRHH_idTipoRRHH' => $model->TipoRRHH_idTipoRRHH]);
+            return $this->redirect(['view', 'id' => $model->idRRHH]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -75,16 +74,15 @@ class RrhhController extends Controller
     /**
      * Updates an existing Rrhh model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $idRRHH
-     * @param integer $TipoRRHH_idTipoRRHH
+     * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($idRRHH, $TipoRRHH_idTipoRRHH)
+    public function actionUpdate($id)
     {
-        $model = $this->findModel($idRRHH, $TipoRRHH_idTipoRRHH);
+        $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'idRRHH' => $model->idRRHH, 'TipoRRHH_idTipoRRHH' => $model->TipoRRHH_idTipoRRHH]);
+            return $this->redirect(['view', 'id' => $model->idRRHH]);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -95,13 +93,12 @@ class RrhhController extends Controller
     /**
      * Deletes an existing Rrhh model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $idRRHH
-     * @param integer $TipoRRHH_idTipoRRHH
+     * @param integer $id
      * @return mixed
      */
-    public function actionDelete($idRRHH, $TipoRRHH_idTipoRRHH)
+    public function actionDelete($id)
     {
-        $this->findModel($idRRHH, $TipoRRHH_idTipoRRHH)->delete();
+        $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
     }
@@ -109,14 +106,13 @@ class RrhhController extends Controller
     /**
      * Finds the Rrhh model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $idRRHH
-     * @param integer $TipoRRHH_idTipoRRHH
+     * @param integer $id
      * @return Rrhh the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($idRRHH, $TipoRRHH_idTipoRRHH)
+    protected function findModel($id)
     {
-        if (($model = Rrhh::findOne(['idRRHH' => $idRRHH, 'TipoRRHH_idTipoRRHH' => $TipoRRHH_idTipoRRHH])) !== null) {
+        if (($model = Rrhh::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

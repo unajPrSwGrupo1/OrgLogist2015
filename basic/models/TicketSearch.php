@@ -18,7 +18,7 @@ class TicketSearch extends Ticket
     public function rules()
     {
         return [
-            [['idTicket', 'MotivoTicket_idMotivoTicket', 'RRHH_idRRHH', 'RRHH_TipoRRHH_idTipoRRHH', 'Transporte_idTransporte', 'Transporte_TIpoTransporte_idTIpoTransporte', 'Transporte_RRHH_idRRHH', 'Transporte_RRHH_TipoRRHH_idTipoRRHH'], 'integer'],
+            [['idTicket', 'MotivoTicket_idMotivoTicket', 'RRHH_idRRHH', 'tiporrhh_idTipoRRHH', 'Transporte_idTransporte', 'Transporte_TIpoTransporte_idTIpoTransporte', 'Transporte_RRHH_idRRHH', 'Transporte_tiporrhh_idTipoRRHH'], 'integer'],
             [['Descripcion', 'Fecha', 'Hora'], 'safe'],
         ];
     }
@@ -59,11 +59,11 @@ class TicketSearch extends Ticket
             'idTicket' => $this->idTicket,
             'MotivoTicket_idMotivoTicket' => $this->MotivoTicket_idMotivoTicket,
             'RRHH_idRRHH' => $this->RRHH_idRRHH,
-            'RRHH_TipoRRHH_idTipoRRHH' => $this->RRHH_TipoRRHH_idTipoRRHH,
+            'tiporrhh_idTipoRRHH' => $this->tiporrhh_idTipoRRHH,
             'Transporte_idTransporte' => $this->Transporte_idTransporte,
             'Transporte_TIpoTransporte_idTIpoTransporte' => $this->Transporte_TIpoTransporte_idTIpoTransporte,
             'Transporte_RRHH_idRRHH' => $this->Transporte_RRHH_idRRHH,
-            'Transporte_RRHH_TipoRRHH_idTipoRRHH' => $this->Transporte_RRHH_TipoRRHH_idTipoRRHH,
+            'Transporte_tiporrhh_idTipoRRHH' => $this->Transporte_tiporrhh_idTipoRRHH,
             'Fecha' => $this->Fecha,
             'Hora' => $this->Hora,
         ]);

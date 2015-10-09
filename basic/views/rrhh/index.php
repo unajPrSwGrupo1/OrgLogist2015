@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'Edad',
             'Salario',
             // 'Jefe',
-            // 'TipoRRHH_idTipoRRHH',
+            'descript',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

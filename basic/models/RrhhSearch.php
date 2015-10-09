@@ -18,8 +18,8 @@ class RrhhSearch extends Rrhh
     public function rules()
     {
         return [
-            [['idRRHH', 'Edad', 'Jefe', 'TipoRRHH_idTipoRRHH'], 'integer'],
-            [['Nombre', 'Apellido'], 'safe'],
+            [['idRRHH', 'Edad', 'Jefe'], 'integer'],
+            [['Nombre', 'Apellido', 'descript'], 'safe'],
             [['Salario'], 'number'],
         ];
     }
@@ -61,11 +61,11 @@ class RrhhSearch extends Rrhh
             'Edad' => $this->Edad,
             'Salario' => $this->Salario,
             'Jefe' => $this->Jefe,
-            'TipoRRHH_idTipoRRHH' => $this->TipoRRHH_idTipoRRHH,
         ]);
 
         $query->andFilterWhere(['like', 'Nombre', $this->Nombre])
-            ->andFilterWhere(['like', 'Apellido', $this->Apellido]);
+            ->andFilterWhere(['like', 'Apellido', $this->Apellido])
+            ->andFilterWhere(['like', 'descript', $this->descript]);
 
         return $dataProvider;
     }

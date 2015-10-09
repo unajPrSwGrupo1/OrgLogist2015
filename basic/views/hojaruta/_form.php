@@ -24,7 +24,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'Transporte_RRHH_idRRHH')->textInput() ?>
 
-    <?= $form->field($model, 'Transporte_RRHH_TipoRRHH_idTipoRRHH')->textInput() ?>
+    <?= $form->field($model, 'Transporte_tiporrhh_idTipoRRHH')->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

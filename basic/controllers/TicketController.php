@@ -46,17 +46,17 @@ class TicketController extends Controller
      * @param integer $idTicket
      * @param integer $MotivoTicket_idMotivoTicket
      * @param integer $RRHH_idRRHH
-     * @param integer $RRHH_TipoRRHH_idTipoRRHH
+     * @param integer $tiporrhh_idTipoRRHH
      * @param integer $Transporte_idTransporte
      * @param integer $Transporte_TIpoTransporte_idTIpoTransporte
      * @param integer $Transporte_RRHH_idRRHH
-     * @param integer $Transporte_RRHH_TipoRRHH_idTipoRRHH
+     * @param integer $Transporte_tiporrhh_idTipoRRHH
      * @return mixed
      */
-    public function actionView($idTicket, $MotivoTicket_idMotivoTicket, $RRHH_idRRHH, $RRHH_TipoRRHH_idTipoRRHH, $Transporte_idTransporte, $Transporte_TIpoTransporte_idTIpoTransporte, $Transporte_RRHH_idRRHH, $Transporte_RRHH_TipoRRHH_idTipoRRHH)
+    public function actionView($idTicket, $MotivoTicket_idMotivoTicket, $RRHH_idRRHH, $tiporrhh_idTipoRRHH, $Transporte_idTransporte, $Transporte_TIpoTransporte_idTIpoTransporte, $Transporte_RRHH_idRRHH, $Transporte_tiporrhh_idTipoRRHH)
     {
         return $this->render('view', [
-            'model' => $this->findModel($idTicket, $MotivoTicket_idMotivoTicket, $RRHH_idRRHH, $RRHH_TipoRRHH_idTipoRRHH, $Transporte_idTransporte, $Transporte_TIpoTransporte_idTIpoTransporte, $Transporte_RRHH_idRRHH, $Transporte_RRHH_TipoRRHH_idTipoRRHH),
+            'model' => $this->findModel($idTicket, $MotivoTicket_idMotivoTicket, $RRHH_idRRHH, $tiporrhh_idTipoRRHH, $Transporte_idTransporte, $Transporte_TIpoTransporte_idTIpoTransporte, $Transporte_RRHH_idRRHH, $Transporte_tiporrhh_idTipoRRHH),
         ]);
     }
 
@@ -70,7 +70,7 @@ class TicketController extends Controller
         $model = new Ticket();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'idTicket' => $model->idTicket, 'MotivoTicket_idMotivoTicket' => $model->MotivoTicket_idMotivoTicket, 'RRHH_idRRHH' => $model->RRHH_idRRHH, 'RRHH_TipoRRHH_idTipoRRHH' => $model->RRHH_TipoRRHH_idTipoRRHH, 'Transporte_idTransporte' => $model->Transporte_idTransporte, 'Transporte_TIpoTransporte_idTIpoTransporte' => $model->Transporte_TIpoTransporte_idTIpoTransporte, 'Transporte_RRHH_idRRHH' => $model->Transporte_RRHH_idRRHH, 'Transporte_RRHH_TipoRRHH_idTipoRRHH' => $model->Transporte_RRHH_TipoRRHH_idTipoRRHH]);
+            return $this->redirect(['view', 'idTicket' => $model->idTicket, 'MotivoTicket_idMotivoTicket' => $model->MotivoTicket_idMotivoTicket, 'RRHH_idRRHH' => $model->RRHH_idRRHH, 'tiporrhh_idTipoRRHH' => $model->tiporrhh_idTipoRRHH, 'Transporte_idTransporte' => $model->Transporte_idTransporte, 'Transporte_TIpoTransporte_idTIpoTransporte' => $model->Transporte_TIpoTransporte_idTIpoTransporte, 'Transporte_RRHH_idRRHH' => $model->Transporte_RRHH_idRRHH, 'Transporte_tiporrhh_idTipoRRHH' => $model->Transporte_tiporrhh_idTipoRRHH]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -84,19 +84,19 @@ class TicketController extends Controller
      * @param integer $idTicket
      * @param integer $MotivoTicket_idMotivoTicket
      * @param integer $RRHH_idRRHH
-     * @param integer $RRHH_TipoRRHH_idTipoRRHH
+     * @param integer $tiporrhh_idTipoRRHH
      * @param integer $Transporte_idTransporte
      * @param integer $Transporte_TIpoTransporte_idTIpoTransporte
      * @param integer $Transporte_RRHH_idRRHH
-     * @param integer $Transporte_RRHH_TipoRRHH_idTipoRRHH
+     * @param integer $Transporte_tiporrhh_idTipoRRHH
      * @return mixed
      */
-    public function actionUpdate($idTicket, $MotivoTicket_idMotivoTicket, $RRHH_idRRHH, $RRHH_TipoRRHH_idTipoRRHH, $Transporte_idTransporte, $Transporte_TIpoTransporte_idTIpoTransporte, $Transporte_RRHH_idRRHH, $Transporte_RRHH_TipoRRHH_idTipoRRHH)
+    public function actionUpdate($idTicket, $MotivoTicket_idMotivoTicket, $RRHH_idRRHH, $tiporrhh_idTipoRRHH, $Transporte_idTransporte, $Transporte_TIpoTransporte_idTIpoTransporte, $Transporte_RRHH_idRRHH, $Transporte_tiporrhh_idTipoRRHH)
     {
-        $model = $this->findModel($idTicket, $MotivoTicket_idMotivoTicket, $RRHH_idRRHH, $RRHH_TipoRRHH_idTipoRRHH, $Transporte_idTransporte, $Transporte_TIpoTransporte_idTIpoTransporte, $Transporte_RRHH_idRRHH, $Transporte_RRHH_TipoRRHH_idTipoRRHH);
+        $model = $this->findModel($idTicket, $MotivoTicket_idMotivoTicket, $RRHH_idRRHH, $tiporrhh_idTipoRRHH, $Transporte_idTransporte, $Transporte_TIpoTransporte_idTIpoTransporte, $Transporte_RRHH_idRRHH, $Transporte_tiporrhh_idTipoRRHH);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'idTicket' => $model->idTicket, 'MotivoTicket_idMotivoTicket' => $model->MotivoTicket_idMotivoTicket, 'RRHH_idRRHH' => $model->RRHH_idRRHH, 'RRHH_TipoRRHH_idTipoRRHH' => $model->RRHH_TipoRRHH_idTipoRRHH, 'Transporte_idTransporte' => $model->Transporte_idTransporte, 'Transporte_TIpoTransporte_idTIpoTransporte' => $model->Transporte_TIpoTransporte_idTIpoTransporte, 'Transporte_RRHH_idRRHH' => $model->Transporte_RRHH_idRRHH, 'Transporte_RRHH_TipoRRHH_idTipoRRHH' => $model->Transporte_RRHH_TipoRRHH_idTipoRRHH]);
+            return $this->redirect(['view', 'idTicket' => $model->idTicket, 'MotivoTicket_idMotivoTicket' => $model->MotivoTicket_idMotivoTicket, 'RRHH_idRRHH' => $model->RRHH_idRRHH, 'tiporrhh_idTipoRRHH' => $model->tiporrhh_idTipoRRHH, 'Transporte_idTransporte' => $model->Transporte_idTransporte, 'Transporte_TIpoTransporte_idTIpoTransporte' => $model->Transporte_TIpoTransporte_idTIpoTransporte, 'Transporte_RRHH_idRRHH' => $model->Transporte_RRHH_idRRHH, 'Transporte_tiporrhh_idTipoRRHH' => $model->Transporte_tiporrhh_idTipoRRHH]);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -110,16 +110,16 @@ class TicketController extends Controller
      * @param integer $idTicket
      * @param integer $MotivoTicket_idMotivoTicket
      * @param integer $RRHH_idRRHH
-     * @param integer $RRHH_TipoRRHH_idTipoRRHH
+     * @param integer $tiporrhh_idTipoRRHH
      * @param integer $Transporte_idTransporte
      * @param integer $Transporte_TIpoTransporte_idTIpoTransporte
      * @param integer $Transporte_RRHH_idRRHH
-     * @param integer $Transporte_RRHH_TipoRRHH_idTipoRRHH
+     * @param integer $Transporte_tiporrhh_idTipoRRHH
      * @return mixed
      */
-    public function actionDelete($idTicket, $MotivoTicket_idMotivoTicket, $RRHH_idRRHH, $RRHH_TipoRRHH_idTipoRRHH, $Transporte_idTransporte, $Transporte_TIpoTransporte_idTIpoTransporte, $Transporte_RRHH_idRRHH, $Transporte_RRHH_TipoRRHH_idTipoRRHH)
+    public function actionDelete($idTicket, $MotivoTicket_idMotivoTicket, $RRHH_idRRHH, $tiporrhh_idTipoRRHH, $Transporte_idTransporte, $Transporte_TIpoTransporte_idTIpoTransporte, $Transporte_RRHH_idRRHH, $Transporte_tiporrhh_idTipoRRHH)
     {
-        $this->findModel($idTicket, $MotivoTicket_idMotivoTicket, $RRHH_idRRHH, $RRHH_TipoRRHH_idTipoRRHH, $Transporte_idTransporte, $Transporte_TIpoTransporte_idTIpoTransporte, $Transporte_RRHH_idRRHH, $Transporte_RRHH_TipoRRHH_idTipoRRHH)->delete();
+        $this->findModel($idTicket, $MotivoTicket_idMotivoTicket, $RRHH_idRRHH, $tiporrhh_idTipoRRHH, $Transporte_idTransporte, $Transporte_TIpoTransporte_idTIpoTransporte, $Transporte_RRHH_idRRHH, $Transporte_tiporrhh_idTipoRRHH)->delete();
 
         return $this->redirect(['index']);
     }
@@ -130,17 +130,17 @@ class TicketController extends Controller
      * @param integer $idTicket
      * @param integer $MotivoTicket_idMotivoTicket
      * @param integer $RRHH_idRRHH
-     * @param integer $RRHH_TipoRRHH_idTipoRRHH
+     * @param integer $tiporrhh_idTipoRRHH
      * @param integer $Transporte_idTransporte
      * @param integer $Transporte_TIpoTransporte_idTIpoTransporte
      * @param integer $Transporte_RRHH_idRRHH
-     * @param integer $Transporte_RRHH_TipoRRHH_idTipoRRHH
+     * @param integer $Transporte_tiporrhh_idTipoRRHH
      * @return Ticket the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($idTicket, $MotivoTicket_idMotivoTicket, $RRHH_idRRHH, $RRHH_TipoRRHH_idTipoRRHH, $Transporte_idTransporte, $Transporte_TIpoTransporte_idTIpoTransporte, $Transporte_RRHH_idRRHH, $Transporte_RRHH_TipoRRHH_idTipoRRHH)
+    protected function findModel($idTicket, $MotivoTicket_idMotivoTicket, $RRHH_idRRHH, $tiporrhh_idTipoRRHH, $Transporte_idTransporte, $Transporte_TIpoTransporte_idTIpoTransporte, $Transporte_RRHH_idRRHH, $Transporte_tiporrhh_idTipoRRHH)
     {
-        if (($model = Ticket::findOne(['idTicket' => $idTicket, 'MotivoTicket_idMotivoTicket' => $MotivoTicket_idMotivoTicket, 'RRHH_idRRHH' => $RRHH_idRRHH, 'RRHH_TipoRRHH_idTipoRRHH' => $RRHH_TipoRRHH_idTipoRRHH, 'Transporte_idTransporte' => $Transporte_idTransporte, 'Transporte_TIpoTransporte_idTIpoTransporte' => $Transporte_TIpoTransporte_idTIpoTransporte, 'Transporte_RRHH_idRRHH' => $Transporte_RRHH_idRRHH, 'Transporte_RRHH_TipoRRHH_idTipoRRHH' => $Transporte_RRHH_TipoRRHH_idTipoRRHH])) !== null) {
+        if (($model = Ticket::findOne(['idTicket' => $idTicket, 'MotivoTicket_idMotivoTicket' => $MotivoTicket_idMotivoTicket, 'RRHH_idRRHH' => $RRHH_idRRHH, 'tiporrhh_idTipoRRHH' => $tiporrhh_idTipoRRHH, 'Transporte_idTransporte' => $Transporte_idTransporte, 'Transporte_TIpoTransporte_idTIpoTransporte' => $Transporte_TIpoTransporte_idTIpoTransporte, 'Transporte_RRHH_idRRHH' => $Transporte_RRHH_idRRHH, 'Transporte_tiporrhh_idTipoRRHH' => $Transporte_tiporrhh_idTipoRRHH])) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

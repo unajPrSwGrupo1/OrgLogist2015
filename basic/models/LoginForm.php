@@ -93,10 +93,10 @@ class LoginForm extends Model
     /**
      * Relaciona el username del login con su rol id de la tabla user
      * @param string $username
-     * @return RRHH_TipoRRHH_idTipoRRHH de la tabla user
+     * @return tiporrhh_idTipoRRHH de la tabla user
      */
     private function getIdTipoRRHH($username){
-    	return User::findOne(['username'=>$username])->RRHH_TipoRRHH_idTipoRRHH;
+    	return User::findOne(['username'=>$username])->tiporrhh_idTipoRRHH;
     }
     
     /**
@@ -123,6 +123,10 @@ class LoginForm extends Model
     	$role=Tiporrhh::find()->where("idTipoRRHH=:idTipoRRHH",[":idTipoRRHH" => $this->getIdTipoRRHH($username)]);
     	if($role->count()==0||!file_exists(__DIR__ . '/../views/site/'.$this->getRole($username).'.php'))return "usuario";
     	else return Tiporrhh::findOne(['idTipoRRHH'=>$this->getIdTipoRRHH($username)])->descript;;
+    }
+    
+    public function getFunctionsRole($username){
+		return FuncTiporrhh::findAll(['tiporrhh_idTipoRRHH'=>$this->getIdTipoRRHH($username)]);
     }
     
 }

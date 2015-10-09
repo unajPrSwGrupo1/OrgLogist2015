@@ -29,11 +29,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'Descripcion',
             'MotivoTicket_idMotivoTicket',
             'RRHH_idRRHH',
-            'RRHH_TipoRRHH_idTipoRRHH',
+            'tiporrhh_idTipoRRHH',
             // 'Transporte_idTransporte',
             // 'Transporte_TIpoTransporte_idTIpoTransporte',
             // 'Transporte_RRHH_idRRHH',
-            // 'Transporte_RRHH_TipoRRHH_idTipoRRHH',
+            // 'Transporte_tiporrhh_idTipoRRHH',
             // 'Fecha',
             // 'Hora',
 

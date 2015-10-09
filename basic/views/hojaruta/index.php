@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'Transporte_idTransporte',
             // 'Transporte_TIpoTransporte_idTIpoTransporte',
             // 'Transporte_RRHH_idRRHH',
-            // 'Transporte_RRHH_TipoRRHH_idTipoRRHH',
+            // 'Transporte_tiporrhh_idTipoRRHH',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

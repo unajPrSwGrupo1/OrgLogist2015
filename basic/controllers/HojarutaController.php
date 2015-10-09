@@ -47,13 +47,13 @@ class HojarutaController extends Controller
      * @param integer $Transporte_idTransporte
      * @param integer $Transporte_TIpoTransporte_idTIpoTransporte
      * @param integer $Transporte_RRHH_idRRHH
-     * @param integer $Transporte_RRHH_TipoRRHH_idTipoRRHH
+     * @param integer $Transporte_tiporrhh_idTipoRRHH
      * @return mixed
      */
-    public function actionView($idHojaRuta, $Transporte_idTransporte, $Transporte_TIpoTransporte_idTIpoTransporte, $Transporte_RRHH_idRRHH, $Transporte_RRHH_TipoRRHH_idTipoRRHH)
+    public function actionView($idHojaRuta, $Transporte_idTransporte, $Transporte_TIpoTransporte_idTIpoTransporte, $Transporte_RRHH_idRRHH, $Transporte_tiporrhh_idTipoRRHH)
     {
         return $this->render('view', [
-            'model' => $this->findModel($idHojaRuta, $Transporte_idTransporte, $Transporte_TIpoTransporte_idTIpoTransporte, $Transporte_RRHH_idRRHH, $Transporte_RRHH_TipoRRHH_idTipoRRHH),
+            'model' => $this->findModel($idHojaRuta, $Transporte_idTransporte, $Transporte_TIpoTransporte_idTIpoTransporte, $Transporte_RRHH_idRRHH, $Transporte_tiporrhh_idTipoRRHH),
         ]);
     }
 
@@ -67,7 +67,7 @@ class HojarutaController extends Controller
         $model = new Hojaruta();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'idHojaRuta' => $model->idHojaRuta, 'Transporte_idTransporte' => $model->Transporte_idTransporte, 'Transporte_TIpoTransporte_idTIpoTransporte' => $model->Transporte_TIpoTransporte_idTIpoTransporte, 'Transporte_RRHH_idRRHH' => $model->Transporte_RRHH_idRRHH, 'Transporte_RRHH_TipoRRHH_idTipoRRHH' => $model->Transporte_RRHH_TipoRRHH_idTipoRRHH]);
+            return $this->redirect(['view', 'idHojaRuta' => $model->idHojaRuta, 'Transporte_idTransporte' => $model->Transporte_idTransporte, 'Transporte_TIpoTransporte_idTIpoTransporte' => $model->Transporte_TIpoTransporte_idTIpoTransporte, 'Transporte_RRHH_idRRHH' => $model->Transporte_RRHH_idRRHH, 'Transporte_tiporrhh_idTipoRRHH' => $model->Transporte_tiporrhh_idTipoRRHH]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -82,15 +82,15 @@ class HojarutaController extends Controller
      * @param integer $Transporte_idTransporte
      * @param integer $Transporte_TIpoTransporte_idTIpoTransporte
      * @param integer $Transporte_RRHH_idRRHH
-     * @param integer $Transporte_RRHH_TipoRRHH_idTipoRRHH
+     * @param integer $Transporte_tiporrhh_idTipoRRHH
      * @return mixed
      */
-    public function actionUpdate($idHojaRuta, $Transporte_idTransporte, $Transporte_TIpoTransporte_idTIpoTransporte, $Transporte_RRHH_idRRHH, $Transporte_RRHH_TipoRRHH_idTipoRRHH)
+    public function actionUpdate($idHojaRuta, $Transporte_idTransporte, $Transporte_TIpoTransporte_idTIpoTransporte, $Transporte_RRHH_idRRHH, $Transporte_tiporrhh_idTipoRRHH)
     {
-        $model = $this->findModel($idHojaRuta, $Transporte_idTransporte, $Transporte_TIpoTransporte_idTIpoTransporte, $Transporte_RRHH_idRRHH, $Transporte_RRHH_TipoRRHH_idTipoRRHH);
+        $model = $this->findModel($idHojaRuta, $Transporte_idTransporte, $Transporte_TIpoTransporte_idTIpoTransporte, $Transporte_RRHH_idRRHH, $Transporte_tiporrhh_idTipoRRHH);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'idHojaRuta' => $model->idHojaRuta, 'Transporte_idTransporte' => $model->Transporte_idTransporte, 'Transporte_TIpoTransporte_idTIpoTransporte' => $model->Transporte_TIpoTransporte_idTIpoTransporte, 'Transporte_RRHH_idRRHH' => $model->Transporte_RRHH_idRRHH, 'Transporte_RRHH_TipoRRHH_idTipoRRHH' => $model->Transporte_RRHH_TipoRRHH_idTipoRRHH]);
+            return $this->redirect(['view', 'idHojaRuta' => $model->idHojaRuta, 'Transporte_idTransporte' => $model->Transporte_idTransporte, 'Transporte_TIpoTransporte_idTIpoTransporte' => $model->Transporte_TIpoTransporte_idTIpoTransporte, 'Transporte_RRHH_idRRHH' => $model->Transporte_RRHH_idRRHH, 'Transporte_tiporrhh_idTipoRRHH' => $model->Transporte_tiporrhh_idTipoRRHH]);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -105,12 +105,12 @@ class HojarutaController extends Controller
      * @param integer $Transporte_idTransporte
      * @param integer $Transporte_TIpoTransporte_idTIpoTransporte
      * @param integer $Transporte_RRHH_idRRHH
-     * @param integer $Transporte_RRHH_TipoRRHH_idTipoRRHH
+     * @param integer $Transporte_tiporrhh_idTipoRRHH
      * @return mixed
      */
-    public function actionDelete($idHojaRuta, $Transporte_idTransporte, $Transporte_TIpoTransporte_idTIpoTransporte, $Transporte_RRHH_idRRHH, $Transporte_RRHH_TipoRRHH_idTipoRRHH)
+    public function actionDelete($idHojaRuta, $Transporte_idTransporte, $Transporte_TIpoTransporte_idTIpoTransporte, $Transporte_RRHH_idRRHH, $Transporte_tiporrhh_idTipoRRHH)
     {
-        $this->findModel($idHojaRuta, $Transporte_idTransporte, $Transporte_TIpoTransporte_idTIpoTransporte, $Transporte_RRHH_idRRHH, $Transporte_RRHH_TipoRRHH_idTipoRRHH)->delete();
+        $this->findModel($idHojaRuta, $Transporte_idTransporte, $Transporte_TIpoTransporte_idTIpoTransporte, $Transporte_RRHH_idRRHH, $Transporte_tiporrhh_idTipoRRHH)->delete();
 
         return $this->redirect(['index']);
     }
@@ -122,13 +122,13 @@ class HojarutaController extends Controller
      * @param integer $Transporte_idTransporte
      * @param integer $Transporte_TIpoTransporte_idTIpoTransporte
      * @param integer $Transporte_RRHH_idRRHH
-     * @param integer $Transporte_RRHH_TipoRRHH_idTipoRRHH
+     * @param integer $Transporte_tiporrhh_idTipoRRHH
      * @return Hojaruta the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($idHojaRuta, $Transporte_idTransporte, $Transporte_TIpoTransporte_idTIpoTransporte, $Transporte_RRHH_idRRHH, $Transporte_RRHH_TipoRRHH_idTipoRRHH)
+    protected function findModel($idHojaRuta, $Transporte_idTransporte, $Transporte_TIpoTransporte_idTIpoTransporte, $Transporte_RRHH_idRRHH, $Transporte_tiporrhh_idTipoRRHH)
     {
-        if (($model = Hojaruta::findOne(['idHojaRuta' => $idHojaRuta, 'Transporte_idTransporte' => $Transporte_idTransporte, 'Transporte_TIpoTransporte_idTIpoTransporte' => $Transporte_TIpoTransporte_idTIpoTransporte, 'Transporte_RRHH_idRRHH' => $Transporte_RRHH_idRRHH, 'Transporte_RRHH_TipoRRHH_idTipoRRHH' => $Transporte_RRHH_TipoRRHH_idTipoRRHH])) !== null) {
+        if (($model = Hojaruta::findOne(['idHojaRuta' => $idHojaRuta, 'Transporte_idTransporte' => $Transporte_idTransporte, 'Transporte_TIpoTransporte_idTIpoTransporte' => $Transporte_TIpoTransporte_idTIpoTransporte, 'Transporte_RRHH_idRRHH' => $Transporte_RRHH_idRRHH, 'Transporte_tiporrhh_idTipoRRHH' => $Transporte_tiporrhh_idTipoRRHH])) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

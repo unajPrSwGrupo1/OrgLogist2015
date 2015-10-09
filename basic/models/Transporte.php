@@ -12,12 +12,13 @@ use Yii;
  * @property integer $Peso
  * @property integer $TIpoTransporte_idTIpoTransporte
  * @property integer $RRHH_idRRHH
- * @property integer $RRHH_TipoRRHH_idTipoRRHH
+ * @property integer $tiporrhh_idTipoRRHH
  *
  * @property Hojaruta[] $hojarutas
  * @property Ticket[] $tickets
  * @property Rrhh $rRHHIdRRHH
  * @property Tipotransporte $tIpoTransporteIdTIpoTransporte
+ * @property Tiporrhh $tiporrhhIdTipoRRHH
  * @property TransporteHasCaja[] $transporteHasCajas
  * @property TransporteHasPallet[] $transporteHasPallets
  */
@@ -37,8 +38,8 @@ class Transporte extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Matricula', 'Peso', 'TIpoTransporte_idTIpoTransporte', 'RRHH_idRRHH', 'RRHH_TipoRRHH_idTipoRRHH'], 'required'],
-            [['Peso', 'TIpoTransporte_idTIpoTransporte', 'RRHH_idRRHH', 'RRHH_TipoRRHH_idTipoRRHH'], 'integer'],
+            [['Matricula', 'Peso', 'TIpoTransporte_idTIpoTransporte', 'RRHH_idRRHH', 'tiporrhh_idTipoRRHH'], 'required'],
+            [['Peso', 'TIpoTransporte_idTIpoTransporte', 'RRHH_idRRHH', 'tiporrhh_idTipoRRHH'], 'integer'],
             [['Matricula'], 'string', 'max' => 45]
         ];
     }
@@ -54,7 +55,7 @@ class Transporte extends \yii\db\ActiveRecord
             'Peso' => 'Peso',
             'TIpoTransporte_idTIpoTransporte' => 'Tipo Transporte Id Tipo Transporte',
             'RRHH_idRRHH' => 'Rrhh Id Rrhh',
-            'RRHH_TipoRRHH_idTipoRRHH' => 'Rrhh  Tipo Rrhh Id Tipo Rrhh',
+            'tiporrhh_idTipoRRHH' => 'Tiporrhh Id Tipo Rrhh',
         ];
     }
 
@@ -63,7 +64,7 @@ class Transporte extends \yii\db\ActiveRecord
      */
     public function getHojarutas()
     {
-        return $this->hasMany(Hojaruta::className(), ['Transporte_idTransporte' => 'idTransporte', 'Transporte_TIpoTransporte_idTIpoTransporte' => 'TIpoTransporte_idTIpoTransporte', 'Transporte_RRHH_idRRHH' => 'RRHH_idRRHH', 'Transporte_RRHH_TipoRRHH_idTipoRRHH' => 'RRHH_TipoRRHH_idTipoRRHH']);
+        return $this->hasMany(Hojaruta::className(), ['Transporte_idTransporte' => 'idTransporte', 'Transporte_TIpoTransporte_idTIpoTransporte' => 'TIpoTransporte_idTIpoTransporte', 'Transporte_RRHH_idRRHH' => 'RRHH_idRRHH', 'Transporte_tiporrhh_idTipoRRHH' => 'tiporrhh_idTipoRRHH']);
     }
 
     /**
@@ -71,7 +72,7 @@ class Transporte extends \yii\db\ActiveRecord
      */
     public function getTickets()
     {
-        return $this->hasMany(Ticket::className(), ['Transporte_idTransporte' => 'idTransporte', 'Transporte_TIpoTransporte_idTIpoTransporte' => 'TIpoTransporte_idTIpoTransporte', 'Transporte_RRHH_idRRHH' => 'RRHH_idRRHH', 'Transporte_RRHH_TipoRRHH_idTipoRRHH' => 'RRHH_TipoRRHH_idTipoRRHH']);
+        return $this->hasMany(Ticket::className(), ['Transporte_idTransporte' => 'idTransporte', 'Transporte_TIpoTransporte_idTIpoTransporte' => 'TIpoTransporte_idTIpoTransporte', 'Transporte_RRHH_idRRHH' => 'RRHH_idRRHH', 'Transporte_tiporrhh_idTipoRRHH' => 'tiporrhh_idTipoRRHH']);
     }
 
     /**
@@ -79,7 +80,7 @@ class Transporte extends \yii\db\ActiveRecord
      */
     public function getRRHHIdRRHH()
     {
-        return $this->hasOne(Rrhh::className(), ['idRRHH' => 'RRHH_idRRHH', 'TipoRRHH_idTipoRRHH' => 'RRHH_TipoRRHH_idTipoRRHH']);
+        return $this->hasOne(Rrhh::className(), ['idRRHH' => 'RRHH_idRRHH']);
     }
 
     /**
@@ -93,9 +94,17 @@ class Transporte extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getTiporrhhIdTipoRRHH()
+    {
+        return $this->hasOne(Tiporrhh::className(), ['idTipoRRHH' => 'tiporrhh_idTipoRRHH']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getTransporteHasCajas()
     {
-        return $this->hasMany(TransporteHasCaja::className(), ['Transporte_idTransporte' => 'idTransporte', 'Transporte_TIpoTransporte_idTIpoTransporte' => 'TIpoTransporte_idTIpoTransporte', 'Transporte_RRHH_idRRHH' => 'RRHH_idRRHH', 'Transporte_RRHH_TipoRRHH_idTipoRRHH' => 'RRHH_TipoRRHH_idTipoRRHH']);
+        return $this->hasMany(TransporteHasCaja::className(), ['Transporte_idTransporte' => 'idTransporte', 'Transporte_TIpoTransporte_idTIpoTransporte' => 'TIpoTransporte_idTIpoTransporte', 'Transporte_RRHH_idRRHH' => 'RRHH_idRRHH', 'Transporte_tiporrhh_idTipoRRHH' => 'tiporrhh_idTipoRRHH']);
     }
 
     /**
@@ -103,6 +112,6 @@ class Transporte extends \yii\db\ActiveRecord
      */
     public function getTransporteHasPallets()
     {
-        return $this->hasMany(TransporteHasPallet::className(), ['Transporte_idTransporte' => 'idTransporte', 'Transporte_TIpoTransporte_idTIpoTransporte' => 'TIpoTransporte_idTIpoTransporte', 'Transporte_RRHH_idRRHH' => 'RRHH_idRRHH', 'Transporte_RRHH_TipoRRHH_idTipoRRHH' => 'RRHH_TipoRRHH_idTipoRRHH']);
+        return $this->hasMany(TransporteHasPallet::className(), ['Transporte_idTransporte' => 'idTransporte', 'Transporte_TIpoTransporte_idTIpoTransporte' => 'TIpoTransporte_idTIpoTransporte', 'Transporte_RRHH_idRRHH' => 'RRHH_idRRHH', 'Transporte_tiporrhh_idTipoRRHH' => 'tiporrhh_idTipoRRHH']);
     }
 }

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 06-10-2015 a las 19:40:50
+-- Tiempo de generación: 08-10-2015 a las 18:25:25
 -- Versión del servidor: 10.0.21-MariaDB-log
 -- Versión de PHP: 5.6.14
 
@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS `cliente` (
   `Direccion` varchar(45) DEFAULT NULL,
   `Descripcion` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`idCliente`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -133,15 +133,30 @@ CREATE TABLE IF NOT EXISTS `factura` (
   `idFactura` int(11) NOT NULL AUTO_INCREMENT,
   `Monto` decimal(10,2) NOT NULL,
   `RRHH_idRRHH` int(11) NOT NULL,
-  `RRHH_TipoRRHH_idTipoRRHH` int(11) NOT NULL,
+  `tiporrhh_idTipoRRHH` int(11) NOT NULL,
   `Cliente_idCliente` int(11) NOT NULL,
   `Fecha` date DEFAULT NULL,
   `Hora` time DEFAULT NULL,
-  PRIMARY KEY (`idFactura`,`RRHH_idRRHH`,`RRHH_TipoRRHH_idTipoRRHH`,`Cliente_idCliente`),
-  KEY `fk_Factura_RRHH1_idx` (`RRHH_idRRHH`,`RRHH_TipoRRHH_idTipoRRHH`),
+  PRIMARY KEY (`idFactura`,`RRHH_idRRHH`,`tiporrhh_idTipoRRHH`,`Cliente_idCliente`),
+  KEY `fk_Factura_RRHH1_idx` (`RRHH_idRRHH`,`tiporrhh_idTipoRRHH`),
   KEY `fk_Factura_Cliente1_idx` (`Cliente_idCliente`),
-  KEY `fk_Factura_tiporrhh1` (`RRHH_TipoRRHH_idTipoRRHH`)
+  KEY `fk_Factura_tiporrhh1` (`tiporrhh_idTipoRRHH`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `func_tiporrhh`
+--
+
+CREATE TABLE IF NOT EXISTS `func_tiporrhh` (
+  `idFunc` int(11) NOT NULL AUTO_INCREMENT,
+  `link_func` varchar(200) NOT NULL DEFAULT 'http://localhost/basic/web/index.php?r=site/not_has_view',
+  `desc_func` varchar(140) DEFAULT NULL,
+  `tiporrhh_idTipoRRHH` int(11) NOT NULL,
+  PRIMARY KEY (`idFunc`),
+  KEY `tiporrhh_idTipoRRHH` (`tiporrhh_idTipoRRHH`)
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -157,9 +172,9 @@ CREATE TABLE IF NOT EXISTS `hojaruta` (
   `Transporte_idTransporte` int(11) NOT NULL,
   `Transporte_TIpoTransporte_idTIpoTransporte` int(11) NOT NULL,
   `Transporte_RRHH_idRRHH` int(11) NOT NULL,
-  `Transporte_RRHH_TipoRRHH_idTipoRRHH` int(11) NOT NULL,
-  PRIMARY KEY (`idHojaRuta`,`Transporte_idTransporte`,`Transporte_TIpoTransporte_idTIpoTransporte`,`Transporte_RRHH_idRRHH`,`Transporte_RRHH_TipoRRHH_idTipoRRHH`),
-  KEY `fk_HojaRuta_Transporte1_idx` (`Transporte_idTransporte`,`Transporte_TIpoTransporte_idTIpoTransporte`,`Transporte_RRHH_idRRHH`,`Transporte_RRHH_TipoRRHH_idTipoRRHH`)
+  `Transporte_tiporrhh_idTipoRRHH` int(11) NOT NULL,
+  PRIMARY KEY (`idHojaRuta`,`Transporte_idTransporte`,`Transporte_TIpoTransporte_idTIpoTransporte`,`Transporte_RRHH_idRRHH`,`Transporte_tiporrhh_idTipoRRHH`),
+  KEY `fk_HojaRuta_Transporte1_idx` (`Transporte_idTransporte`,`Transporte_TIpoTransporte_idTIpoTransporte`,`Transporte_RRHH_idRRHH`,`Transporte_tiporrhh_idTipoRRHH`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -214,14 +229,14 @@ CREATE TABLE IF NOT EXISTS `pedido` (
   `cantCajas` int(11) DEFAULT NULL,
   `cantPallets` int(11) DEFAULT NULL,
   `RRHH_idRRHH` int(11) NOT NULL,
-  `RRHH_TipoRRHH_idTipoRRHH` int(11) NOT NULL,
+  `tiporrhh_idTipoRRHH` int(11) NOT NULL,
   `Cliente_idCliente` int(11) NOT NULL,
   `Fecha` date DEFAULT NULL,
   `Hora` time DEFAULT NULL,
-  PRIMARY KEY (`idPedido`,`RRHH_idRRHH`,`RRHH_TipoRRHH_idTipoRRHH`,`Cliente_idCliente`),
-  KEY `fk_Pedido_RRHH1_idx` (`RRHH_idRRHH`,`RRHH_TipoRRHH_idTipoRRHH`),
+  PRIMARY KEY (`idPedido`,`RRHH_idRRHH`,`tiporrhh_idTipoRRHH`,`Cliente_idCliente`),
+  KEY `fk_Pedido_RRHH1_idx` (`RRHH_idRRHH`,`tiporrhh_idTipoRRHH`),
   KEY `fk_Pedido_Cliente1_idx` (`Cliente_idCliente`),
-  KEY `fk_Pedido_tiporrhh1` (`RRHH_TipoRRHH_idTipoRRHH`)
+  KEY `fk_Pedido_tiporrhh1` (`tiporrhh_idTipoRRHH`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -239,7 +254,7 @@ CREATE TABLE IF NOT EXISTS `rrhh` (
   `Jefe` int(11) DEFAULT NULL,
   `descript` varchar(140) NOT NULL,
   PRIMARY KEY (`idRRHH`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -279,10 +294,10 @@ CREATE TABLE IF NOT EXISTS `stockcenter` (
   `idStockCenter` int(11) NOT NULL AUTO_INCREMENT,
   `CantEstantes` int(11) NOT NULL,
   `RRHH_idRRHH` int(11) NOT NULL,
-  `RRHH_TipoRRHH_idTipoRRHH` int(11) NOT NULL,
-  PRIMARY KEY (`idStockCenter`,`RRHH_idRRHH`,`RRHH_TipoRRHH_idTipoRRHH`),
-  KEY `fk_StockCenter_RRHH1_idx` (`RRHH_idRRHH`,`RRHH_TipoRRHH_idTipoRRHH`),
-  KEY `fk_StockCenter_tiporrhh1` (`RRHH_TipoRRHH_idTipoRRHH`)
+  `tiporrhh_idTipoRRHH` int(11) NOT NULL,
+  PRIMARY KEY (`idStockCenter`,`RRHH_idRRHH`,`tiporrhh_idTipoRRHH`),
+  KEY `fk_StockCenter_RRHH1_idx` (`RRHH_idRRHH`,`tiporrhh_idTipoRRHH`),
+  KEY `fk_StockCenter_tiporrhh1` (`tiporrhh_idTipoRRHH`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -356,18 +371,18 @@ CREATE TABLE IF NOT EXISTS `ticket` (
   `Descripcion` varchar(80) DEFAULT NULL,
   `MotivoTicket_idMotivoTicket` int(11) NOT NULL,
   `RRHH_idRRHH` int(11) NOT NULL,
-  `RRHH_TipoRRHH_idTipoRRHH` int(11) NOT NULL,
+  `tiporrhh_idTipoRRHH` int(11) NOT NULL,
   `Transporte_idTransporte` int(11) NOT NULL,
   `Transporte_TIpoTransporte_idTIpoTransporte` int(11) NOT NULL,
   `Transporte_RRHH_idRRHH` int(11) NOT NULL,
-  `Transporte_RRHH_TipoRRHH_idTipoRRHH` int(11) NOT NULL,
+  `Transporte_tiporrhh_idTipoRRHH` int(11) NOT NULL,
   `Fecha` date DEFAULT NULL,
   `Hora` time DEFAULT NULL,
-  PRIMARY KEY (`idTicket`,`MotivoTicket_idMotivoTicket`,`RRHH_idRRHH`,`RRHH_TipoRRHH_idTipoRRHH`,`Transporte_idTransporte`,`Transporte_TIpoTransporte_idTIpoTransporte`,`Transporte_RRHH_idRRHH`,`Transporte_RRHH_TipoRRHH_idTipoRRHH`),
+  PRIMARY KEY (`idTicket`,`MotivoTicket_idMotivoTicket`,`RRHH_idRRHH`,`tiporrhh_idTipoRRHH`,`Transporte_idTransporte`,`Transporte_TIpoTransporte_idTIpoTransporte`,`Transporte_RRHH_idRRHH`,`Transporte_tiporrhh_idTipoRRHH`),
   KEY `fk_Ticket_MotivoTicket1_idx` (`MotivoTicket_idMotivoTicket`),
-  KEY `fk_Ticket_RRHH1_idx` (`RRHH_idRRHH`,`RRHH_TipoRRHH_idTipoRRHH`),
-  KEY `fk_Ticket_Transporte1_idx` (`Transporte_idTransporte`,`Transporte_TIpoTransporte_idTIpoTransporte`,`Transporte_RRHH_idRRHH`,`Transporte_RRHH_TipoRRHH_idTipoRRHH`),
-  KEY `fk_Ticket_tiporrhh1` (`RRHH_TipoRRHH_idTipoRRHH`)
+  KEY `fk_Ticket_RRHH1_idx` (`RRHH_idRRHH`,`tiporrhh_idTipoRRHH`),
+  KEY `fk_Ticket_Transporte1_idx` (`Transporte_idTransporte`,`Transporte_TIpoTransporte_idTIpoTransporte`,`Transporte_RRHH_idRRHH`,`Transporte_tiporrhh_idTipoRRHH`),
+  KEY `fk_Ticket_tiporrhh1` (`tiporrhh_idTipoRRHH`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -393,7 +408,7 @@ CREATE TABLE IF NOT EXISTS `tiporrhh` (
   `Tipo` varchar(45) DEFAULT NULL,
   `descript` varchar(140) NOT NULL,
   PRIMARY KEY (`idTipoRRHH`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1008 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -431,11 +446,11 @@ CREATE TABLE IF NOT EXISTS `transporte` (
   `Peso` int(11) NOT NULL,
   `TIpoTransporte_idTIpoTransporte` int(11) NOT NULL,
   `RRHH_idRRHH` int(11) NOT NULL,
-  `RRHH_TipoRRHH_idTipoRRHH` int(11) NOT NULL,
-  PRIMARY KEY (`idTransporte`,`TIpoTransporte_idTIpoTransporte`,`RRHH_idRRHH`,`RRHH_TipoRRHH_idTipoRRHH`),
+  `tiporrhh_idTipoRRHH` int(11) NOT NULL,
+  PRIMARY KEY (`idTransporte`,`TIpoTransporte_idTIpoTransporte`,`RRHH_idRRHH`,`tiporrhh_idTipoRRHH`),
   KEY `fk_Transporte_TIpoTransporte1_idx` (`TIpoTransporte_idTIpoTransporte`),
-  KEY `fk_Transporte_RRHH1_idx` (`RRHH_idRRHH`,`RRHH_TipoRRHH_idTipoRRHH`),
-  KEY `fk_Transporte_tiporrhh1` (`RRHH_TipoRRHH_idTipoRRHH`)
+  KEY `fk_Transporte_RRHH1_idx` (`RRHH_idRRHH`,`tiporrhh_idTipoRRHH`),
+  KEY `fk_Transporte_tiporrhh1` (`tiporrhh_idTipoRRHH`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -448,11 +463,11 @@ CREATE TABLE IF NOT EXISTS `transporte_has_caja` (
   `Transporte_idTransporte` int(11) NOT NULL,
   `Transporte_TIpoTransporte_idTIpoTransporte` int(11) NOT NULL,
   `Transporte_RRHH_idRRHH` int(11) NOT NULL,
-  `Transporte_RRHH_TipoRRHH_idTipoRRHH` int(11) NOT NULL,
+  `Transporte_tiporrhh_idTipoRRHH` int(11) NOT NULL,
   `Caja_idCaja` int(11) NOT NULL,
   `Caja_TipoCaja_idTipoCaja` int(11) NOT NULL,
-  PRIMARY KEY (`Transporte_idTransporte`,`Transporte_TIpoTransporte_idTIpoTransporte`,`Transporte_RRHH_idRRHH`,`Transporte_RRHH_TipoRRHH_idTipoRRHH`,`Caja_idCaja`,`Caja_TipoCaja_idTipoCaja`),
-  KEY `fk_Transporte_has_Caja_Transporte1_idx` (`Transporte_idTransporte`,`Transporte_TIpoTransporte_idTIpoTransporte`,`Transporte_RRHH_idRRHH`,`Transporte_RRHH_TipoRRHH_idTipoRRHH`),
+  PRIMARY KEY (`Transporte_idTransporte`,`Transporte_TIpoTransporte_idTIpoTransporte`,`Transporte_RRHH_idRRHH`,`Transporte_tiporrhh_idTipoRRHH`,`Caja_idCaja`,`Caja_TipoCaja_idTipoCaja`),
+  KEY `fk_Transporte_has_Caja_Transporte1_idx` (`Transporte_idTransporte`,`Transporte_TIpoTransporte_idTIpoTransporte`,`Transporte_RRHH_idRRHH`,`Transporte_tiporrhh_idTipoRRHH`),
   KEY `fk_Transporte_has_Caja_Caja1_idx` (`Caja_idCaja`,`Caja_TipoCaja_idTipoCaja`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -466,10 +481,10 @@ CREATE TABLE IF NOT EXISTS `transporte_has_pallet` (
   `Transporte_idTransporte` int(11) NOT NULL,
   `Transporte_TIpoTransporte_idTIpoTransporte` int(11) NOT NULL,
   `Transporte_RRHH_idRRHH` int(11) NOT NULL,
-  `Transporte_RRHH_TipoRRHH_idTipoRRHH` int(11) NOT NULL,
+  `Transporte_tiporrhh_idTipoRRHH` int(11) NOT NULL,
   `Pallet_idPallet` int(11) NOT NULL,
-  PRIMARY KEY (`Transporte_idTransporte`,`Transporte_TIpoTransporte_idTIpoTransporte`,`Transporte_RRHH_idRRHH`,`Transporte_RRHH_TipoRRHH_idTipoRRHH`,`Pallet_idPallet`),
-  KEY `fk_Transporte_has_Pallet_Transporte1_idx` (`Transporte_idTransporte`,`Transporte_TIpoTransporte_idTIpoTransporte`,`Transporte_RRHH_idRRHH`,`Transporte_RRHH_TipoRRHH_idTipoRRHH`),
+  PRIMARY KEY (`Transporte_idTransporte`,`Transporte_TIpoTransporte_idTIpoTransporte`,`Transporte_RRHH_idRRHH`,`Transporte_tiporrhh_idTipoRRHH`,`Pallet_idPallet`),
+  KEY `fk_Transporte_has_Pallet_Transporte1_idx` (`Transporte_idTransporte`,`Transporte_TIpoTransporte_idTIpoTransporte`,`Transporte_RRHH_idRRHH`,`Transporte_tiporrhh_idTipoRRHH`),
   KEY `fk_Transporte_has_Pallet_Pallet1_idx` (`Pallet_idPallet`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -487,14 +502,14 @@ CREATE TABLE IF NOT EXISTS `user` (
   `Authkey` varchar(250) DEFAULT NULL,
   `Token` varchar(250) DEFAULT NULL,
   `RRHH_idRRHH` int(11) NOT NULL,
-  `RRHH_TipoRRHH_idTipoRRHH` int(11) NOT NULL,
+  `tiporrhh_idTipoRRHH` int(11) NOT NULL,
   `Fecha` date DEFAULT NULL,
   `Hora` time DEFAULT NULL,
   `activate` tinyint(4) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`idAutenticacion`,`RRHH_idRRHH`,`RRHH_TipoRRHH_idTipoRRHH`),
-  KEY `fk_Autenticacion_RRHH1_idx` (`RRHH_idRRHH`,`RRHH_TipoRRHH_idTipoRRHH`),
-  KEY `fk_Autenticacion_TipoRRHH1` (`RRHH_TipoRRHH_idTipoRRHH`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`idAutenticacion`,`RRHH_idRRHH`,`tiporrhh_idTipoRRHH`),
+  KEY `fk_Autenticacion_RRHH1_idx` (`RRHH_idRRHH`,`tiporrhh_idTipoRRHH`),
+  KEY `fk_Autenticacion_TipoRRHH1` (`tiporrhh_idTipoRRHH`)
+) ENGINE=InnoDB AUTO_INCREMENT=102 DEFAULT CHARSET=utf8;
 
 --
 -- Restricciones para tablas volcadas
@@ -531,13 +546,19 @@ ALTER TABLE `estante_has_caja`
 ALTER TABLE `factura`
   ADD CONSTRAINT `fk_Factura_Cliente1` FOREIGN KEY (`Cliente_idCliente`) REFERENCES `cliente` (`idCliente`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_Factura_RRHH1` FOREIGN KEY (`RRHH_idRRHH`) REFERENCES `rrhh` (`idRRHH`),
-  ADD CONSTRAINT `fk_Factura_tiporrhh1` FOREIGN KEY (`RRHH_TipoRRHH_idTipoRRHH`) REFERENCES `tiporrhh` (`idTipoRRHH`);
+  ADD CONSTRAINT `fk_Factura_tiporrhh1` FOREIGN KEY (`tiporrhh_idTipoRRHH`) REFERENCES `tiporrhh` (`idTipoRRHH`);
+
+--
+-- Filtros para la tabla `func_tiporrhh`
+--
+ALTER TABLE `func_tiporrhh`
+  ADD CONSTRAINT `fk_func_tiporrhh` FOREIGN KEY (`tiporrhh_idTipoRRHH`) REFERENCES `tiporrhh` (`idTipoRRHH`);
 
 --
 -- Filtros para la tabla `hojaruta`
 --
 ALTER TABLE `hojaruta`
-  ADD CONSTRAINT `fk_HojaRuta_Transporte1` FOREIGN KEY (`Transporte_idTransporte`,`Transporte_TIpoTransporte_idTIpoTransporte`,`Transporte_RRHH_idRRHH`,`Transporte_RRHH_TipoRRHH_idTipoRRHH`) REFERENCES `transporte` (`idTransporte`, `TIpoTransporte_idTIpoTransporte`, `RRHH_idRRHH`, `RRHH_TipoRRHH_idTipoRRHH`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_HojaRuta_Transporte1` FOREIGN KEY (`Transporte_idTransporte`,`Transporte_TIpoTransporte_idTIpoTransporte`,`Transporte_RRHH_idRRHH`,`Transporte_tiporrhh_idTipoRRHH`) REFERENCES `transporte` (`idTransporte`, `TIpoTransporte_idTIpoTransporte`, `RRHH_idRRHH`, `tiporrhh_idTipoRRHH`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `pallet_has_caja`
@@ -552,8 +573,7 @@ ALTER TABLE `pallet_has_caja`
 ALTER TABLE `pedido`
   ADD CONSTRAINT `fk_Pedido_Cliente1` FOREIGN KEY (`Cliente_idCliente`) REFERENCES `cliente` (`idCliente`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_Pedido_RRHH1` FOREIGN KEY (`RRHH_idRRHH`) REFERENCES `rrhh` (`idRRHH`),
-  ADD CONSTRAINT `fk_Pedido_tiporrhh1` FOREIGN KEY (`RRHH_TipoRRHH_idTipoRRHH`) REFERENCES `tiporrhh` (`idTipoRRHH`);
-
+  ADD CONSTRAINT `fk_Pedido_tiporrhh1` FOREIGN KEY (`tiporrhh_idTipoRRHH`) REFERENCES `tiporrhh` (`idTipoRRHH`);
 
 --
 -- Filtros para la tabla `stagearea`
@@ -573,7 +593,7 @@ ALTER TABLE `stagearea_has_pallet`
 --
 ALTER TABLE `stockcenter`
   ADD CONSTRAINT `fk_StockCenter_RRHH1` FOREIGN KEY (`RRHH_idRRHH`) REFERENCES `rrhh` (`idRRHH`),
-  ADD CONSTRAINT `fk_StockCenter_tiporrhh1` FOREIGN KEY (`RRHH_TipoRRHH_idTipoRRHH`) REFERENCES `tiporrhh` (`idTipoRRHH`);
+  ADD CONSTRAINT `fk_StockCenter_tiporrhh1` FOREIGN KEY (`tiporrhh_idTipoRRHH`) REFERENCES `tiporrhh` (`idTipoRRHH`);
 
 --
 -- Filtros para la tabla `stockcenter_has_caja`
@@ -609,8 +629,8 @@ ALTER TABLE `stockcenter_has_stagearea`
 ALTER TABLE `ticket`
   ADD CONSTRAINT `fk_Ticket_MotivoTicket1` FOREIGN KEY (`MotivoTicket_idMotivoTicket`) REFERENCES `motivoticket` (`idMotivoTicket`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_Ticket_RRHH1` FOREIGN KEY (`RRHH_idRRHH`) REFERENCES `rrhh` (`idRRHH`),
-  ADD CONSTRAINT `fk_Ticket_Transporte1` FOREIGN KEY (`Transporte_idTransporte`,`Transporte_TIpoTransporte_idTIpoTransporte`,`Transporte_RRHH_idRRHH`,`Transporte_RRHH_TipoRRHH_idTipoRRHH`) REFERENCES `transporte` (`idTransporte`, `TIpoTransporte_idTIpoTransporte`, `RRHH_idRRHH`, `RRHH_TipoRRHH_idTipoRRHH`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_Ticket_tiporrhh1` FOREIGN KEY (`RRHH_TipoRRHH_idTipoRRHH`) REFERENCES `tiporrhh` (`idTipoRRHH`);
+  ADD CONSTRAINT `fk_Ticket_Transporte1` FOREIGN KEY (`Transporte_idTransporte`,`Transporte_TIpoTransporte_idTIpoTransporte`,`Transporte_RRHH_idRRHH`,`Transporte_tiporrhh_idTipoRRHH`) REFERENCES `transporte` (`idTransporte`, `TIpoTransporte_idTIpoTransporte`, `RRHH_idRRHH`, `tiporrhh_idTipoRRHH`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_Ticket_tiporrhh1` FOREIGN KEY (`tiporrhh_idTipoRRHH`) REFERENCES `tiporrhh` (`idTipoRRHH`);
 
 --
 -- Filtros para la tabla `transporte`
@@ -618,28 +638,28 @@ ALTER TABLE `ticket`
 ALTER TABLE `transporte`
   ADD CONSTRAINT `fk_Transporte_RRHH1` FOREIGN KEY (`RRHH_idRRHH`) REFERENCES `rrhh` (`idRRHH`),
   ADD CONSTRAINT `fk_Transporte_TIpoTransporte1` FOREIGN KEY (`TIpoTransporte_idTIpoTransporte`) REFERENCES `tipotransporte` (`idTIpoTransporte`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_Transporte_tiporrhh1` FOREIGN KEY (`RRHH_TipoRRHH_idTipoRRHH`) REFERENCES `tiporrhh` (`idTipoRRHH`);
+  ADD CONSTRAINT `fk_Transporte_tiporrhh1` FOREIGN KEY (`tiporrhh_idTipoRRHH`) REFERENCES `tiporrhh` (`idTipoRRHH`);
 
 --
 -- Filtros para la tabla `transporte_has_caja`
 --
 ALTER TABLE `transporte_has_caja`
   ADD CONSTRAINT `fk_Transporte_has_Caja_Caja1` FOREIGN KEY (`Caja_idCaja`,`Caja_TipoCaja_idTipoCaja`) REFERENCES `caja` (`idCaja`, `TipoCaja_idTipoCaja`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_Transporte_has_Caja_Transporte1` FOREIGN KEY (`Transporte_idTransporte`,`Transporte_TIpoTransporte_idTIpoTransporte`,`Transporte_RRHH_idRRHH`,`Transporte_RRHH_TipoRRHH_idTipoRRHH`) REFERENCES `transporte` (`idTransporte`, `TIpoTransporte_idTIpoTransporte`, `RRHH_idRRHH`, `RRHH_TipoRRHH_idTipoRRHH`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_Transporte_has_Caja_Transporte1` FOREIGN KEY (`Transporte_idTransporte`,`Transporte_TIpoTransporte_idTIpoTransporte`,`Transporte_RRHH_idRRHH`,`Transporte_tiporrhh_idTipoRRHH`) REFERENCES `transporte` (`idTransporte`, `TIpoTransporte_idTIpoTransporte`, `RRHH_idRRHH`, `tiporrhh_idTipoRRHH`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `transporte_has_pallet`
 --
 ALTER TABLE `transporte_has_pallet`
   ADD CONSTRAINT `fk_Transporte_has_Pallet_Pallet1` FOREIGN KEY (`Pallet_idPallet`) REFERENCES `pallet` (`idPallet`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_Transporte_has_Pallet_Transporte1` FOREIGN KEY (`Transporte_idTransporte`,`Transporte_TIpoTransporte_idTIpoTransporte`,`Transporte_RRHH_idRRHH`,`Transporte_RRHH_TipoRRHH_idTipoRRHH`) REFERENCES `transporte` (`idTransporte`, `TIpoTransporte_idTIpoTransporte`, `RRHH_idRRHH`, `RRHH_TipoRRHH_idTipoRRHH`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_Transporte_has_Pallet_Transporte1` FOREIGN KEY (`Transporte_idTransporte`,`Transporte_TIpoTransporte_idTIpoTransporte`,`Transporte_RRHH_idRRHH`,`Transporte_tiporrhh_idTipoRRHH`) REFERENCES `transporte` (`idTransporte`, `TIpoTransporte_idTIpoTransporte`, `RRHH_idRRHH`, `tiporrhh_idTipoRRHH`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `user`
 --
 ALTER TABLE `user`
   ADD CONSTRAINT `fk_Autenticacion_RRHH1` FOREIGN KEY (`RRHH_idRRHH`) REFERENCES `rrhh` (`idRRHH`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_Autenticacion_TipoRRHH1` FOREIGN KEY (`RRHH_TipoRRHH_idTipoRRHH`) REFERENCES `tiporrhh` (`idTipoRRHH`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_Autenticacion_TipoRRHH1` FOREIGN KEY (`tiporrhh_idTipoRRHH`) REFERENCES `tiporrhh` (`idTipoRRHH`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

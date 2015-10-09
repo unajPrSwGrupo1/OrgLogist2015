@@ -18,7 +18,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'RRHH_idRRHH')->textInput() ?>
 
-    <?= $form->field($model, 'RRHH_TipoRRHH_idTipoRRHH')->textInput() ?>
+    <?= $form->field($model, 'tiporrhh_idTipoRRHH')->textInput() ?>
 
     <?= $form->field($model, 'Transporte_idTransporte')->textInput() ?>
 
@@ -26,7 +26,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'Transporte_RRHH_idRRHH')->textInput() ?>
 
-    <?= $form->field($model, 'Transporte_RRHH_TipoRRHH_idTipoRRHH')->textInput() ?>
+    <?= $form->field($model, 'Transporte_tiporrhh_idTipoRRHH')->textInput() ?>
 
     <?= $form->field($model, 'Fecha')->textInput() ?>
 

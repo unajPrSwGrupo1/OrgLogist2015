@@ -13,15 +13,14 @@ use Yii;
  * @property integer $Edad
  * @property string $Salario
  * @property integer $Jefe
- * @property integer $TipoRRHH_idTipoRRHH
+ * @property string $descript
  *
- * @property Autenticación[] $autenticacións
  * @property Factura[] $facturas
  * @property Pedido[] $pedidos
- * @property Tiporrhh $tipoRRHHIdTipoRRHH
  * @property Stockcenter[] $stockcenters
  * @property Ticket[] $tickets
  * @property Transporte[] $transportes
+ * @property User[] $users
  */
 class Rrhh extends \yii\db\ActiveRecord
 {
@@ -39,10 +38,11 @@ class Rrhh extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Nombre', 'Apellido', 'Edad', 'Salario', 'TipoRRHH_idTipoRRHH'], 'required'],
-            [['Edad', 'Jefe', 'TipoRRHH_idTipoRRHH'], 'integer'],
+            [['Nombre', 'Apellido', 'Edad', 'Salario', 'descript'], 'required'],
+            [['Edad', 'Jefe'], 'integer'],
             [['Salario'], 'number'],
-            [['Nombre', 'Apellido'], 'string', 'max' => 45]
+            [['Nombre', 'Apellido'], 'string', 'max' => 45],
+            [['descript'], 'string', 'max' => 140]
         ];
     }
 
@@ -58,16 +58,8 @@ class Rrhh extends \yii\db\ActiveRecord
             'Edad' => 'Edad',
             'Salario' => 'Salario',
             'Jefe' => 'Jefe',
-            'TipoRRHH_idTipoRRHH' => 'Tipo Rrhh Id Tipo Rrhh',
+            'descript' => 'Descript',
         ];
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getAutenticacións()
-    {
-        return $this->hasMany(Autenticación::className(), ['RRHH_idRRHH' => 'idRRHH', 'RRHH_TipoRRHH_idTipoRRHH' => 'TipoRRHH_idTipoRRHH']);
     }
 
     /**
@@ -75,7 +67,7 @@ class Rrhh extends \yii\db\ActiveRecord
      */
     public function getFacturas()
     {
-        return $this->hasMany(Factura::className(), ['RRHH_idRRHH' => 'idRRHH', 'RRHH_TipoRRHH_idTipoRRHH' => 'TipoRRHH_idTipoRRHH']);
+        return $this->hasMany(Factura::className(), ['RRHH_idRRHH' => 'idRRHH']);
     }
 
     /**
@@ -83,15 +75,7 @@ class Rrhh extends \yii\db\ActiveRecord
      */
     public function getPedidos()
     {
-        return $this->hasMany(Pedido::className(), ['RRHH_idRRHH' => 'idRRHH', 'RRHH_TipoRRHH_idTipoRRHH' => 'TipoRRHH_idTipoRRHH']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getTipoRRHHIdTipoRRHH()
-    {
-        return $this->hasOne(Tiporrhh::className(), ['idTipoRRHH' => 'TipoRRHH_idTipoRRHH']);
+        return $this->hasMany(Pedido::className(), ['RRHH_idRRHH' => 'idRRHH']);
     }
 
     /**
@@ -99,7 +83,7 @@ class Rrhh extends \yii\db\ActiveRecord
      */
     public function getStockcenters()
     {
-        return $this->hasMany(Stockcenter::className(), ['RRHH_idRRHH' => 'idRRHH', 'RRHH_TipoRRHH_idTipoRRHH' => 'TipoRRHH_idTipoRRHH']);
+        return $this->hasMany(Stockcenter::className(), ['RRHH_idRRHH' => 'idRRHH']);
     }
 
     /**
@@ -107,7 +91,7 @@ class Rrhh extends \yii\db\ActiveRecord
      */
     public function getTickets()
     {
-        return $this->hasMany(Ticket::className(), ['RRHH_idRRHH' => 'idRRHH', 'RRHH_TipoRRHH_idTipoRRHH' => 'TipoRRHH_idTipoRRHH']);
+        return $this->hasMany(Ticket::className(), ['RRHH_idRRHH' => 'idRRHH']);
     }
 
     /**
@@ -115,6 +99,14 @@ class Rrhh extends \yii\db\ActiveRecord
      */
     public function getTransportes()
     {
-        return $this->hasMany(Transporte::className(), ['RRHH_idRRHH' => 'idRRHH', 'RRHH_TipoRRHH_idTipoRRHH' => 'TipoRRHH_idTipoRRHH']);
+        return $this->hasMany(Transporte::className(), ['RRHH_idRRHH' => 'idRRHH']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUsers()
+    {
+        return $this->hasMany(User::className(), ['RRHH_idRRHH' => 'idRRHH']);
     }
 }

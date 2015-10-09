@@ -11,17 +11,18 @@ use Yii;
  * @property string $Descripcion
  * @property integer $MotivoTicket_idMotivoTicket
  * @property integer $RRHH_idRRHH
- * @property integer $RRHH_TipoRRHH_idTipoRRHH
+ * @property integer $tiporrhh_idTipoRRHH
  * @property integer $Transporte_idTransporte
  * @property integer $Transporte_TIpoTransporte_idTIpoTransporte
  * @property integer $Transporte_RRHH_idRRHH
- * @property integer $Transporte_RRHH_TipoRRHH_idTipoRRHH
+ * @property integer $Transporte_tiporrhh_idTipoRRHH
  * @property string $Fecha
  * @property string $Hora
  *
  * @property Motivoticket $motivoTicketIdMotivoTicket
  * @property Rrhh $rRHHIdRRHH
  * @property Transporte $transporteIdTransporte
+ * @property Tiporrhh $tiporrhhIdTipoRRHH
  */
 class Ticket extends \yii\db\ActiveRecord
 {
@@ -39,8 +40,8 @@ class Ticket extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['MotivoTicket_idMotivoTicket', 'RRHH_idRRHH', 'RRHH_TipoRRHH_idTipoRRHH', 'Transporte_idTransporte', 'Transporte_TIpoTransporte_idTIpoTransporte', 'Transporte_RRHH_idRRHH', 'Transporte_RRHH_TipoRRHH_idTipoRRHH'], 'required'],
-            [['MotivoTicket_idMotivoTicket', 'RRHH_idRRHH', 'RRHH_TipoRRHH_idTipoRRHH', 'Transporte_idTransporte', 'Transporte_TIpoTransporte_idTIpoTransporte', 'Transporte_RRHH_idRRHH', 'Transporte_RRHH_TipoRRHH_idTipoRRHH'], 'integer'],
+            [['MotivoTicket_idMotivoTicket', 'RRHH_idRRHH', 'tiporrhh_idTipoRRHH', 'Transporte_idTransporte', 'Transporte_TIpoTransporte_idTIpoTransporte', 'Transporte_RRHH_idRRHH', 'Transporte_tiporrhh_idTipoRRHH'], 'required'],
+            [['MotivoTicket_idMotivoTicket', 'RRHH_idRRHH', 'tiporrhh_idTipoRRHH', 'Transporte_idTransporte', 'Transporte_TIpoTransporte_idTIpoTransporte', 'Transporte_RRHH_idRRHH', 'Transporte_tiporrhh_idTipoRRHH'], 'integer'],
             [['Fecha', 'Hora'], 'safe'],
             [['Descripcion'], 'string', 'max' => 80]
         ];
@@ -56,11 +57,11 @@ class Ticket extends \yii\db\ActiveRecord
             'Descripcion' => 'Descripcion',
             'MotivoTicket_idMotivoTicket' => 'Motivo Ticket Id Motivo Ticket',
             'RRHH_idRRHH' => 'Rrhh Id Rrhh',
-            'RRHH_TipoRRHH_idTipoRRHH' => 'Rrhh  Tipo Rrhh Id Tipo Rrhh',
+            'tiporrhh_idTipoRRHH' => 'Tiporrhh Id Tipo Rrhh',
             'Transporte_idTransporte' => 'Transporte Id Transporte',
             'Transporte_TIpoTransporte_idTIpoTransporte' => 'Transporte  Tipo Transporte Id Tipo Transporte',
             'Transporte_RRHH_idRRHH' => 'Transporte  Rrhh Id Rrhh',
-            'Transporte_RRHH_TipoRRHH_idTipoRRHH' => 'Transporte  Rrhh  Tipo Rrhh Id Tipo Rrhh',
+            'Transporte_tiporrhh_idTipoRRHH' => 'Transporte Tiporrhh Id Tipo Rrhh',
             'Fecha' => 'Fecha',
             'Hora' => 'Hora',
         ];
@@ -79,7 +80,7 @@ class Ticket extends \yii\db\ActiveRecord
      */
     public function getRRHHIdRRHH()
     {
-        return $this->hasOne(Rrhh::className(), ['idRRHH' => 'RRHH_idRRHH', 'TipoRRHH_idTipoRRHH' => 'RRHH_TipoRRHH_idTipoRRHH']);
+        return $this->hasOne(Rrhh::className(), ['idRRHH' => 'RRHH_idRRHH']);
     }
 
     /**
@@ -87,6 +88,14 @@ class Ticket extends \yii\db\ActiveRecord
      */
     public function getTransporteIdTransporte()
     {
-        return $this->hasOne(Transporte::className(), ['idTransporte' => 'Transporte_idTransporte', 'TIpoTransporte_idTIpoTransporte' => 'Transporte_TIpoTransporte_idTIpoTransporte', 'RRHH_idRRHH' => 'Transporte_RRHH_idRRHH', 'RRHH_TipoRRHH_idTipoRRHH' => 'Transporte_RRHH_TipoRRHH_idTipoRRHH']);
+        return $this->hasOne(Transporte::className(), ['idTransporte' => 'Transporte_idTransporte', 'TIpoTransporte_idTIpoTransporte' => 'Transporte_TIpoTransporte_idTIpoTransporte', 'RRHH_idRRHH' => 'Transporte_RRHH_idRRHH', 'tiporrhh_idTipoRRHH' => 'Transporte_tiporrhh_idTipoRRHH']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTiporrhhIdTipoRRHH()
+    {
+        return $this->hasOne(Tiporrhh::className(), ['idTipoRRHH' => 'tiporrhh_idTipoRRHH']);
     }
 }

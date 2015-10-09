@@ -46,9 +46,12 @@ class SiteController extends Controller {
 		return $this->render ( 'index' );
 	}
 	
+	public function actionNot_has_view() {
+		return $this->render ( 'not_has_view' );
+	}
+	
 	public function actionLogin() {
 		$model = new LoginForm ();
-		$msg = null;
 		if ($model->load ( Yii::$app->request->post () ) && Yii::$app->request->isAjax) {
 			Yii::$app->response->format = Response::FORMAT_JSON;
 			return ActiveForm::validate ( $model );
@@ -57,16 +60,16 @@ class SiteController extends Controller {
 			if ($model->validate ()) {
 				$roleRef=$model->username;$model->username = null;
 				$model->password=null;
-				$msg = $model->getDescriptRole($roleRef);
-				return $this->render($model->getRole($roleRef),["model"=>$model, "msg"=>$msg]);
+				return $this->render($model->getRole($roleRef),
+						["model"=>$model,"msg"=>$model->getDescriptRole($roleRef),
+						"arr"=>$model->getFunctionsRole($roleRef)]);
 			} else {
-				$msg = "Incorrecto, vuelva a intentar...";
 				$model->getErrors ();
 			}
 		}
 		return $this->render ( "login", [
 				'model' => $model,
-				'msg' => $msg
+				'msg' => "Intente otra vez.."
 		] );
 	
 	}

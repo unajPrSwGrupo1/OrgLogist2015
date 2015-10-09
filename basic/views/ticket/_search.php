@@ -23,7 +23,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'RRHH_idRRHH') ?>
 
-    <?= $form->field($model, 'RRHH_TipoRRHH_idTipoRRHH') ?>
+    <?= $form->field($model, 'tiporrhh_idTipoRRHH') ?>
 
     <?php // echo $form->field($model, 'Transporte_idTransporte') ?>
 
@@ -31,7 +31,7 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'Transporte_RRHH_idRRHH') ?>
 
-    <?php // echo $form->field($model, 'Transporte_RRHH_TipoRRHH_idTipoRRHH') ?>
+    <?php // echo $form->field($model, 'Transporte_tiporrhh_idTipoRRHH') ?>
 
     <?php // echo $form->field($model, 'Fecha') ?>
 

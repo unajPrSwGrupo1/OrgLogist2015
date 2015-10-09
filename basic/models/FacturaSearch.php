@@ -18,7 +18,7 @@ class FacturaSearch extends Factura
     public function rules()
     {
         return [
-            [['idFactura', 'RRHH_idRRHH', 'RRHH_TipoRRHH_idTipoRRHH', 'Cliente_idCliente'], 'integer'],
+            [['idFactura', 'RRHH_idRRHH', 'tiporrhh_idTipoRRHH', 'Cliente_idCliente'], 'integer'],
             [['Monto'], 'number'],
             [['Fecha', 'Hora'], 'safe'],
         ];
@@ -60,7 +60,7 @@ class FacturaSearch extends Factura
             'idFactura' => $this->idFactura,
             'Monto' => $this->Monto,
             'RRHH_idRRHH' => $this->RRHH_idRRHH,
-            'RRHH_TipoRRHH_idTipoRRHH' => $this->RRHH_TipoRRHH_idTipoRRHH,
+            'tiporrhh_idTipoRRHH' => $this->tiporrhh_idTipoRRHH,
             'Cliente_idCliente' => $this->Cliente_idCliente,
             'Fecha' => $this->Fecha,
             'Hora' => $this->Hora,

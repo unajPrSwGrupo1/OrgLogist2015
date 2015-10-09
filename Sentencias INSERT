@@ -1,4 +1,39 @@
-INSERT INTO `StockTransporteLogistica`.`tiporrhh` (`idTipoRRHH`, `Tipo`, `descript`) VALUES
+-- phpMyAdmin SQL Dump
+-- version 4.5.0.2
+-- http://www.phpmyadmin.net
+--
+-- Servidor: localhost
+-- Tiempo de generación: 08-10-2015 a las 18:26:23
+-- Versión del servidor: 10.0.21-MariaDB-log
+-- Versión de PHP: 5.6.14
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Base de datos: `StockTransporteLogistica`
+--
+CREATE DATABASE IF NOT EXISTS `StockTransporteLogistica` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `StockTransporteLogistica`;
+
+--
+-- Volcado de datos para la tabla `cliente`
+--
+
+INSERT INTO `cliente` (`idCliente`, `Nombre`, `Telefono`, `Mail`, `Direccion`, `Descripcion`) VALUES
+(1, 'cli1', '44444444', 'cli1@email.org', 'calle 234', 'comentario sobre cli1');
+
+--
+-- Volcado de datos para la tabla `tiporrhh`
+--
+
+INSERT INTO `tiporrhh` (`idTipoRRHH`, `Tipo`, `descript`) VALUES
 (1000, 'adm-stock', 'Administrador del Stock Center'),
 (1001, 'adm-transp', 'Administrador del sistema de gestión de transporte'),
 (1002, 'op-stock', 'Operador del sistema de gestión del Stock Center'),
@@ -7,13 +42,48 @@ INSERT INTO `StockTransporteLogistica`.`tiporrhh` (`idTipoRRHH`, `Tipo`, `descri
 (1005, 'op-salepoint', 'Operador del punto de venta del sistema de logística'),
 (1007, 'conf-sys', 'Configurador del sistema');
 
+--
+-- Volcado de datos para la tabla `func_tiporrhh`
+--
 
-INSERT INTO `StockTransporteLogistica`.`rrhh` (`idRRHH`, `Nombre`, `Apellido`, `Edad`, `Salario`, `Jefe`, `descript`) VALUES 
-(10, 'Jose', 'Perez', 22, '1500.00', NULL, 'Comentaario sobre José Perez' ),
+INSERT INTO `func_tiporrhh` (`idFunc`, `link_func`, `desc_func`, `tiporrhh_idTipoRRHH`) VALUES
+(1, 'http://localhost/basic/web/index.php?r=rrhh/index', 'Datos de los empleados', 1000),
+(2, 'http://localhost/basic/web/index.php?r=tiporrhh', 'Tabla tiporrhh', 1007),
+(3, 'http://localhost/basic/web/index.php?r=site/not_has_view', 'Administracion de Pedidos', 1000),
+(4, 'http://localhost/basic/web/index.php?r=site/not_has_view', 'Mantenimiento de Darsenas', 1000),
+(5, 'http://localhost/basic/web/index.php?r=site/not_has_view', 'Consultas de stock', 1000),
+(6, 'http://localhost/basic/web/index.php?r=cliente/index', 'Mantenimiento de clientes', 1000),
+(7, 'http://localhost/basic/web/index.php?r=user', 'Tabla user', 1007),
+(8, 'http://localhost/basic/web/index.php?r=rrhh/index', 'Tabla rrhh', 1007),
+(9, 'http://localhost/basic/web/index.php?r=transporte/index', 'Mantenimiento de transportes', 1000),
+(10, 'http://localhost/basic/web/index.php?r=factura/index', 'Mantenimiento de facturas', 1000),
+(11, 'http://localhost/basic/web/index.php?r=caja/index', 'Mantenimiento de ítems', 1000),
+(12, 'http://localhost/basic/web/index.php?r=stagearea/index', 'Mantenimiento de Stage Area', 1000),
+(13, 'http://localhost/basic/web/index.php?r=estante/index', 'Mantenimiento de ubicciones', 1000),
+(14, 'http://localhost/basic/web/index.php?r=hojaruta/index', 'Mantenimiento de hojas de ruta', 1000),
+(15, 'http://localhost/basic/web/index.php?r=site/not_has_view', 'Mantenimiento de pallets', 1000),
+(16, 'http://localhost/basic/web/index.php?r=ticket/index', 'Mantenimiento de tickets', 1000),
+(17, 'http://localhost/basic/web/index.php?r=site/not_has_view', 'Reportes varios.', 1000);
+
+--
+-- Volcado de datos para la tabla `rrhh`
+--
+
+INSERT INTO `rrhh` (`idRRHH`, `Nombre`, `Apellido`, `Edad`, `Salario`, `Jefe`, `descript`) VALUES
+(10, 'Jose', 'Perez', 22, '1500.00', NULL, 'Comentario sobre José Perez'),
 (11, 'Alberto', 'Juarez', 40, '20000.00', NULL, 'Comentario sobre Alberto Juarez'),
 (13, 'conf', 'configurador', 10, '10.00', NULL, 'Comentario sobre el configurador'),
 (14, 'usuario1', 'apellido1', 99, '99.00', 10, 'Comentario sobre el usuario1');
 
-INSERT INTO `StockTransporteLogistica`.`user` (`idAutenticacion`, `username`, `password`, `Mail`, `Authkey`, `Token`, `RRHH_idRRHH`, `RRHH_TipoRRHH_idTipoRRHH`, `Fecha`, `Hora`, `activate`) VALUES
+
+--
+-- Volcado de datos para la tabla `user`
+--
+
+INSERT INTO `user` (`idAutenticacion`, `username`, `password`, `Mail`, `Authkey`, `Token`, `RRHH_idRRHH`, `tiporrhh_idTipoRRHH`, `Fecha`, `Hora`, `activate`) VALUES
 (100, 'admin', '00Ko3aqrA3ETk', 'cualqui@gmail.com', '93ead2876301dbb34f9ae1a73430ade9629ab8872ef500ea6daa5b8f51654a513415302b487afbbbfccbda192d4def57ad243b5ea3ef401a23c5434d6f0b5c85f1082cc2518f7f0f92b3c679bea608250848a715efbc5124a3ec0bc1fcd6b5114c0498fe', 'e009894838b9ad0004c1048a6f45daa1011f0bda9f9a3009a211df195b58b602d7738b38138a9eaa711b78a2a61c275552f3491b30c24c323b30948a10dad8680b2bbac40edb063a7d078f8f5bf9ab81d02e04979c8092076754c3985e7506d3c583081f', 10, 1000, '2015-09-08', '12:22:24', 1),
 (101, 'conf', '003308eA/mHG2', 'daniel_sce672@yahoo.com.ar', 'a9351cf9c4085ea6a5cb499b8db92cf2b9e3b32de9c9ec6e78027f36356b7b49b82c2b06b35f61440ace06a916ae84e936cb7378c2e9a930a641340a11ffc3f5026db3cec1dc17314d8d8fef6359db433174ba9d2d09b915df9b4e018c0bdb563314308c', '3eb4e201803349a2b14e3fbc8262844296dee46caf64f6d1e767c7abf64e1e71bb5f52257e0db34000d3de53af82469675c2e5dc94fbe915f5e39ada0b3b7375e9d34154ba6f9daf9f890b96d37bc56149ae1592558599a8e884a81e1ef39ba4ba9268a1', 13, 1007, '2015-10-14', '07:39:19', 1);
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

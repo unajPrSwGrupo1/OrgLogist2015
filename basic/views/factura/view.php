@@ -15,8 +15,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'idFactura' => $model->idFactura, 'RRHH_idRRHH' => $model->RRHH_idRRHH, 'RRHH_TipoRRHH_idTipoRRHH' => $model->RRHH_TipoRRHH_idTipoRRHH, 'Cliente_idCliente' => $model->Cliente_idCliente], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'idFactura' => $model->idFactura, 'RRHH_idRRHH' => $model->RRHH_idRRHH, 'RRHH_TipoRRHH_idTipoRRHH' => $model->RRHH_TipoRRHH_idTipoRRHH, 'Cliente_idCliente' => $model->Cliente_idCliente], [
+        <?= Html::a('Update', ['update', 'idFactura' => $model->idFactura, 'RRHH_idRRHH' => $model->RRHH_idRRHH, 'tiporrhh_idTipoRRHH' => $model->tiporrhh_idTipoRRHH, 'Cliente_idCliente' => $model->Cliente_idCliente], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Delete', ['delete', 'idFactura' => $model->idFactura, 'RRHH_idRRHH' => $model->RRHH_idRRHH, 'tiporrhh_idTipoRRHH' => $model->tiporrhh_idTipoRRHH, 'Cliente_idCliente' => $model->Cliente_idCliente], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'idFactura',
             'Monto',
             'RRHH_idRRHH',
-            'RRHH_TipoRRHH_idTipoRRHH',
+            'tiporrhh_idTipoRRHH',
             'Cliente_idCliente',
             'Fecha',
             'Hora',

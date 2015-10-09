@@ -18,7 +18,7 @@ class HojarutaSearch extends Hojaruta
     public function rules()
     {
         return [
-            [['idHojaRuta', 'cantCajas', 'cantPallets', 'Transporte_idTransporte', 'Transporte_TIpoTransporte_idTIpoTransporte', 'Transporte_RRHH_idRRHH', 'Transporte_RRHH_TipoRRHH_idTipoRRHH'], 'integer'],
+            [['idHojaRuta', 'cantCajas', 'cantPallets', 'Transporte_idTransporte', 'Transporte_TIpoTransporte_idTIpoTransporte', 'Transporte_RRHH_idRRHH', 'Transporte_tiporrhh_idTipoRRHH'], 'integer'],
             [['Destino'], 'safe'],
         ];
     }
@@ -62,7 +62,7 @@ class HojarutaSearch extends Hojaruta
             'Transporte_idTransporte' => $this->Transporte_idTransporte,
             'Transporte_TIpoTransporte_idTIpoTransporte' => $this->Transporte_TIpoTransporte_idTIpoTransporte,
             'Transporte_RRHH_idRRHH' => $this->Transporte_RRHH_idRRHH,
-            'Transporte_RRHH_TipoRRHH_idTipoRRHH' => $this->Transporte_RRHH_TipoRRHH_idTipoRRHH,
+            'Transporte_tiporrhh_idTipoRRHH' => $this->Transporte_tiporrhh_idTipoRRHH,
         ]);
 
         $query->andFilterWhere(['like', 'Destino', $this->Destino]);

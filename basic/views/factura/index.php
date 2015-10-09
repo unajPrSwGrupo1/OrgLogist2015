@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'idFactura',
             'Monto',
             'RRHH_idRRHH',
-            'RRHH_TipoRRHH_idTipoRRHH',
+            'tiporrhh_idTipoRRHH',
             'Cliente_idCliente',
             // 'Fecha',
             // 'Hora',

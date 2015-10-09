@@ -29,7 +29,7 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'Transporte_RRHH_idRRHH') ?>
 
-    <?php // echo $form->field($model, 'Transporte_RRHH_TipoRRHH_idTipoRRHH') ?>
+    <?php // echo $form->field($model, 'Transporte_tiporrhh_idTipoRRHH') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

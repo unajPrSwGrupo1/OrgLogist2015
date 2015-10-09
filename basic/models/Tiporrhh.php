@@ -11,7 +11,13 @@ use Yii;
  * @property string $Tipo
  * @property string $descript
  *
- * @property Rrhh[] $rrhhs
+ * @property Factura[] $facturas
+ * @property FuncTiporrhh[] $funcTiporrhhs
+ * @property Pedido[] $pedidos
+ * @property Stockcenter[] $stockcenters
+ * @property Ticket[] $tickets
+ * @property Transporte[] $transportes
+ * @property User[] $users
  */
 class Tiporrhh extends \yii\db\ActiveRecord
 {
@@ -50,8 +56,56 @@ class Tiporrhh extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getRrhhs()
+    public function getFacturas()
     {
-        return $this->hasMany(Rrhh::className(), ['TipoRRHH_idTipoRRHH' => 'idTipoRRHH']);
+        return $this->hasMany(Factura::className(), ['tiporrhh_idTipoRRHH' => 'idTipoRRHH']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getFuncTiporrhhs()
+    {
+        return $this->hasMany(FuncTiporrhh::className(), ['tiporrhh_idTipoRRHH' => 'idTipoRRHH']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPedidos()
+    {
+        return $this->hasMany(Pedido::className(), ['tiporrhh_idTipoRRHH' => 'idTipoRRHH']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getStockcenters()
+    {
+        return $this->hasMany(Stockcenter::className(), ['tiporrhh_idTipoRRHH' => 'idTipoRRHH']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTickets()
+    {
+        return $this->hasMany(Ticket::className(), ['tiporrhh_idTipoRRHH' => 'idTipoRRHH']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTransportes()
+    {
+        return $this->hasMany(Transporte::className(), ['tiporrhh_idTipoRRHH' => 'idTipoRRHH']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUsers()
+    {
+        return $this->hasMany(User::className(), ['tiporrhh_idTipoRRHH' => 'idTipoRRHH']);
     }
 }

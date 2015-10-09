@@ -10,13 +10,14 @@ use Yii;
  * @property integer $idFactura
  * @property string $Monto
  * @property integer $RRHH_idRRHH
- * @property integer $RRHH_TipoRRHH_idTipoRRHH
+ * @property integer $tiporrhh_idTipoRRHH
  * @property integer $Cliente_idCliente
  * @property string $Fecha
  * @property string $Hora
  *
  * @property Cliente $clienteIdCliente
  * @property Rrhh $rRHHIdRRHH
+ * @property Tiporrhh $tiporrhhIdTipoRRHH
  */
 class Factura extends \yii\db\ActiveRecord
 {
@@ -34,9 +35,9 @@ class Factura extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Monto', 'RRHH_idRRHH', 'RRHH_TipoRRHH_idTipoRRHH', 'Cliente_idCliente'], 'required'],
+            [['Monto', 'RRHH_idRRHH', 'tiporrhh_idTipoRRHH', 'Cliente_idCliente'], 'required'],
             [['Monto'], 'number'],
-            [['RRHH_idRRHH', 'RRHH_TipoRRHH_idTipoRRHH', 'Cliente_idCliente'], 'integer'],
+            [['RRHH_idRRHH', 'tiporrhh_idTipoRRHH', 'Cliente_idCliente'], 'integer'],
             [['Fecha', 'Hora'], 'safe']
         ];
     }
@@ -50,7 +51,7 @@ class Factura extends \yii\db\ActiveRecord
             'idFactura' => 'Id Factura',
             'Monto' => 'Monto',
             'RRHH_idRRHH' => 'Rrhh Id Rrhh',
-            'RRHH_TipoRRHH_idTipoRRHH' => 'Rrhh  Tipo Rrhh Id Tipo Rrhh',
+            'tiporrhh_idTipoRRHH' => 'Tiporrhh Id Tipo Rrhh',
             'Cliente_idCliente' => 'Cliente Id Cliente',
             'Fecha' => 'Fecha',
             'Hora' => 'Hora',
@@ -70,6 +71,14 @@ class Factura extends \yii\db\ActiveRecord
      */
     public function getRRHHIdRRHH()
     {
-        return $this->hasOne(Rrhh::className(), ['idRRHH' => 'RRHH_idRRHH', 'TipoRRHH_idTipoRRHH' => 'RRHH_TipoRRHH_idTipoRRHH']);
+        return $this->hasOne(Rrhh::className(), ['idRRHH' => 'RRHH_idRRHH']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTiporrhhIdTipoRRHH()
+    {
+        return $this->hasOne(Tiporrhh::className(), ['idTipoRRHH' => 'tiporrhh_idTipoRRHH']);
     }
 }

@@ -14,7 +14,7 @@ use Yii;
  * @property integer $Transporte_idTransporte
  * @property integer $Transporte_TIpoTransporte_idTIpoTransporte
  * @property integer $Transporte_RRHH_idRRHH
- * @property integer $Transporte_RRHH_TipoRRHH_idTipoRRHH
+ * @property integer $Transporte_tiporrhh_idTipoRRHH
  *
  * @property Transporte $transporteIdTransporte
  */
@@ -34,8 +34,8 @@ class Hojaruta extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Destino', 'cantCajas', 'cantPallets', 'Transporte_idTransporte', 'Transporte_TIpoTransporte_idTIpoTransporte', 'Transporte_RRHH_idRRHH', 'Transporte_RRHH_TipoRRHH_idTipoRRHH'], 'required'],
-            [['cantCajas', 'cantPallets', 'Transporte_idTransporte', 'Transporte_TIpoTransporte_idTIpoTransporte', 'Transporte_RRHH_idRRHH', 'Transporte_RRHH_TipoRRHH_idTipoRRHH'], 'integer'],
+            [['Destino', 'cantCajas', 'cantPallets', 'Transporte_idTransporte', 'Transporte_TIpoTransporte_idTIpoTransporte', 'Transporte_RRHH_idRRHH', 'Transporte_tiporrhh_idTipoRRHH'], 'required'],
+            [['cantCajas', 'cantPallets', 'Transporte_idTransporte', 'Transporte_TIpoTransporte_idTIpoTransporte', 'Transporte_RRHH_idRRHH', 'Transporte_tiporrhh_idTipoRRHH'], 'integer'],
             [['Destino'], 'string', 'max' => 45]
         ];
     }
@@ -53,7 +53,7 @@ class Hojaruta extends \yii\db\ActiveRecord
             'Transporte_idTransporte' => 'Transporte Id Transporte',
             'Transporte_TIpoTransporte_idTIpoTransporte' => 'Transporte  Tipo Transporte Id Tipo Transporte',
             'Transporte_RRHH_idRRHH' => 'Transporte  Rrhh Id Rrhh',
-            'Transporte_RRHH_TipoRRHH_idTipoRRHH' => 'Transporte  Rrhh  Tipo Rrhh Id Tipo Rrhh',
+            'Transporte_tiporrhh_idTipoRRHH' => 'Transporte Tiporrhh Id Tipo Rrhh',
         ];
     }
 
@@ -62,6 +62,6 @@ class Hojaruta extends \yii\db\ActiveRecord
      */
     public function getTransporteIdTransporte()
     {
-        return $this->hasOne(Transporte::className(), ['idTransporte' => 'Transporte_idTransporte', 'TIpoTransporte_idTIpoTransporte' => 'Transporte_TIpoTransporte_idTIpoTransporte', 'RRHH_idRRHH' => 'Transporte_RRHH_idRRHH', 'RRHH_TipoRRHH_idTipoRRHH' => 'Transporte_RRHH_TipoRRHH_idTipoRRHH']);
+        return $this->hasOne(Transporte::className(), ['idTransporte' => 'Transporte_idTransporte', 'TIpoTransporte_idTIpoTransporte' => 'Transporte_TIpoTransporte_idTIpoTransporte', 'RRHH_idRRHH' => 'Transporte_RRHH_idRRHH', 'tiporrhh_idTipoRRHH' => 'Transporte_tiporrhh_idTipoRRHH']);
     }
 }

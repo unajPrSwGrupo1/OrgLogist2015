@@ -46,13 +46,13 @@ class TransporteController extends Controller
      * @param integer $idTransporte
      * @param integer $TIpoTransporte_idTIpoTransporte
      * @param integer $RRHH_idRRHH
-     * @param integer $RRHH_TipoRRHH_idTipoRRHH
+     * @param integer $tiporrhh_idTipoRRHH
      * @return mixed
      */
-    public function actionView($idTransporte, $TIpoTransporte_idTIpoTransporte, $RRHH_idRRHH, $RRHH_TipoRRHH_idTipoRRHH)
+    public function actionView($idTransporte, $TIpoTransporte_idTIpoTransporte, $RRHH_idRRHH, $tiporrhh_idTipoRRHH)
     {
         return $this->render('view', [
-            'model' => $this->findModel($idTransporte, $TIpoTransporte_idTIpoTransporte, $RRHH_idRRHH, $RRHH_TipoRRHH_idTipoRRHH),
+            'model' => $this->findModel($idTransporte, $TIpoTransporte_idTIpoTransporte, $RRHH_idRRHH, $tiporrhh_idTipoRRHH),
         ]);
     }
 
@@ -66,7 +66,7 @@ class TransporteController extends Controller
         $model = new Transporte();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'idTransporte' => $model->idTransporte, 'TIpoTransporte_idTIpoTransporte' => $model->TIpoTransporte_idTIpoTransporte, 'RRHH_idRRHH' => $model->RRHH_idRRHH, 'RRHH_TipoRRHH_idTipoRRHH' => $model->RRHH_TipoRRHH_idTipoRRHH]);
+            return $this->redirect(['view', 'idTransporte' => $model->idTransporte, 'TIpoTransporte_idTIpoTransporte' => $model->TIpoTransporte_idTIpoTransporte, 'RRHH_idRRHH' => $model->RRHH_idRRHH, 'tiporrhh_idTipoRRHH' => $model->tiporrhh_idTipoRRHH]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -80,15 +80,15 @@ class TransporteController extends Controller
      * @param integer $idTransporte
      * @param integer $TIpoTransporte_idTIpoTransporte
      * @param integer $RRHH_idRRHH
-     * @param integer $RRHH_TipoRRHH_idTipoRRHH
+     * @param integer $tiporrhh_idTipoRRHH
      * @return mixed
      */
-    public function actionUpdate($idTransporte, $TIpoTransporte_idTIpoTransporte, $RRHH_idRRHH, $RRHH_TipoRRHH_idTipoRRHH)
+    public function actionUpdate($idTransporte, $TIpoTransporte_idTIpoTransporte, $RRHH_idRRHH, $tiporrhh_idTipoRRHH)
     {
-        $model = $this->findModel($idTransporte, $TIpoTransporte_idTIpoTransporte, $RRHH_idRRHH, $RRHH_TipoRRHH_idTipoRRHH);
+        $model = $this->findModel($idTransporte, $TIpoTransporte_idTIpoTransporte, $RRHH_idRRHH, $tiporrhh_idTipoRRHH);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'idTransporte' => $model->idTransporte, 'TIpoTransporte_idTIpoTransporte' => $model->TIpoTransporte_idTIpoTransporte, 'RRHH_idRRHH' => $model->RRHH_idRRHH, 'RRHH_TipoRRHH_idTipoRRHH' => $model->RRHH_TipoRRHH_idTipoRRHH]);
+            return $this->redirect(['view', 'idTransporte' => $model->idTransporte, 'TIpoTransporte_idTIpoTransporte' => $model->TIpoTransporte_idTIpoTransporte, 'RRHH_idRRHH' => $model->RRHH_idRRHH, 'tiporrhh_idTipoRRHH' => $model->tiporrhh_idTipoRRHH]);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -102,12 +102,12 @@ class TransporteController extends Controller
      * @param integer $idTransporte
      * @param integer $TIpoTransporte_idTIpoTransporte
      * @param integer $RRHH_idRRHH
-     * @param integer $RRHH_TipoRRHH_idTipoRRHH
+     * @param integer $tiporrhh_idTipoRRHH
      * @return mixed
      */
-    public function actionDelete($idTransporte, $TIpoTransporte_idTIpoTransporte, $RRHH_idRRHH, $RRHH_TipoRRHH_idTipoRRHH)
+    public function actionDelete($idTransporte, $TIpoTransporte_idTIpoTransporte, $RRHH_idRRHH, $tiporrhh_idTipoRRHH)
     {
-        $this->findModel($idTransporte, $TIpoTransporte_idTIpoTransporte, $RRHH_idRRHH, $RRHH_TipoRRHH_idTipoRRHH)->delete();
+        $this->findModel($idTransporte, $TIpoTransporte_idTIpoTransporte, $RRHH_idRRHH, $tiporrhh_idTipoRRHH)->delete();
 
         return $this->redirect(['index']);
     }
@@ -118,13 +118,13 @@ class TransporteController extends Controller
      * @param integer $idTransporte
      * @param integer $TIpoTransporte_idTIpoTransporte
      * @param integer $RRHH_idRRHH
-     * @param integer $RRHH_TipoRRHH_idTipoRRHH
+     * @param integer $tiporrhh_idTipoRRHH
      * @return Transporte the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($idTransporte, $TIpoTransporte_idTIpoTransporte, $RRHH_idRRHH, $RRHH_TipoRRHH_idTipoRRHH)
+    protected function findModel($idTransporte, $TIpoTransporte_idTIpoTransporte, $RRHH_idRRHH, $tiporrhh_idTipoRRHH)
     {
-        if (($model = Transporte::findOne(['idTransporte' => $idTransporte, 'TIpoTransporte_idTIpoTransporte' => $TIpoTransporte_idTIpoTransporte, 'RRHH_idRRHH' => $RRHH_idRRHH, 'RRHH_TipoRRHH_idTipoRRHH' => $RRHH_TipoRRHH_idTipoRRHH])) !== null) {
+        if (($model = Transporte::findOne(['idTransporte' => $idTransporte, 'TIpoTransporte_idTIpoTransporte' => $TIpoTransporte_idTIpoTransporte, 'RRHH_idRRHH' => $RRHH_idRRHH, 'tiporrhh_idTipoRRHH' => $tiporrhh_idTipoRRHH])) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

@@ -22,7 +22,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'Jefe')->textInput() ?>
 
-    <?= $form->field($model, 'TipoRRHH_idTipoRRHH')->textInput() ?>
+    <?= $form->field($model, 'descript')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

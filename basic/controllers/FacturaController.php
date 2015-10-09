@@ -45,14 +45,14 @@ class FacturaController extends Controller
      * Displays a single Factura model.
      * @param integer $idFactura
      * @param integer $RRHH_idRRHH
-     * @param integer $RRHH_TipoRRHH_idTipoRRHH
+     * @param integer $tiporrhh_idTipoRRHH
      * @param integer $Cliente_idCliente
      * @return mixed
      */
-    public function actionView($idFactura, $RRHH_idRRHH, $RRHH_TipoRRHH_idTipoRRHH, $Cliente_idCliente)
+    public function actionView($idFactura, $RRHH_idRRHH, $tiporrhh_idTipoRRHH, $Cliente_idCliente)
     {
         return $this->render('view', [
-            'model' => $this->findModel($idFactura, $RRHH_idRRHH, $RRHH_TipoRRHH_idTipoRRHH, $Cliente_idCliente),
+            'model' => $this->findModel($idFactura, $RRHH_idRRHH, $tiporrhh_idTipoRRHH, $Cliente_idCliente),
         ]);
     }
 
@@ -66,7 +66,7 @@ class FacturaController extends Controller
         $model = new Factura();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'idFactura' => $model->idFactura, 'RRHH_idRRHH' => $model->RRHH_idRRHH, 'RRHH_TipoRRHH_idTipoRRHH' => $model->RRHH_TipoRRHH_idTipoRRHH, 'Cliente_idCliente' => $model->Cliente_idCliente]);
+            return $this->redirect(['view', 'idFactura' => $model->idFactura, 'RRHH_idRRHH' => $model->RRHH_idRRHH, 'tiporrhh_idTipoRRHH' => $model->tiporrhh_idTipoRRHH, 'Cliente_idCliente' => $model->Cliente_idCliente]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -79,16 +79,16 @@ class FacturaController extends Controller
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $idFactura
      * @param integer $RRHH_idRRHH
-     * @param integer $RRHH_TipoRRHH_idTipoRRHH
+     * @param integer $tiporrhh_idTipoRRHH
      * @param integer $Cliente_idCliente
      * @return mixed
      */
-    public function actionUpdate($idFactura, $RRHH_idRRHH, $RRHH_TipoRRHH_idTipoRRHH, $Cliente_idCliente)
+    public function actionUpdate($idFactura, $RRHH_idRRHH, $tiporrhh_idTipoRRHH, $Cliente_idCliente)
     {
-        $model = $this->findModel($idFactura, $RRHH_idRRHH, $RRHH_TipoRRHH_idTipoRRHH, $Cliente_idCliente);
+        $model = $this->findModel($idFactura, $RRHH_idRRHH, $tiporrhh_idTipoRRHH, $Cliente_idCliente);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'idFactura' => $model->idFactura, 'RRHH_idRRHH' => $model->RRHH_idRRHH, 'RRHH_TipoRRHH_idTipoRRHH' => $model->RRHH_TipoRRHH_idTipoRRHH, 'Cliente_idCliente' => $model->Cliente_idCliente]);
+            return $this->redirect(['view', 'idFactura' => $model->idFactura, 'RRHH_idRRHH' => $model->RRHH_idRRHH, 'tiporrhh_idTipoRRHH' => $model->tiporrhh_idTipoRRHH, 'Cliente_idCliente' => $model->Cliente_idCliente]);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -101,13 +101,13 @@ class FacturaController extends Controller
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $idFactura
      * @param integer $RRHH_idRRHH
-     * @param integer $RRHH_TipoRRHH_idTipoRRHH
+     * @param integer $tiporrhh_idTipoRRHH
      * @param integer $Cliente_idCliente
      * @return mixed
      */
-    public function actionDelete($idFactura, $RRHH_idRRHH, $RRHH_TipoRRHH_idTipoRRHH, $Cliente_idCliente)
+    public function actionDelete($idFactura, $RRHH_idRRHH, $tiporrhh_idTipoRRHH, $Cliente_idCliente)
     {
-        $this->findModel($idFactura, $RRHH_idRRHH, $RRHH_TipoRRHH_idTipoRRHH, $Cliente_idCliente)->delete();
+        $this->findModel($idFactura, $RRHH_idRRHH, $tiporrhh_idTipoRRHH, $Cliente_idCliente)->delete();
 
         return $this->redirect(['index']);
     }
@@ -117,14 +117,14 @@ class FacturaController extends Controller
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $idFactura
      * @param integer $RRHH_idRRHH
-     * @param integer $RRHH_TipoRRHH_idTipoRRHH
+     * @param integer $tiporrhh_idTipoRRHH
      * @param integer $Cliente_idCliente
      * @return Factura the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($idFactura, $RRHH_idRRHH, $RRHH_TipoRRHH_idTipoRRHH, $Cliente_idCliente)
+    protected function findModel($idFactura, $RRHH_idRRHH, $tiporrhh_idTipoRRHH, $Cliente_idCliente)
     {
-        if (($model = Factura::findOne(['idFactura' => $idFactura, 'RRHH_idRRHH' => $RRHH_idRRHH, 'RRHH_TipoRRHH_idTipoRRHH' => $RRHH_TipoRRHH_idTipoRRHH, 'Cliente_idCliente' => $Cliente_idCliente])) !== null) {
+        if (($model = Factura::findOne(['idFactura' => $idFactura, 'RRHH_idRRHH' => $RRHH_idRRHH, 'tiporrhh_idTipoRRHH' => $tiporrhh_idTipoRRHH, 'Cliente_idCliente' => $Cliente_idCliente])) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
