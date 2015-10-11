@@ -22,8 +22,7 @@ font-weight: bold;
         <div class="col-sm-3 col-md-5 sidebar">
           <ul class="nav nav-sidebar">
             <!--li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li-->
-			
-            <li><a href="http://localhost/basic/web/index.php" style="color:#000000;" >En Construcción, disculpe las molestias...</a></li>
+            <li><a href=<?php echo("\"".$urlhead."/basic/web/index.php\"")?> style="color:#000000;" >En Construcción, disculpe las molestias...</a></li>
             </ul>
                 
              </div>    

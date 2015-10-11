@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 09-10-2015 a las 19:57:19
+-- Tiempo de generación: 11-10-2015 a las 12:12:23
 -- Versión del servidor: 10.0.21-MariaDB-log
 -- Versión de PHP: 5.6.14
 
@@ -19,6 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `StockTransporteLogistica`
 --
+CREATE DATABASE IF NOT EXISTS `StockTransporteLogistica` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `StockTransporteLogistica`;
 
 -- --------------------------------------------------------
 
@@ -26,11 +28,13 @@ SET time_zone = "+00:00";
 -- Estructura de tabla para la tabla `caja`
 --
 
-CREATE TABLE `caja` (
-  `idCaja` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `caja` (
+  `idCaja` int(11) NOT NULL AUTO_INCREMENT,
   `Peso` int(11) NOT NULL,
   `Volumen` int(11) NOT NULL,
-  `TipoCaja_idTipoCaja` int(11) NOT NULL
+  `TipoCaja_idTipoCaja` int(11) NOT NULL,
+  PRIMARY KEY (`idCaja`,`TipoCaja_idTipoCaja`),
+  KEY `fk_Caja_TipoCaja1_idx` (`TipoCaja_idTipoCaja`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -39,14 +43,15 @@ CREATE TABLE `caja` (
 -- Estructura de tabla para la tabla `cliente`
 --
 
-CREATE TABLE `cliente` (
-  `idCliente` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `cliente` (
+  `idCliente` int(11) NOT NULL AUTO_INCREMENT,
   `Nombre` varchar(45) DEFAULT NULL,
   `Telefono` varchar(45) DEFAULT NULL,
   `Mail` varchar(60) DEFAULT NULL,
   `Direccion` varchar(45) DEFAULT NULL,
-  `Descripcion` varchar(45) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `Descripcion` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`idCliente`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -54,11 +59,13 @@ CREATE TABLE `cliente` (
 -- Estructura de tabla para la tabla `darsena`
 --
 
-CREATE TABLE `darsena` (
-  `idDarsena` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `darsena` (
+  `idDarsena` int(11) NOT NULL AUTO_INCREMENT,
   `Nombre` varchar(45) DEFAULT NULL,
   `Descripcion` varchar(80) DEFAULT NULL,
-  `DarsenaEstado_idDarsenaEstado` int(11) NOT NULL
+  `DarsenaEstado_idDarsenaEstado` int(11) NOT NULL,
+  PRIMARY KEY (`idDarsena`,`DarsenaEstado_idDarsenaEstado`),
+  KEY `fk_Darsena_DarsenaEstado1_idx` (`DarsenaEstado_idDarsenaEstado`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -67,9 +74,10 @@ CREATE TABLE `darsena` (
 -- Estructura de tabla para la tabla `darsenaestado`
 --
 
-CREATE TABLE `darsenaestado` (
-  `idDarsenaEstado` int(11) NOT NULL,
-  `Estado` varchar(45) NOT NULL
+CREATE TABLE IF NOT EXISTS `darsenaestado` (
+  `idDarsenaEstado` int(11) NOT NULL AUTO_INCREMENT,
+  `Estado` varchar(45) NOT NULL,
+  PRIMARY KEY (`idDarsenaEstado`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -78,11 +86,13 @@ CREATE TABLE `darsenaestado` (
 -- Estructura de tabla para la tabla `estante`
 --
 
-CREATE TABLE `estante` (
-  `idEstante` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `estante` (
+  `idEstante` int(11) NOT NULL AUTO_INCREMENT,
   `Fila` varchar(45) NOT NULL,
   `Columna` varchar(45) NOT NULL,
-  `EstanteEstado_idEstanteEstado` int(11) NOT NULL
+  `EstanteEstado_idEstanteEstado` int(11) NOT NULL,
+  PRIMARY KEY (`idEstante`,`EstanteEstado_idEstanteEstado`),
+  KEY `fk_Estante_EstanteEstado1_idx` (`EstanteEstado_idEstanteEstado`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -91,9 +101,10 @@ CREATE TABLE `estante` (
 -- Estructura de tabla para la tabla `estanteestado`
 --
 
-CREATE TABLE `estanteestado` (
-  `idEstanteEstado` int(11) NOT NULL,
-  `Estado` varchar(45) NOT NULL
+CREATE TABLE IF NOT EXISTS `estanteestado` (
+  `idEstanteEstado` int(11) NOT NULL AUTO_INCREMENT,
+  `Estado` varchar(45) NOT NULL,
+  PRIMARY KEY (`idEstanteEstado`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -102,11 +113,14 @@ CREATE TABLE `estanteestado` (
 -- Estructura de tabla para la tabla `estante_has_caja`
 --
 
-CREATE TABLE `estante_has_caja` (
+CREATE TABLE IF NOT EXISTS `estante_has_caja` (
   `Estante_idEstante` int(11) NOT NULL,
   `Estante_EstanteEstado_idEstanteEstado` int(11) NOT NULL,
   `Caja_idCaja` int(11) NOT NULL,
-  `Caja_TipoCaja_idTipoCaja` int(11) NOT NULL
+  `Caja_TipoCaja_idTipoCaja` int(11) NOT NULL,
+  PRIMARY KEY (`Estante_idEstante`,`Estante_EstanteEstado_idEstanteEstado`,`Caja_idCaja`,`Caja_TipoCaja_idTipoCaja`),
+  KEY `fk_Estante_has_Caja_Caja1_idx` (`Caja_idCaja`,`Caja_TipoCaja_idTipoCaja`),
+  KEY `fk_Estante_has_Caja_Estante1_idx` (`Estante_idEstante`,`Estante_EstanteEstado_idEstanteEstado`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -115,14 +129,18 @@ CREATE TABLE `estante_has_caja` (
 -- Estructura de tabla para la tabla `factura`
 --
 
-CREATE TABLE `factura` (
-  `idFactura` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `factura` (
+  `idFactura` int(11) NOT NULL AUTO_INCREMENT,
   `Monto` decimal(10,2) NOT NULL,
   `RRHH_idRRHH` int(11) NOT NULL,
   `tiporrhh_idTipoRRHH` int(11) NOT NULL,
   `Cliente_idCliente` int(11) NOT NULL,
   `Fecha` date DEFAULT NULL,
-  `Hora` time DEFAULT NULL
+  `Hora` time DEFAULT NULL,
+  PRIMARY KEY (`idFactura`,`RRHH_idRRHH`,`tiporrhh_idTipoRRHH`,`Cliente_idCliente`),
+  KEY `fk_Factura_RRHH1_idx` (`RRHH_idRRHH`,`tiporrhh_idTipoRRHH`),
+  KEY `fk_Factura_Cliente1_idx` (`Cliente_idCliente`),
+  KEY `fk_Factura_tiporrhh1` (`tiporrhh_idTipoRRHH`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -131,12 +149,14 @@ CREATE TABLE `factura` (
 -- Estructura de tabla para la tabla `func_tiporrhh`
 --
 
-CREATE TABLE `func_tiporrhh` (
-  `idFunc` int(11) NOT NULL,
-  `link_func` varchar(200) NOT NULL DEFAULT 'http://localhost/basic/web/index.php?r=site/not_has_view',
+CREATE TABLE IF NOT EXISTS `func_tiporrhh` (
+  `idFunc` int(11) NOT NULL AUTO_INCREMENT,
+  `link_func` varchar(200) NOT NULL DEFAULT '/basic/web/index.php?r=site/not_has_view',
   `desc_func` varchar(140) DEFAULT NULL,
-  `tiporrhh_idTipoRRHH` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `tiporrhh_idTipoRRHH` int(11) NOT NULL,
+  PRIMARY KEY (`idFunc`),
+  KEY `tiporrhh_idTipoRRHH` (`tiporrhh_idTipoRRHH`)
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -144,15 +164,17 @@ CREATE TABLE `func_tiporrhh` (
 -- Estructura de tabla para la tabla `hojaruta`
 --
 
-CREATE TABLE `hojaruta` (
-  `idHojaRuta` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `hojaruta` (
+  `idHojaRuta` int(11) NOT NULL AUTO_INCREMENT,
   `Destino` varchar(45) NOT NULL,
   `cantCajas` int(11) NOT NULL,
   `cantPallets` int(11) NOT NULL,
   `Transporte_idTransporte` int(11) NOT NULL,
   `Transporte_TIpoTransporte_idTIpoTransporte` int(11) NOT NULL,
   `Transporte_RRHH_idRRHH` int(11) NOT NULL,
-  `Transporte_tiporrhh_idTipoRRHH` int(11) NOT NULL
+  `Transporte_tiporrhh_idTipoRRHH` int(11) NOT NULL,
+  PRIMARY KEY (`idHojaRuta`,`Transporte_idTransporte`,`Transporte_TIpoTransporte_idTIpoTransporte`,`Transporte_RRHH_idRRHH`,`Transporte_tiporrhh_idTipoRRHH`),
+  KEY `fk_HojaRuta_Transporte1_idx` (`Transporte_idTransporte`,`Transporte_TIpoTransporte_idTIpoTransporte`,`Transporte_RRHH_idRRHH`,`Transporte_tiporrhh_idTipoRRHH`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -161,9 +183,10 @@ CREATE TABLE `hojaruta` (
 -- Estructura de tabla para la tabla `motivoticket`
 --
 
-CREATE TABLE `motivoticket` (
-  `idMotivoTicket` int(11) NOT NULL,
-  `Motivo` varchar(45) DEFAULT NULL
+CREATE TABLE IF NOT EXISTS `motivoticket` (
+  `idMotivoTicket` int(11) NOT NULL AUTO_INCREMENT,
+  `Motivo` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`idMotivoTicket`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -172,11 +195,12 @@ CREATE TABLE `motivoticket` (
 -- Estructura de tabla para la tabla `pallet`
 --
 
-CREATE TABLE `pallet` (
-  `idPallet` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `pallet` (
+  `idPallet` int(11) NOT NULL AUTO_INCREMENT,
   `cantCajas` int(11) DEFAULT NULL,
   `Peso` int(11) DEFAULT NULL,
-  `Volumen` int(11) DEFAULT NULL
+  `Volumen` int(11) DEFAULT NULL,
+  PRIMARY KEY (`idPallet`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -185,10 +209,13 @@ CREATE TABLE `pallet` (
 -- Estructura de tabla para la tabla `pallet_has_caja`
 --
 
-CREATE TABLE `pallet_has_caja` (
+CREATE TABLE IF NOT EXISTS `pallet_has_caja` (
   `Pallet_idPallet` int(11) NOT NULL,
   `Caja_idCaja` int(11) NOT NULL,
-  `Caja_TipoCaja_idTipoCaja` int(11) NOT NULL
+  `Caja_TipoCaja_idTipoCaja` int(11) NOT NULL,
+  PRIMARY KEY (`Pallet_idPallet`,`Caja_idCaja`,`Caja_TipoCaja_idTipoCaja`),
+  KEY `fk_Pallet_has_Caja_Pallet1_idx` (`Pallet_idPallet`),
+  KEY `fk_Pallet_has_Caja_Caja1_idx` (`Caja_idCaja`,`Caja_TipoCaja_idTipoCaja`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -197,7 +224,7 @@ CREATE TABLE `pallet_has_caja` (
 -- Estructura de tabla para la tabla `pedido`
 --
 
-CREATE TABLE `pedido` (
+CREATE TABLE IF NOT EXISTS `pedido` (
   `idPedido` int(11) NOT NULL,
   `cantCajas` int(11) DEFAULT NULL,
   `cantPallets` int(11) DEFAULT NULL,
@@ -205,7 +232,11 @@ CREATE TABLE `pedido` (
   `tiporrhh_idTipoRRHH` int(11) NOT NULL,
   `Cliente_idCliente` int(11) NOT NULL,
   `Fecha` date DEFAULT NULL,
-  `Hora` time DEFAULT NULL
+  `Hora` time DEFAULT NULL,
+  PRIMARY KEY (`idPedido`,`RRHH_idRRHH`,`tiporrhh_idTipoRRHH`,`Cliente_idCliente`),
+  KEY `fk_Pedido_RRHH1_idx` (`RRHH_idRRHH`,`tiporrhh_idTipoRRHH`),
+  KEY `fk_Pedido_Cliente1_idx` (`Cliente_idCliente`),
+  KEY `fk_Pedido_tiporrhh1` (`tiporrhh_idTipoRRHH`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -214,15 +245,16 @@ CREATE TABLE `pedido` (
 -- Estructura de tabla para la tabla `rrhh`
 --
 
-CREATE TABLE `rrhh` (
-  `idRRHH` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `rrhh` (
+  `idRRHH` int(11) NOT NULL AUTO_INCREMENT,
   `Nombre` varchar(45) NOT NULL,
   `Apellido` varchar(45) NOT NULL,
   `Edad` int(11) NOT NULL,
   `Salario` decimal(10,2) NOT NULL,
   `Jefe` int(11) DEFAULT NULL,
-  `descript` varchar(140) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `descript` varchar(140) NOT NULL,
+  PRIMARY KEY (`idRRHH`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -230,9 +262,11 @@ CREATE TABLE `rrhh` (
 -- Estructura de tabla para la tabla `stagearea`
 --
 
-CREATE TABLE `stagearea` (
-  `idStageArea` int(11) NOT NULL,
-  `TipoStageArea_idTipoStageArea` int(11) NOT NULL
+CREATE TABLE IF NOT EXISTS `stagearea` (
+  `idStageArea` int(11) NOT NULL AUTO_INCREMENT,
+  `TipoStageArea_idTipoStageArea` int(11) NOT NULL,
+  PRIMARY KEY (`idStageArea`,`TipoStageArea_idTipoStageArea`),
+  KEY `fk_StageArea_TipoStageArea_idx` (`TipoStageArea_idTipoStageArea`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -241,10 +275,13 @@ CREATE TABLE `stagearea` (
 -- Estructura de tabla para la tabla `stagearea_has_pallet`
 --
 
-CREATE TABLE `stagearea_has_pallet` (
+CREATE TABLE IF NOT EXISTS `stagearea_has_pallet` (
   `StageArea_idStageArea` int(11) NOT NULL,
   `StageArea_TipoStageArea_idTipoStageArea` int(11) NOT NULL,
-  `Pallet_idPallet` int(11) NOT NULL
+  `Pallet_idPallet` int(11) NOT NULL,
+  PRIMARY KEY (`StageArea_idStageArea`,`StageArea_TipoStageArea_idTipoStageArea`,`Pallet_idPallet`),
+  KEY `fk_StageArea_has_Pallet_StageArea1_idx` (`StageArea_idStageArea`,`StageArea_TipoStageArea_idTipoStageArea`),
+  KEY `fk_StageArea_has_Pallet_Pallet1_idx` (`Pallet_idPallet`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -253,11 +290,14 @@ CREATE TABLE `stagearea_has_pallet` (
 -- Estructura de tabla para la tabla `stockcenter`
 --
 
-CREATE TABLE `stockcenter` (
-  `idStockCenter` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `stockcenter` (
+  `idStockCenter` int(11) NOT NULL AUTO_INCREMENT,
   `CantEstantes` int(11) NOT NULL,
   `RRHH_idRRHH` int(11) NOT NULL,
-  `tiporrhh_idTipoRRHH` int(11) NOT NULL
+  `tiporrhh_idTipoRRHH` int(11) NOT NULL,
+  PRIMARY KEY (`idStockCenter`,`RRHH_idRRHH`,`tiporrhh_idTipoRRHH`),
+  KEY `fk_StockCenter_RRHH1_idx` (`RRHH_idRRHH`,`tiporrhh_idTipoRRHH`),
+  KEY `fk_StockCenter_tiporrhh1` (`tiporrhh_idTipoRRHH`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -266,10 +306,13 @@ CREATE TABLE `stockcenter` (
 -- Estructura de tabla para la tabla `stockcenter_has_caja`
 --
 
-CREATE TABLE `stockcenter_has_caja` (
+CREATE TABLE IF NOT EXISTS `stockcenter_has_caja` (
   `StockCenter_idStockCenter` int(11) NOT NULL,
   `Caja_idCaja` int(11) NOT NULL,
-  `Caja_TipoCaja_idTipoCaja` int(11) NOT NULL
+  `Caja_TipoCaja_idTipoCaja` int(11) NOT NULL,
+  PRIMARY KEY (`StockCenter_idStockCenter`,`Caja_idCaja`,`Caja_TipoCaja_idTipoCaja`),
+  KEY `fk_StockCenter_has_Caja_StockCenter1_idx` (`StockCenter_idStockCenter`),
+  KEY `fk_StockCenter_has_Caja_Caja1_idx` (`Caja_idCaja`,`Caja_TipoCaja_idTipoCaja`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -278,10 +321,13 @@ CREATE TABLE `stockcenter_has_caja` (
 -- Estructura de tabla para la tabla `stockcenter_has_darsena`
 --
 
-CREATE TABLE `stockcenter_has_darsena` (
+CREATE TABLE IF NOT EXISTS `stockcenter_has_darsena` (
   `StockCenter_idStockCenter` int(11) NOT NULL,
   `Darsena_idDarsena` int(11) NOT NULL,
-  `Darsena_DarsenaEstado_idDarsenaEstado` int(11) NOT NULL
+  `Darsena_DarsenaEstado_idDarsenaEstado` int(11) NOT NULL,
+  PRIMARY KEY (`StockCenter_idStockCenter`,`Darsena_idDarsena`,`Darsena_DarsenaEstado_idDarsenaEstado`),
+  KEY `fk_StockCenter_has_Darsena_StockCenter1_idx` (`StockCenter_idStockCenter`),
+  KEY `fk_StockCenter_has_Darsena_Darsena1_idx` (`Darsena_idDarsena`,`Darsena_DarsenaEstado_idDarsenaEstado`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -290,10 +336,13 @@ CREATE TABLE `stockcenter_has_darsena` (
 -- Estructura de tabla para la tabla `stockcenter_has_estante`
 --
 
-CREATE TABLE `stockcenter_has_estante` (
+CREATE TABLE IF NOT EXISTS `stockcenter_has_estante` (
   `StockCenter_idStockCenter` int(11) NOT NULL,
   `Estante_idEstante` int(11) NOT NULL,
-  `Estante_EstanteEstado_idEstanteEstado` int(11) NOT NULL
+  `Estante_EstanteEstado_idEstanteEstado` int(11) NOT NULL,
+  PRIMARY KEY (`StockCenter_idStockCenter`,`Estante_idEstante`,`Estante_EstanteEstado_idEstanteEstado`),
+  KEY `fk_StockCenter_has_Estante_StockCenter1_idx` (`StockCenter_idStockCenter`),
+  KEY `fk_StockCenter_has_Estante_Estante1_idx` (`Estante_idEstante`,`Estante_EstanteEstado_idEstanteEstado`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -302,10 +351,13 @@ CREATE TABLE `stockcenter_has_estante` (
 -- Estructura de tabla para la tabla `stockcenter_has_stagearea`
 --
 
-CREATE TABLE `stockcenter_has_stagearea` (
+CREATE TABLE IF NOT EXISTS `stockcenter_has_stagearea` (
   `StockCenter_idStockCenter` int(11) NOT NULL,
   `StageArea_idStageArea` int(11) NOT NULL,
-  `StageArea_TipoStageArea_idTipoStageArea` int(11) NOT NULL
+  `StageArea_TipoStageArea_idTipoStageArea` int(11) NOT NULL,
+  PRIMARY KEY (`StockCenter_idStockCenter`,`StageArea_idStageArea`,`StageArea_TipoStageArea_idTipoStageArea`),
+  KEY `fk_StockCenter_has_StageArea_StockCenter1_idx` (`StockCenter_idStockCenter`),
+  KEY `fk_StockCenter_has_StageArea_StageArea1_idx` (`StageArea_idStageArea`,`StageArea_TipoStageArea_idTipoStageArea`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -314,8 +366,8 @@ CREATE TABLE `stockcenter_has_stagearea` (
 -- Estructura de tabla para la tabla `ticket`
 --
 
-CREATE TABLE `ticket` (
-  `idTicket` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `ticket` (
+  `idTicket` int(11) NOT NULL AUTO_INCREMENT,
   `Descripcion` varchar(80) DEFAULT NULL,
   `MotivoTicket_idMotivoTicket` int(11) NOT NULL,
   `RRHH_idRRHH` int(11) NOT NULL,
@@ -325,7 +377,12 @@ CREATE TABLE `ticket` (
   `Transporte_RRHH_idRRHH` int(11) NOT NULL,
   `Transporte_tiporrhh_idTipoRRHH` int(11) NOT NULL,
   `Fecha` date DEFAULT NULL,
-  `Hora` time DEFAULT NULL
+  `Hora` time DEFAULT NULL,
+  PRIMARY KEY (`idTicket`,`MotivoTicket_idMotivoTicket`,`RRHH_idRRHH`,`tiporrhh_idTipoRRHH`,`Transporte_idTransporte`,`Transporte_TIpoTransporte_idTIpoTransporte`,`Transporte_RRHH_idRRHH`,`Transporte_tiporrhh_idTipoRRHH`),
+  KEY `fk_Ticket_MotivoTicket1_idx` (`MotivoTicket_idMotivoTicket`),
+  KEY `fk_Ticket_RRHH1_idx` (`RRHH_idRRHH`,`tiporrhh_idTipoRRHH`),
+  KEY `fk_Ticket_Transporte1_idx` (`Transporte_idTransporte`,`Transporte_TIpoTransporte_idTIpoTransporte`,`Transporte_RRHH_idRRHH`,`Transporte_tiporrhh_idTipoRRHH`),
+  KEY `fk_Ticket_tiporrhh1` (`tiporrhh_idTipoRRHH`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -334,9 +391,10 @@ CREATE TABLE `ticket` (
 -- Estructura de tabla para la tabla `tipocaja`
 --
 
-CREATE TABLE `tipocaja` (
-  `idTipoCaja` int(11) NOT NULL,
-  `Tipo` varchar(45) DEFAULT NULL
+CREATE TABLE IF NOT EXISTS `tipocaja` (
+  `idTipoCaja` int(11) NOT NULL AUTO_INCREMENT,
+  `Tipo` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`idTipoCaja`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -345,11 +403,12 @@ CREATE TABLE `tipocaja` (
 -- Estructura de tabla para la tabla `tiporrhh`
 --
 
-CREATE TABLE `tiporrhh` (
-  `idTipoRRHH` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `tiporrhh` (
+  `idTipoRRHH` int(11) NOT NULL AUTO_INCREMENT,
   `Tipo` varchar(45) DEFAULT NULL,
-  `descript` varchar(140) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `descript` varchar(140) NOT NULL,
+  PRIMARY KEY (`idTipoRRHH`)
+) ENGINE=InnoDB AUTO_INCREMENT=1008 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -357,9 +416,10 @@ CREATE TABLE `tiporrhh` (
 -- Estructura de tabla para la tabla `tipostagearea`
 --
 
-CREATE TABLE `tipostagearea` (
-  `idTipoStageArea` int(11) NOT NULL,
-  `Tipo` varchar(45) DEFAULT NULL
+CREATE TABLE IF NOT EXISTS `tipostagearea` (
+  `idTipoStageArea` int(11) NOT NULL AUTO_INCREMENT,
+  `Tipo` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`idTipoStageArea`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -368,9 +428,10 @@ CREATE TABLE `tipostagearea` (
 -- Estructura de tabla para la tabla `tipotransporte`
 --
 
-CREATE TABLE `tipotransporte` (
-  `idTIpoTransporte` int(11) NOT NULL,
-  `Tipo` varchar(45) NOT NULL
+CREATE TABLE IF NOT EXISTS `tipotransporte` (
+  `idTIpoTransporte` int(11) NOT NULL AUTO_INCREMENT,
+  `Tipo` varchar(45) NOT NULL,
+  PRIMARY KEY (`idTIpoTransporte`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -379,13 +440,17 @@ CREATE TABLE `tipotransporte` (
 -- Estructura de tabla para la tabla `transporte`
 --
 
-CREATE TABLE `transporte` (
-  `idTransporte` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `transporte` (
+  `idTransporte` int(11) NOT NULL AUTO_INCREMENT,
   `Matricula` varchar(45) NOT NULL,
   `Peso` int(11) NOT NULL,
   `TIpoTransporte_idTIpoTransporte` int(11) NOT NULL,
   `RRHH_idRRHH` int(11) NOT NULL,
-  `tiporrhh_idTipoRRHH` int(11) NOT NULL
+  `tiporrhh_idTipoRRHH` int(11) NOT NULL,
+  PRIMARY KEY (`idTransporte`,`TIpoTransporte_idTIpoTransporte`,`RRHH_idRRHH`,`tiporrhh_idTipoRRHH`),
+  KEY `fk_Transporte_TIpoTransporte1_idx` (`TIpoTransporte_idTIpoTransporte`),
+  KEY `fk_Transporte_RRHH1_idx` (`RRHH_idRRHH`,`tiporrhh_idTipoRRHH`),
+  KEY `fk_Transporte_tiporrhh1` (`tiporrhh_idTipoRRHH`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -394,13 +459,16 @@ CREATE TABLE `transporte` (
 -- Estructura de tabla para la tabla `transporte_has_caja`
 --
 
-CREATE TABLE `transporte_has_caja` (
+CREATE TABLE IF NOT EXISTS `transporte_has_caja` (
   `Transporte_idTransporte` int(11) NOT NULL,
   `Transporte_TIpoTransporte_idTIpoTransporte` int(11) NOT NULL,
   `Transporte_RRHH_idRRHH` int(11) NOT NULL,
   `Transporte_tiporrhh_idTipoRRHH` int(11) NOT NULL,
   `Caja_idCaja` int(11) NOT NULL,
-  `Caja_TipoCaja_idTipoCaja` int(11) NOT NULL
+  `Caja_TipoCaja_idTipoCaja` int(11) NOT NULL,
+  PRIMARY KEY (`Transporte_idTransporte`,`Transporte_TIpoTransporte_idTIpoTransporte`,`Transporte_RRHH_idRRHH`,`Transporte_tiporrhh_idTipoRRHH`,`Caja_idCaja`,`Caja_TipoCaja_idTipoCaja`),
+  KEY `fk_Transporte_has_Caja_Transporte1_idx` (`Transporte_idTransporte`,`Transporte_TIpoTransporte_idTIpoTransporte`,`Transporte_RRHH_idRRHH`,`Transporte_tiporrhh_idTipoRRHH`),
+  KEY `fk_Transporte_has_Caja_Caja1_idx` (`Caja_idCaja`,`Caja_TipoCaja_idTipoCaja`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -409,12 +477,15 @@ CREATE TABLE `transporte_has_caja` (
 -- Estructura de tabla para la tabla `transporte_has_pallet`
 --
 
-CREATE TABLE `transporte_has_pallet` (
+CREATE TABLE IF NOT EXISTS `transporte_has_pallet` (
   `Transporte_idTransporte` int(11) NOT NULL,
   `Transporte_TIpoTransporte_idTIpoTransporte` int(11) NOT NULL,
   `Transporte_RRHH_idRRHH` int(11) NOT NULL,
   `Transporte_tiporrhh_idTipoRRHH` int(11) NOT NULL,
-  `Pallet_idPallet` int(11) NOT NULL
+  `Pallet_idPallet` int(11) NOT NULL,
+  PRIMARY KEY (`Transporte_idTransporte`,`Transporte_TIpoTransporte_idTIpoTransporte`,`Transporte_RRHH_idRRHH`,`Transporte_tiporrhh_idTipoRRHH`,`Pallet_idPallet`),
+  KEY `fk_Transporte_has_Pallet_Transporte1_idx` (`Transporte_idTransporte`,`Transporte_TIpoTransporte_idTIpoTransporte`,`Transporte_RRHH_idRRHH`,`Transporte_tiporrhh_idTipoRRHH`),
+  KEY `fk_Transporte_has_Pallet_Pallet1_idx` (`Pallet_idPallet`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -423,8 +494,8 @@ CREATE TABLE `transporte_has_pallet` (
 -- Estructura de tabla para la tabla `user`
 --
 
-CREATE TABLE `user` (
-  `idAutenticacion` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `user` (
+  `idAutenticacion` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(45) NOT NULL,
   `password` varchar(250) NOT NULL,
   `Mail` varchar(45) NOT NULL,
@@ -434,349 +505,12 @@ CREATE TABLE `user` (
   `tiporrhh_idTipoRRHH` int(11) NOT NULL,
   `Fecha` date DEFAULT NULL,
   `Hora` time DEFAULT NULL,
-  `activate` tinyint(4) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `activate` tinyint(4) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`idAutenticacion`,`RRHH_idRRHH`,`tiporrhh_idTipoRRHH`),
+  KEY `fk_Autenticacion_RRHH1_idx` (`RRHH_idRRHH`,`tiporrhh_idTipoRRHH`),
+  KEY `fk_Autenticacion_TipoRRHH1` (`tiporrhh_idTipoRRHH`)
+) ENGINE=InnoDB AUTO_INCREMENT=102 DEFAULT CHARSET=utf8;
 
---
--- Índices para tablas volcadas
---
-
---
--- Indices de la tabla `caja`
---
-ALTER TABLE `caja`
-  ADD PRIMARY KEY (`idCaja`,`TipoCaja_idTipoCaja`),
-  ADD KEY `fk_Caja_TipoCaja1_idx` (`TipoCaja_idTipoCaja`);
-
---
--- Indices de la tabla `cliente`
---
-ALTER TABLE `cliente`
-  ADD PRIMARY KEY (`idCliente`);
-
---
--- Indices de la tabla `darsena`
---
-ALTER TABLE `darsena`
-  ADD PRIMARY KEY (`idDarsena`,`DarsenaEstado_idDarsenaEstado`),
-  ADD KEY `fk_Darsena_DarsenaEstado1_idx` (`DarsenaEstado_idDarsenaEstado`);
-
---
--- Indices de la tabla `darsenaestado`
---
-ALTER TABLE `darsenaestado`
-  ADD PRIMARY KEY (`idDarsenaEstado`);
-
---
--- Indices de la tabla `estante`
---
-ALTER TABLE `estante`
-  ADD PRIMARY KEY (`idEstante`,`EstanteEstado_idEstanteEstado`),
-  ADD KEY `fk_Estante_EstanteEstado1_idx` (`EstanteEstado_idEstanteEstado`);
-
---
--- Indices de la tabla `estanteestado`
---
-ALTER TABLE `estanteestado`
-  ADD PRIMARY KEY (`idEstanteEstado`);
-
---
--- Indices de la tabla `estante_has_caja`
---
-ALTER TABLE `estante_has_caja`
-  ADD PRIMARY KEY (`Estante_idEstante`,`Estante_EstanteEstado_idEstanteEstado`,`Caja_idCaja`,`Caja_TipoCaja_idTipoCaja`),
-  ADD KEY `fk_Estante_has_Caja_Caja1_idx` (`Caja_idCaja`,`Caja_TipoCaja_idTipoCaja`),
-  ADD KEY `fk_Estante_has_Caja_Estante1_idx` (`Estante_idEstante`,`Estante_EstanteEstado_idEstanteEstado`);
-
---
--- Indices de la tabla `factura`
---
-ALTER TABLE `factura`
-  ADD PRIMARY KEY (`idFactura`,`RRHH_idRRHH`,`tiporrhh_idTipoRRHH`,`Cliente_idCliente`),
-  ADD KEY `fk_Factura_RRHH1_idx` (`RRHH_idRRHH`,`tiporrhh_idTipoRRHH`),
-  ADD KEY `fk_Factura_Cliente1_idx` (`Cliente_idCliente`),
-  ADD KEY `fk_Factura_tiporrhh1` (`tiporrhh_idTipoRRHH`);
-
---
--- Indices de la tabla `func_tiporrhh`
---
-ALTER TABLE `func_tiporrhh`
-  ADD PRIMARY KEY (`idFunc`),
-  ADD KEY `tiporrhh_idTipoRRHH` (`tiporrhh_idTipoRRHH`);
-
---
--- Indices de la tabla `hojaruta`
---
-ALTER TABLE `hojaruta`
-  ADD PRIMARY KEY (`idHojaRuta`,`Transporte_idTransporte`,`Transporte_TIpoTransporte_idTIpoTransporte`,`Transporte_RRHH_idRRHH`,`Transporte_tiporrhh_idTipoRRHH`),
-  ADD KEY `fk_HojaRuta_Transporte1_idx` (`Transporte_idTransporte`,`Transporte_TIpoTransporte_idTIpoTransporte`,`Transporte_RRHH_idRRHH`,`Transporte_tiporrhh_idTipoRRHH`);
-
---
--- Indices de la tabla `motivoticket`
---
-ALTER TABLE `motivoticket`
-  ADD PRIMARY KEY (`idMotivoTicket`);
-
---
--- Indices de la tabla `pallet`
---
-ALTER TABLE `pallet`
-  ADD PRIMARY KEY (`idPallet`);
-
---
--- Indices de la tabla `pallet_has_caja`
---
-ALTER TABLE `pallet_has_caja`
-  ADD PRIMARY KEY (`Pallet_idPallet`,`Caja_idCaja`,`Caja_TipoCaja_idTipoCaja`),
-  ADD KEY `fk_Pallet_has_Caja_Pallet1_idx` (`Pallet_idPallet`),
-  ADD KEY `fk_Pallet_has_Caja_Caja1_idx` (`Caja_idCaja`,`Caja_TipoCaja_idTipoCaja`);
-
---
--- Indices de la tabla `pedido`
---
-ALTER TABLE `pedido`
-  ADD PRIMARY KEY (`idPedido`,`RRHH_idRRHH`,`tiporrhh_idTipoRRHH`,`Cliente_idCliente`),
-  ADD KEY `fk_Pedido_RRHH1_idx` (`RRHH_idRRHH`,`tiporrhh_idTipoRRHH`),
-  ADD KEY `fk_Pedido_Cliente1_idx` (`Cliente_idCliente`),
-  ADD KEY `fk_Pedido_tiporrhh1` (`tiporrhh_idTipoRRHH`);
-
---
--- Indices de la tabla `rrhh`
---
-ALTER TABLE `rrhh`
-  ADD PRIMARY KEY (`idRRHH`);
-
---
--- Indices de la tabla `stagearea`
---
-ALTER TABLE `stagearea`
-  ADD PRIMARY KEY (`idStageArea`,`TipoStageArea_idTipoStageArea`),
-  ADD KEY `fk_StageArea_TipoStageArea_idx` (`TipoStageArea_idTipoStageArea`);
-
---
--- Indices de la tabla `stagearea_has_pallet`
---
-ALTER TABLE `stagearea_has_pallet`
-  ADD PRIMARY KEY (`StageArea_idStageArea`,`StageArea_TipoStageArea_idTipoStageArea`,`Pallet_idPallet`),
-  ADD KEY `fk_StageArea_has_Pallet_StageArea1_idx` (`StageArea_idStageArea`,`StageArea_TipoStageArea_idTipoStageArea`),
-  ADD KEY `fk_StageArea_has_Pallet_Pallet1_idx` (`Pallet_idPallet`);
-
---
--- Indices de la tabla `stockcenter`
---
-ALTER TABLE `stockcenter`
-  ADD PRIMARY KEY (`idStockCenter`,`RRHH_idRRHH`,`tiporrhh_idTipoRRHH`),
-  ADD KEY `fk_StockCenter_RRHH1_idx` (`RRHH_idRRHH`,`tiporrhh_idTipoRRHH`),
-  ADD KEY `fk_StockCenter_tiporrhh1` (`tiporrhh_idTipoRRHH`);
-
---
--- Indices de la tabla `stockcenter_has_caja`
---
-ALTER TABLE `stockcenter_has_caja`
-  ADD PRIMARY KEY (`StockCenter_idStockCenter`,`Caja_idCaja`,`Caja_TipoCaja_idTipoCaja`),
-  ADD KEY `fk_StockCenter_has_Caja_StockCenter1_idx` (`StockCenter_idStockCenter`),
-  ADD KEY `fk_StockCenter_has_Caja_Caja1_idx` (`Caja_idCaja`,`Caja_TipoCaja_idTipoCaja`);
-
---
--- Indices de la tabla `stockcenter_has_darsena`
---
-ALTER TABLE `stockcenter_has_darsena`
-  ADD PRIMARY KEY (`StockCenter_idStockCenter`,`Darsena_idDarsena`,`Darsena_DarsenaEstado_idDarsenaEstado`),
-  ADD KEY `fk_StockCenter_has_Darsena_StockCenter1_idx` (`StockCenter_idStockCenter`),
-  ADD KEY `fk_StockCenter_has_Darsena_Darsena1_idx` (`Darsena_idDarsena`,`Darsena_DarsenaEstado_idDarsenaEstado`);
-
---
--- Indices de la tabla `stockcenter_has_estante`
---
-ALTER TABLE `stockcenter_has_estante`
-  ADD PRIMARY KEY (`StockCenter_idStockCenter`,`Estante_idEstante`,`Estante_EstanteEstado_idEstanteEstado`),
-  ADD KEY `fk_StockCenter_has_Estante_StockCenter1_idx` (`StockCenter_idStockCenter`),
-  ADD KEY `fk_StockCenter_has_Estante_Estante1_idx` (`Estante_idEstante`,`Estante_EstanteEstado_idEstanteEstado`);
-
---
--- Indices de la tabla `stockcenter_has_stagearea`
---
-ALTER TABLE `stockcenter_has_stagearea`
-  ADD PRIMARY KEY (`StockCenter_idStockCenter`,`StageArea_idStageArea`,`StageArea_TipoStageArea_idTipoStageArea`),
-  ADD KEY `fk_StockCenter_has_StageArea_StockCenter1_idx` (`StockCenter_idStockCenter`),
-  ADD KEY `fk_StockCenter_has_StageArea_StageArea1_idx` (`StageArea_idStageArea`,`StageArea_TipoStageArea_idTipoStageArea`);
-
---
--- Indices de la tabla `ticket`
---
-ALTER TABLE `ticket`
-  ADD PRIMARY KEY (`idTicket`,`MotivoTicket_idMotivoTicket`,`RRHH_idRRHH`,`tiporrhh_idTipoRRHH`,`Transporte_idTransporte`,`Transporte_TIpoTransporte_idTIpoTransporte`,`Transporte_RRHH_idRRHH`,`Transporte_tiporrhh_idTipoRRHH`),
-  ADD KEY `fk_Ticket_MotivoTicket1_idx` (`MotivoTicket_idMotivoTicket`),
-  ADD KEY `fk_Ticket_RRHH1_idx` (`RRHH_idRRHH`,`tiporrhh_idTipoRRHH`),
-  ADD KEY `fk_Ticket_Transporte1_idx` (`Transporte_idTransporte`,`Transporte_TIpoTransporte_idTIpoTransporte`,`Transporte_RRHH_idRRHH`,`Transporte_tiporrhh_idTipoRRHH`),
-  ADD KEY `fk_Ticket_tiporrhh1` (`tiporrhh_idTipoRRHH`);
-
---
--- Indices de la tabla `tipocaja`
---
-ALTER TABLE `tipocaja`
-  ADD PRIMARY KEY (`idTipoCaja`);
-
---
--- Indices de la tabla `tiporrhh`
---
-ALTER TABLE `tiporrhh`
-  ADD PRIMARY KEY (`idTipoRRHH`);
-
---
--- Indices de la tabla `tipostagearea`
---
-ALTER TABLE `tipostagearea`
-  ADD PRIMARY KEY (`idTipoStageArea`);
-
---
--- Indices de la tabla `tipotransporte`
---
-ALTER TABLE `tipotransporte`
-  ADD PRIMARY KEY (`idTIpoTransporte`);
-
---
--- Indices de la tabla `transporte`
---
-ALTER TABLE `transporte`
-  ADD PRIMARY KEY (`idTransporte`,`TIpoTransporte_idTIpoTransporte`,`RRHH_idRRHH`,`tiporrhh_idTipoRRHH`),
-  ADD KEY `fk_Transporte_TIpoTransporte1_idx` (`TIpoTransporte_idTIpoTransporte`),
-  ADD KEY `fk_Transporte_RRHH1_idx` (`RRHH_idRRHH`,`tiporrhh_idTipoRRHH`),
-  ADD KEY `fk_Transporte_tiporrhh1` (`tiporrhh_idTipoRRHH`);
-
---
--- Indices de la tabla `transporte_has_caja`
---
-ALTER TABLE `transporte_has_caja`
-  ADD PRIMARY KEY (`Transporte_idTransporte`,`Transporte_TIpoTransporte_idTIpoTransporte`,`Transporte_RRHH_idRRHH`,`Transporte_tiporrhh_idTipoRRHH`,`Caja_idCaja`,`Caja_TipoCaja_idTipoCaja`),
-  ADD KEY `fk_Transporte_has_Caja_Transporte1_idx` (`Transporte_idTransporte`,`Transporte_TIpoTransporte_idTIpoTransporte`,`Transporte_RRHH_idRRHH`,`Transporte_tiporrhh_idTipoRRHH`),
-  ADD KEY `fk_Transporte_has_Caja_Caja1_idx` (`Caja_idCaja`,`Caja_TipoCaja_idTipoCaja`);
-
---
--- Indices de la tabla `transporte_has_pallet`
---
-ALTER TABLE `transporte_has_pallet`
-  ADD PRIMARY KEY (`Transporte_idTransporte`,`Transporte_TIpoTransporte_idTIpoTransporte`,`Transporte_RRHH_idRRHH`,`Transporte_tiporrhh_idTipoRRHH`,`Pallet_idPallet`),
-  ADD KEY `fk_Transporte_has_Pallet_Transporte1_idx` (`Transporte_idTransporte`,`Transporte_TIpoTransporte_idTIpoTransporte`,`Transporte_RRHH_idRRHH`,`Transporte_tiporrhh_idTipoRRHH`),
-  ADD KEY `fk_Transporte_has_Pallet_Pallet1_idx` (`Pallet_idPallet`);
-
---
--- Indices de la tabla `user`
---
-ALTER TABLE `user`
-  ADD PRIMARY KEY (`idAutenticacion`,`RRHH_idRRHH`,`tiporrhh_idTipoRRHH`),
-  ADD KEY `fk_Autenticacion_RRHH1_idx` (`RRHH_idRRHH`,`tiporrhh_idTipoRRHH`),
-  ADD KEY `fk_Autenticacion_TipoRRHH1` (`tiporrhh_idTipoRRHH`);
-
---
--- AUTO_INCREMENT de las tablas volcadas
---
-
---
--- AUTO_INCREMENT de la tabla `caja`
---
-ALTER TABLE `caja`
-  MODIFY `idCaja` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT de la tabla `cliente`
---
-ALTER TABLE `cliente`
-  MODIFY `idCliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
---
--- AUTO_INCREMENT de la tabla `darsena`
---
-ALTER TABLE `darsena`
-  MODIFY `idDarsena` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT de la tabla `darsenaestado`
---
-ALTER TABLE `darsenaestado`
-  MODIFY `idDarsenaEstado` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT de la tabla `estante`
---
-ALTER TABLE `estante`
-  MODIFY `idEstante` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT de la tabla `estanteestado`
---
-ALTER TABLE `estanteestado`
-  MODIFY `idEstanteEstado` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT de la tabla `factura`
---
-ALTER TABLE `factura`
-  MODIFY `idFactura` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT de la tabla `func_tiporrhh`
---
-ALTER TABLE `func_tiporrhh`
-  MODIFY `idFunc` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
---
--- AUTO_INCREMENT de la tabla `hojaruta`
---
-ALTER TABLE `hojaruta`
-  MODIFY `idHojaRuta` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT de la tabla `motivoticket`
---
-ALTER TABLE `motivoticket`
-  MODIFY `idMotivoTicket` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT de la tabla `pallet`
---
-ALTER TABLE `pallet`
-  MODIFY `idPallet` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT de la tabla `rrhh`
---
-ALTER TABLE `rrhh`
-  MODIFY `idRRHH` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
---
--- AUTO_INCREMENT de la tabla `stagearea`
---
-ALTER TABLE `stagearea`
-  MODIFY `idStageArea` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT de la tabla `stockcenter`
---
-ALTER TABLE `stockcenter`
-  MODIFY `idStockCenter` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT de la tabla `ticket`
---
-ALTER TABLE `ticket`
-  MODIFY `idTicket` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT de la tabla `tipocaja`
---
-ALTER TABLE `tipocaja`
-  MODIFY `idTipoCaja` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT de la tabla `tiporrhh`
---
-ALTER TABLE `tiporrhh`
-  MODIFY `idTipoRRHH` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1008;
---
--- AUTO_INCREMENT de la tabla `tipostagearea`
---
-ALTER TABLE `tipostagearea`
-  MODIFY `idTipoStageArea` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT de la tabla `tipotransporte`
---
-ALTER TABLE `tipotransporte`
-  MODIFY `idTIpoTransporte` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT de la tabla `transporte`
---
-ALTER TABLE `transporte`
-  MODIFY `idTransporte` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT de la tabla `user`
---
-ALTER TABLE `user`
-  MODIFY `idAutenticacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
 --
 -- Restricciones para tablas volcadas
 --

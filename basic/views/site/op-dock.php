@@ -31,7 +31,7 @@ font-weight: bold;
           <ul class="nav nav-sidebar">
           	<?php 
 				foreach($arr as $key=>$link) {
-					echo("<li><a href=\"".$link['link_func']."\"style=\"color:#000000;\">".$link['desc_func']."</a></li>\n");
+					echo("<li><a href=\"".$urlhead.$link['link_func']."\"style=\"color:#000000;\">".$link['desc_func']."</a></li>\n");
 				}		
 			?>
             </ul>

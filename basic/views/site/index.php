@@ -13,15 +13,8 @@ body {
 			<h1>
 			Bienvenidos a S.A.L
 <!-- 				<PRE> -->
-					<?php 
-// 						$arr=app\models\FuncTiporrhh::findAll(['tiporrhh_idTipoRRHH'=>1000]);$i=0;
-// 						foreach($arr as $key=>$value) {
-// 							echo("link:".$value['link_func']."\n");
-// 							foreach($value as $key1=>$value1) {
-// 								echo($value1."\n");
-// 							}
-// 						}
-						
+					<?php
+// 					print (app\models\SALModel\Intranet::getUrlHead());
 // 					?>
 <!-- 				</PRE> -->
 			</h1>
@@ -34,7 +27,8 @@ body {
 		<div class="col-sm-3 col-md-12 sidebar">
 			<p>
 				<a class="btn btn-lg btn-primary btn-block"
-					href="http://localhost/basic/web/index.php?r=site%2Flogin">Entrar</a>
+					href="<?php app\commands\Intranet::getUrlHead();
+					?>/basic/web/index.php?r=site%2Flogin">Entrar</a>
 			</p>
 		</div>
 	</div>
