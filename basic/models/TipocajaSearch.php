@@ -5,24 +5,21 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Caja;
+use app\models\Tipocaja;
 
 /**
- * CajaSearch represents the model behind the search form about `app\models\Caja`.
+ * TipocajaSearch represents the model behind the search form about `app\models\Tipocaja`.
  */
-class CajaSearch extends Caja
+class TipocajaSearch extends Tipocaja
 {
-    public $tipoCajaIdTipoCaja;
-    public $physic0;
-    
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['idCaja', 'TipoCaja_idTipoCaja', 'physic'], 'integer'],
-            [['physic0','tipoCajaIdTipoCaja'],'safe'],
+            [['idTipoCaja'], 'integer'],
+            [['Tipo'], 'safe'],
         ];
     }
 
@@ -44,7 +41,7 @@ class CajaSearch extends Caja
      */
     public function search($params)
     {
-        $query = Caja::find();
+        $query = Tipocaja::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -59,11 +56,11 @@ class CajaSearch extends Caja
         }
 
         $query->andFilterWhere([
-            'idCaja' => $this->idCaja,
-            'TipoCaja_idTipoCaja' => $this->TipoCaja_idTipoCaja,
-            'physic' => $this->physic,
+            'idTipoCaja' => $this->idTipoCaja,
         ]);
-        
+
+        $query->andFilterWhere(['like', 'Tipo', $this->Tipo]);
+
         return $dataProvider;
     }
 }

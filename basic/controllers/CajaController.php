@@ -5,6 +5,10 @@ namespace app\controllers;
 use Yii;
 use app\models\Caja;
 use app\models\CajaSearch;
+use app\models\Tipocaja;
+use app\models\TipocajaSearch;
+use app\models\Physic;
+use app\models\PhysicSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -33,11 +37,20 @@ class CajaController extends Controller
     public function actionIndex()
     {
         $searchModel = new CajaSearch();
+        $subSearchTipo = new TipocajaSearch();
+        $subSearchPhy = new PhysicSearch();
+        
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $subDataProviderTipo = $subSearchTipo->search(Yii::$app->request->queryParams);
+        $subDataProviderPhy = $subSearchPhy->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'subSearchTipo' => $subSearchTipo,
+            'subDataProviderTipo' => $subDataProviderTipo,
+            'subSearchPhy' => $subSearchPhy,
+            'subDataProviderPhy' => $subDataProviderPhy
         ]);
     }
 
@@ -50,7 +63,8 @@ class CajaController extends Controller
     public function actionView($idCaja, $TipoCaja_idTipoCaja)
     {
         return $this->render('view', [
-            'model' => $this->findModel($idCaja, $TipoCaja_idTipoCaja),
+            //'model' => $this->findModel($idCaja, $TipoCaja_idTipoCaja),
+            'model' => $this->findModelJoinTipo($idCaja,$TipoCaja_idTipoCaja)
         ]);
     }
 
@@ -62,12 +76,52 @@ class CajaController extends Controller
     public function actionCreate()
     {
         $model = new Caja();
+        $subModelTipo = new Tipocaja();
+        $subModelPhy = new Physic();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'idCaja' => $model->idCaja, 'TipoCaja_idTipoCaja' => $model->TipoCaja_idTipoCaja]);
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'subModelTipo' => $subModelTipo,
+                'subModelPhy' => $subModelPhy
+            ]);
+        }
+    }
+    
+    /**
+     * Creates a new Tipocaja model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
+     */
+    public function actionTipo()
+    {
+        $subModelTipo = new Tipocaja();
+        
+        if ($subModelTipo->load(Yii::$app->request->post()) && $subModelTipo->save()) {
+            return $this->actionIndex();
+        } else {
+            return $this->render('../tipocaja/create', [
+                'model' => $subModelTipo
+            ]);
+        }
+    }
+
+    /**
+     * Creates a new Physic model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
+     */
+    public function actionPhysic()
+    {
+        $subModelPhy = new Physic();
+        
+        if ($subModelPhy->load(Yii::$app->request->post()) && $subModelPhy->save()) {
+            return $this->actionIndex();
+        } else {
+            return $this->render('../physic/create', [
+                'model' => $subModelPhy
             ]);
         }
     }

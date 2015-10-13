@@ -4,19 +4,20 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Caja */
+/* @var $model app\models\Tipocaja */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="caja-form">
+<div class="tipocaja-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'TipoCaja_idTipoCaja')->textInput() ?>
-
-    <?= $form->field($model, 'physic')->textInput() ?>
+    <?= $form->field($model, 'Tipo')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
-<?php ActiveForm::end(); ?>
+
+    <?php ActiveForm::end(); ?>
+
+</div>

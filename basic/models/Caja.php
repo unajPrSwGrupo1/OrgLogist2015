@@ -8,11 +8,11 @@ use Yii;
  * This is the model class for table "caja".
  *
  * @property integer $idCaja
- * @property integer $Peso
- * @property integer $Volumen
  * @property integer $TipoCaja_idTipoCaja
+ * @property integer $physic
  *
  * @property Tipocaja $tipoCajaIdTipoCaja
+ * @property Physic $physic0
  * @property EstanteHasCaja[] $estanteHasCajas
  * @property PalletHasCaja[] $palletHasCajas
  * @property StockcenterHasCaja[] $stockcenterHasCajas
@@ -34,8 +34,8 @@ class Caja extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Peso', 'Volumen', 'TipoCaja_idTipoCaja'], 'required'],
-            [['Peso', 'Volumen', 'TipoCaja_idTipoCaja'], 'integer']
+            [['TipoCaja_idTipoCaja', 'physic'], 'required'],
+            [['TipoCaja_idTipoCaja', 'physic'], 'integer']
         ];
     }
 
@@ -46,9 +46,8 @@ class Caja extends \yii\db\ActiveRecord
     {
         return [
             'idCaja' => 'Id Caja',
-            'Peso' => 'Peso',
-            'Volumen' => 'Volumen',
             'TipoCaja_idTipoCaja' => 'Tipo Caja Id Tipo Caja',
+            'physic' => 'Physic',
         ];
     }
 
@@ -58,6 +57,14 @@ class Caja extends \yii\db\ActiveRecord
     public function getTipoCajaIdTipoCaja()
     {
         return $this->hasOne(Tipocaja::className(), ['idTipoCaja' => 'TipoCaja_idTipoCaja']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPhysic0()
+    {
+        return $this->hasOne(Physic::className(), ['id' => 'physic']);
     }
 
     /**

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 11-10-2015 a las 12:14:53
+-- Tiempo de generación: 13-10-2015 a las 20:49:45
 -- Versión del servidor: 10.0.21-MariaDB-log
 -- Versión de PHP: 5.6.14
 
@@ -30,6 +30,18 @@ INSERT INTO `cliente` (`idCliente`, `Nombre`, `Telefono`, `Mail`, `Direccion`, `
 (1, 'cli1', '44444444', 'cli1@email.org', 'calle 234', 'comentario sobre cli1');
 
 --
+-- Volcado de datos para la tabla `physic`
+--
+
+INSERT INTO `physic` (`id`, `large`, `tall`, `width`, `maxWeight`, `descript`, `longUnit`, `weightUnit`) VALUES
+(1, 2.3, 3.4, 4.5, 5.6, '(2,3m x 3,4m x 4,5m) Máx=5,6Kg', 'm', 'Kg'),
+(2, 1.2, 2.3, 3.4, 4.5, '( 1,2 x 2,3 x 3,4 ) m Max = 4,5 Kg', 'm', 'Kg'),
+(3, 1.2, 2.3, 3.4, 4.5, '( 1,2 x 2,3 x 3,4 )m Max=4,5Kg', 'm', 'Kg'),
+(4, 5.6, 6.7, 7.8, 8.9, '"Descipción física"', 'm', 'g'),
+(5, 1, 1, 0.5, 0.5, '( 1 x 1 x 0,5 ) m Max =  0,5 Kg', 'm', 'Kg'),
+(6, 5, 5, 2.7, 3, '"Descipción física"', 'm', 'g');
+
+--
 -- Volcado de datos para la tabla `rrhh`
 --
 
@@ -38,6 +50,27 @@ INSERT INTO `rrhh` (`idRRHH`, `Nombre`, `Apellido`, `Edad`, `Salario`, `Jefe`, `
 (11, 'Alberto', 'Juarez', 40, '20000.00', NULL, 'Comentario sobre Alberto Juarez'),
 (13, 'conf', 'configurador', 10, '10.00', NULL, 'Comentario sobre el configurador'),
 (14, 'usuario1', 'apellido1', 99, '99.00', 10, 'Comentario sobre el usuario1');
+
+--
+-- Volcado de datos para la tabla `tipocaja`
+--
+
+INSERT INTO `tipocaja` (`idTipoCaja`, `Tipo`) VALUES
+(1, 'Yerbas'),
+(2, 'Azucar'),
+(3, 'Arroz'),
+(4, 'Fideos largos pack 200'),
+(5, 'Jugo en sobres x50 unidades'),
+(6, 'Gaseosa 330ml pack x12 unidades');
+
+--
+-- Volcado de datos para la tabla `caja`
+--
+
+INSERT INTO `caja` (`idCaja`, `TipoCaja_idTipoCaja`, `physic`) VALUES
+(4, 4, 2),
+(2, 1, 3),
+(3, 3, 3);
 
 --
 -- Volcado de datos para la tabla `tiporrhh`
@@ -51,14 +84,6 @@ INSERT INTO `tiporrhh` (`idTipoRRHH`, `Tipo`, `descript`) VALUES
 (1004, 'op-dock', 'Operador del sistema de gestión de dársena'),
 (1005, 'op-salepoint', 'Operador del punto de venta del sistema de logística'),
 (1007, 'conf-sys', 'Configurador del sistema');
-
---
--- Volcado de datos para la tabla `user`
---
-
-INSERT INTO `user` (`idAutenticacion`, `username`, `password`, `Mail`, `Authkey`, `Token`, `RRHH_idRRHH`, `tiporrhh_idTipoRRHH`, `Fecha`, `Hora`, `activate`) VALUES
-(100, 'admin', '00Ko3aqrA3ETk', 'cualqui@gmail.com', '93ead2876301dbb34f9ae1a73430ade9629ab8872ef500ea6daa5b8f51654a513415302b487afbbbfccbda192d4def57ad243b5ea3ef401a23c5434d6f0b5c85f1082cc2518f7f0f92b3c679bea608250848a715efbc5124a3ec0bc1fcd6b5114c0498fe', 'e009894838b9ad0004c1048a6f45daa1011f0bda9f9a3009a211df195b58b602d7738b38138a9eaa711b78a2a61c275552f3491b30c24c323b30948a10dad8680b2bbac40edb063a7d078f8f5bf9ab81d02e04979c8092076754c3985e7506d3c583081f', 10, 1000, '2015-09-08', '12:22:24', 1),
-(101, 'conf', '003308eA/mHG2', 'daniel_sce672@yahoo.com.ar', 'a9351cf9c4085ea6a5cb499b8db92cf2b9e3b32de9c9ec6e78027f36356b7b49b82c2b06b35f61440ace06a916ae84e936cb7378c2e9a930a641340a11ffc3f5026db3cec1dc17314d8d8fef6359db433174ba9d2d09b915df9b4e018c0bdb563314308c', '3eb4e201803349a2b14e3fbc8262844296dee46caf64f6d1e767c7abf64e1e71bb5f52257e0db34000d3de53af82469675c2e5dc94fbe915f5e39ada0b3b7375e9d34154ba6f9daf9f890b96d37bc56149ae1592558599a8e884a81e1ef39ba4ba9268a1', 13, 1007, '2015-10-14', '07:39:19', 1);
 
 --
 -- Volcado de datos para la tabla `func_tiporrhh`
@@ -83,6 +108,15 @@ INSERT INTO `func_tiporrhh` (`idFunc`, `link_func`, `desc_func`, `tiporrhh_idTip
 (16, '/basic/web/index.php?r=ticket/index', 'Mantenimiento de tickets', 1000),
 (17, '/basic/web/index.php?r=site/not_has_view', 'Reportes varios.', 1000),
 (18, '/basic/web/index.php?r=func-tiporrhh', 'Tabla func-tiporrhh', 1007);
+
+
+--
+-- Volcado de datos para la tabla `user`
+--
+
+INSERT INTO `user` (`idAutenticacion`, `username`, `password`, `Mail`, `Authkey`, `Token`, `RRHH_idRRHH`, `tiporrhh_idTipoRRHH`, `Fecha`, `Hora`, `activate`) VALUES
+(100, 'admin', '00Ko3aqrA3ETk', 'cualqui@gmail.com', '93ead2876301dbb34f9ae1a73430ade9629ab8872ef500ea6daa5b8f51654a513415302b487afbbbfccbda192d4def57ad243b5ea3ef401a23c5434d6f0b5c85f1082cc2518f7f0f92b3c679bea608250848a715efbc5124a3ec0bc1fcd6b5114c0498fe', 'e009894838b9ad0004c1048a6f45daa1011f0bda9f9a3009a211df195b58b602d7738b38138a9eaa711b78a2a61c275552f3491b30c24c323b30948a10dad8680b2bbac40edb063a7d078f8f5bf9ab81d02e04979c8092076754c3985e7506d3c583081f', 10, 1000, '2015-09-08', '12:22:24', 1),
+(101, 'conf', '003308eA/mHG2', 'daniel_sce672@yahoo.com.ar', 'a9351cf9c4085ea6a5cb499b8db92cf2b9e3b32de9c9ec6e78027f36356b7b49b82c2b06b35f61440ace06a916ae84e936cb7378c2e9a930a641340a11ffc3f5026db3cec1dc17314d8d8fef6359db433174ba9d2d09b915df9b4e018c0bdb563314308c', '3eb4e201803349a2b14e3fbc8262844296dee46caf64f6d1e767c7abf64e1e71bb5f52257e0db34000d3de53af82469675c2e5dc94fbe915f5e39ada0b3b7375e9d34154ba6f9daf9f890b96d37bc56149ae1592558599a8e884a81e1ef39ba4ba9268a1', 13, 1007, '2015-10-14', '07:39:19', 1);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

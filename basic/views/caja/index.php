@@ -26,9 +26,46 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'idCaja',
-            'Peso',
-            'Volumen',
             'TipoCaja_idTipoCaja',
+            'physic',
+            ['attribute'=>'TipoCaja_idTipoCaja','value'=>'tipoCajaIdTipoCaja.Tipo'],
+            ['attribute'=>'physic','value'=>'physic0.descript'],
+
+            ['class' => 'yii\grid\ActionColumn'],
+        ],
+    ]); ?>
+    
+    <p>
+        <?= Html::a('Nuevo contenido', ['tipo'], ['class' => 'btn btn-success']) ?>
+    </p>
+
+    
+    <?= GridView::widget([
+        'dataProvider' => $subDataProviderTipo,
+        'filterModel' => $subSearchTipo,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            'Tipo',
+            
+            ['class' => 'yii\grid\ActionColumn'],
+        ],
+    ]); ?>
+    <p>
+        <?= Html::a('Nuevo tamaño', ['physic'], ['class' => 'btn btn-success']) ?>
+    </p>
+    
+    <?= GridView::widget([
+        'dataProvider' => $subDataProviderPhy,
+        'filterModel' => $subSearchPhy,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            'large',
+            'tall',
+            'width',
+            'maxWeight',
+            'descript',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

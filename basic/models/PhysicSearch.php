@@ -5,24 +5,22 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Caja;
+use app\models\Physic;
 
 /**
- * CajaSearch represents the model behind the search form about `app\models\Caja`.
+ * PhysicSearch represents the model behind the search form about `app\models\Physic`.
  */
-class CajaSearch extends Caja
+class PhysicSearch extends Physic
 {
-    public $tipoCajaIdTipoCaja;
-    public $physic0;
-    
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['idCaja', 'TipoCaja_idTipoCaja', 'physic'], 'integer'],
-            [['physic0','tipoCajaIdTipoCaja'],'safe'],
+            [['id'], 'integer'],
+            [['large', 'tall', 'width', 'maxWeight'], 'number'],
+            [['descript', 'longUnit', 'weightUnit'], 'safe'],
         ];
     }
 
@@ -44,7 +42,7 @@ class CajaSearch extends Caja
      */
     public function search($params)
     {
-        $query = Caja::find();
+        $query = Physic::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -59,11 +57,17 @@ class CajaSearch extends Caja
         }
 
         $query->andFilterWhere([
-            'idCaja' => $this->idCaja,
-            'TipoCaja_idTipoCaja' => $this->TipoCaja_idTipoCaja,
-            'physic' => $this->physic,
+            'id' => $this->id,
+            'large' => $this->large,
+            'tall' => $this->tall,
+            'width' => $this->width,
+            'maxWeight' => $this->maxWeight,
         ]);
-        
+
+        $query->andFilterWhere(['like', 'descript', $this->descript])
+            ->andFilterWhere(['like', 'longUnit', $this->longUnit])
+            ->andFilterWhere(['like', 'weightUnit', $this->weightUnit]);
+
         return $dataProvider;
     }
 }

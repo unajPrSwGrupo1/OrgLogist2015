@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 11-10-2015 a las 12:12:23
+-- Tiempo de generación: 13-10-2015 a las 20:48:48
 -- Versión del servidor: 10.0.21-MariaDB-log
 -- Versión de PHP: 5.6.14
 
@@ -30,12 +30,12 @@ USE `StockTransporteLogistica`;
 
 CREATE TABLE IF NOT EXISTS `caja` (
   `idCaja` int(11) NOT NULL AUTO_INCREMENT,
-  `Peso` int(11) NOT NULL,
-  `Volumen` int(11) NOT NULL,
   `TipoCaja_idTipoCaja` int(11) NOT NULL,
+  `physic` int(11) NOT NULL,
   PRIMARY KEY (`idCaja`,`TipoCaja_idTipoCaja`),
-  KEY `fk_Caja_TipoCaja1_idx` (`TipoCaja_idTipoCaja`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  KEY `fk_Caja_TipoCaja1_idx` (`TipoCaja_idTipoCaja`),
+  KEY `physic` (`physic`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -242,6 +242,24 @@ CREATE TABLE IF NOT EXISTS `pedido` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `physic`
+--
+
+CREATE TABLE IF NOT EXISTS `physic` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `large` float NOT NULL,
+  `tall` float NOT NULL,
+  `width` float NOT NULL,
+  `maxWeight` float NOT NULL,
+  `descript` varchar(45) NOT NULL DEFAULT '"Descipción física"',
+  `longUnit` enum('mm','cm','m','hm') NOT NULL DEFAULT 'm',
+  `weightUnit` enum('mg','g','Kg','') NOT NULL DEFAULT 'Kg',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `rrhh`
 --
 
@@ -395,7 +413,7 @@ CREATE TABLE IF NOT EXISTS `tipocaja` (
   `idTipoCaja` int(11) NOT NULL AUTO_INCREMENT,
   `Tipo` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`idTipoCaja`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -519,7 +537,8 @@ CREATE TABLE IF NOT EXISTS `user` (
 -- Filtros para la tabla `caja`
 --
 ALTER TABLE `caja`
-  ADD CONSTRAINT `fk_Caja_TipoCaja1` FOREIGN KEY (`TipoCaja_idTipoCaja`) REFERENCES `tipocaja` (`idTipoCaja`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_Caja_TipoCaja1` FOREIGN KEY (`TipoCaja_idTipoCaja`) REFERENCES `tipocaja` (`idTipoCaja`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_physic1` FOREIGN KEY (`physic`) REFERENCES `physic` (`id`);
 
 --
 -- Filtros para la tabla `darsena`
