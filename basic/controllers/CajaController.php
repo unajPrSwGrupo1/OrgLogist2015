@@ -76,16 +76,12 @@ class CajaController extends Controller
     public function actionCreate()
     {
         $model = new Caja();
-        $subModelTipo = new Tipocaja();
-        $subModelPhy = new Physic();
-
+        
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'idCaja' => $model->idCaja, 'TipoCaja_idTipoCaja' => $model->TipoCaja_idTipoCaja]);
         } else {
             return $this->render('create', [
                 'model' => $model,
-                'subModelTipo' => $subModelTipo,
-                'subModelPhy' => $subModelPhy
             ]);
         }
     }
@@ -156,7 +152,6 @@ class CajaController extends Controller
     public function actionDelete($idCaja, $TipoCaja_idTipoCaja)
     {
         $this->findModel($idCaja, $TipoCaja_idTipoCaja)->delete();
-
         return $this->redirect(['index']);
     }
 

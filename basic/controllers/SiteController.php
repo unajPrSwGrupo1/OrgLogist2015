@@ -13,6 +13,7 @@ use yii\widgets\ActiveForm;
 use yii\web\Response;
 use app\models\FormRegister;
 use app\models\Users;
+use app\commands\Intranet;
 
 class SiteController extends Controller {
 	
@@ -62,7 +63,7 @@ class SiteController extends Controller {
 				$model->password=null;
 				return $this->render($model->getRole($roleRef),
 						["model"=>$model,"msg"=>$model->getDescriptRole($roleRef),
-						"arr"=>$model->getFunctionsRole($roleRef)]);
+						"arr"=>$model->getFunctionsRole($roleRef),"urlhead"=>Intranet::getUrlHead()]);
 			} else {
 				$model->getErrors ();
 			}
