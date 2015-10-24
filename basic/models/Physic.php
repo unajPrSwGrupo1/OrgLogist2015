@@ -65,4 +65,9 @@ class Physic extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Caja::className(), ['physic' => 'id']);
     }
+    
+    public function getAllPhy()
+    {
+        return Physic::find()->all();
+    }
 }

@@ -12,7 +12,7 @@ use app\models\ContactForm;
 use yii\widgets\ActiveForm;
 use yii\web\Response;
 use app\models\FormRegister;
-use app\models\Users;
+use app\models\User;
 use app\commands\Intranet;
 
 class SiteController extends Controller {
@@ -119,7 +119,7 @@ class SiteController extends Controller {
 		
 	public function actionConfirm()
 		{
-		$table = new Users;
+		$table = new User;
 		if (Yii::$app->request->get())
 			{
 				//Obtenemos el valor de los parámetros get
@@ -130,13 +130,13 @@ class SiteController extends Controller {
 						//Realizamos la consulta para obtener el registro
 						$model = $table
 						->find()
-						->where("id=:id", [":id" => $id])
+						->where("idAutenticacion=:idAutenticacion", [":idAutenticacion" => $id])
 						->andWhere("authKey=:authKey",
 								[":authKey" =>$authKey]);
 						//Si el registro existe
 						if ($model->count() == 1)
 							{
-								$activar = Users::findOne($id);
+								$activar = User::findOne($id);
 								$activar->activate = 1;
 								if ($activar->update())
 									{
@@ -174,28 +174,28 @@ class SiteController extends Controller {
 			{
 				if ($model->validate())
 					{
-						$table = new Users;
+						$table = new User;
 						$table->username = $model->username;
-						$table->email = $model->email;
+						$table->Mail = $model->Mail;
 						$table->password = crypt($model->password, Yii::$app->params["salt"]);
-						$table->authKey = $this->randKey("abcdef0123456789", 200);
-						$table->accessToken = $this->randKey("abcdef0123456789",200);
+						$table->Authkey = $this->randKey("abcdef0123456789", 200);
+						$table->Token = $this->randKey("abcdef0123456789",200);
 						if ($table->insert())
 						{
-							$user = $table->find()->where(["email" => $model->email])->one();
-							$id = urlencode($user->id);
-							$authKey = urlencode($user->authKey);
+							$user = $table->find()->where(["Mail" => $model->Mail])->one();
+							$id = urlencode($user->idAutenticacion);
+							$authKey = urlencode($user->Authkey);
 							$subject = "Confirmar registro";
 							$body = "<h1>Haga click en el siguiente enlace para finalizar tu registro</h1>";
 							$body .= "<a href='http://localhost/basic/web/index.php?r=site/confirm&id= (http://localhost/basic/web/index.php?r=site/confirm&id=)".$id."&authKey=".$authKey."'>Confirmar</a>";
 							Yii::$app->mailer->compose()
-									->setTo($user->email)
+									->setTo($user->Mail)
 									->setFrom([Yii::$app->params["adminEmail"] => Yii::$app->params["title"]])
 									->setSubject($subject)
 									->setHtmlBody($body)
 									->send();
 							$model->username = null;
-							$model->email = null;
+							$model->Mail = null;
 							$model->password = null;
 							$model->password_repeat = null;
 							$msg = "Enhorabuena, ahora sólo falta que confirmes tu registro en tu cuenta de correo";

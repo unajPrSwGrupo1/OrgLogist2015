@@ -63,8 +63,8 @@ class CajaController extends Controller
     public function actionView($idCaja, $TipoCaja_idTipoCaja)
     {
         return $this->render('view', [
-            //'model' => $this->findModel($idCaja, $TipoCaja_idTipoCaja),
-            'model' => $this->findModelJoinTipo($idCaja,$TipoCaja_idTipoCaja)
+            'model' => $this->findModel($idCaja, $TipoCaja_idTipoCaja),
+            //'model' => $this->findModelJoinTipo($idCaja,$TipoCaja_idTipoCaja)
         ]);
     }
 
@@ -76,12 +76,14 @@ class CajaController extends Controller
     public function actionCreate()
     {
         $model = new Caja();
+        $subModelTipo = new Tipocaja();
+        $subModelPhy = new Physic( );
         
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'idCaja' => $model->idCaja, 'TipoCaja_idTipoCaja' => $model->TipoCaja_idTipoCaja]);
         } else {
-            return $this->render('create', [
-                'model' => $model,
+            return $this->render('create', ['model' => $model,
+                'subModelTipo'=>$subModelTipo,'subModelPhy'=>$subModelPhy
             ]);
         }
     }

@@ -50,4 +50,9 @@ class Tipocaja extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Caja::className(), ['TipoCaja_idTipoCaja' => 'idTipoCaja']);
     }
+    
+    public function getAllTipocaja()
+    {
+        return Tipocaja::find()->all();
+    }
 }
