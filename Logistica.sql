@@ -146,7 +146,7 @@ CREATE TABLE IF NOT EXISTS `Factura_has_Caja` (
 
 CREATE TABLE IF NOT EXISTS `func_tiporrhh` (
 `idFunc` int(11) NOT NULL,
-  `link_func` varchar(200) NOT NULL DEFAULT '/basic/web/index.php?r=site/not_has_view',
+  `link_func` varchar(200) NULL DEFAULT '/basic/web/index.php?r=site/not_has_view',
   `desc_func` varchar(140) DEFAULT NULL,
   `tiporrhh_idTipoRRHH` int(11) NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
@@ -464,7 +464,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `tiporrhh_idTipoRRHH` int(11) NOT NULL,
   `Fecha` date DEFAULT NULL,
   `Hora` time DEFAULT NULL,
-  `activate` tinyint(4) NOT NULL DEFAULT '0'
+  `activate` tinyint(4) NULL DEFAULT '0'
 ) ENGINE=InnoDB AUTO_INCREMENT=102 DEFAULT CHARSET=utf8;
 
 --

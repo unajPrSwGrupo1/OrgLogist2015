@@ -108,4 +108,9 @@ class Tiporrhh extends \yii\db\ActiveRecord
     {
         return $this->hasMany(User::className(), ['tiporrhh_idTipoRRHH' => 'idTipoRRHH']);
     }
+
+    public function getAllTiporrhh(){
+        return Tiporrhh::find()->all();
+    }
+
 }
