@@ -40,5 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
+    <?= Html::a('Ver Desactivados', ['inactiv'], ['class' => 'btn btn-success']) ?>
+    <?= Html::a('Ver Activos', ['index'], ['class' => 'btn btn-success']) ?>
 
 </div>

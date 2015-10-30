@@ -30,7 +30,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'Hora')->textInput() ?>
 
-    <?= $form->field($model, 'activate')->textInput() ?>
+    <?= $form->field($model, 'activate')->dropDownList(['1' => 'Activo', '0' => 'Desactivado']);?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use Yii;
+use yii\helpers\Url;
 use app\models\User;
 use app\models\UserSearch;
 use yii\web\Controller;
@@ -26,6 +27,19 @@ class UserController extends Controller
         ];
     }
 
+    public function actionInactiv()
+    {
+        $searchModel = new UserSearch();
+	$searchModel->setTableMode0();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+
     /**
      * Lists all User models.
      * @return mixed
@@ -33,6 +47,7 @@ class UserController extends Controller
     public function actionIndex()
     {
         $searchModel = new UserSearch();
+        $searchModel->setTableMode1();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -62,16 +77,32 @@ class UserController extends Controller
      */
     public function actionCreate()
     {
-        $model = new User();
+//        $model = new User();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'idAutenticacion' => $model->idAutenticacion, 'RRHH_idRRHH' => $model->RRHH_idRRHH, 'tiporrhh_idTipoRRHH' => $model->tiporrhh_idTipoRRHH]);
+//        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+//            return $this->redirect(['view', 'idAutenticacion' => $model->idAutenticacion, 'RRHH_idRRHH' => $model->RRHH_idRRHH, 'tiporrhh_idTipoRRHH' => $model->tiporrhh_idTipoRRHH]);
+//        } else {
+//            return $this->render('create', [
+//                'model' => $model,
+//            ]);
+//        }
+	echo "Redireccionando al registro de usuario...";
+	echo "<meta http-equiv='refresh' content='1; ".Url::toRoute("site/register")."'>";
+    }
+
+    public function actionUsernew()
+    {
+        $subModelRegister = new RegisterForm();
+        
+        if ($subModelRegister->load(Yii::$app->request->post()) && $subModelRegister->save()) {
+            return $this->actionIndex();
         } else {
-            return $this->render('create', [
-                'model' => $model,
+            return $this->render('../tipocaja/create', [
+                'model' => $subModelTipo
             ]);
         }
     }
+
 
     /**
      * Updates an existing User model.
@@ -104,9 +135,15 @@ class UserController extends Controller
      */
     public function actionDelete($idAutenticacion, $RRHH_idRRHH, $tiporrhh_idTipoRRHH)
     {
-        $this->findModel($idAutenticacion, $RRHH_idRRHH, $tiporrhh_idTipoRRHH)->delete();
-
-        return $this->redirect(['index']);
+        $desactiv=$this->findActiv($idAutenticacion, $RRHH_idRRHH, $tiporrhh_idTipoRRHH);
+	$desactiv->activate = 0;
+	if ($desactiv->update()!== false){
+		return $this->redirect(['index']);
+	}
+	else{
+		echo "Ha ocurrido un error al realizar el registro, redireccionando ...";
+		echo "<meta http-equiv='refresh' content='8; ".Url::toRoute("rrhh")."'>";
+	}
     }
 
     /**
@@ -126,4 +163,16 @@ class UserController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
+    protected function findActiv($idAutenticacion, $RRHH_idRRHH, $tiporrhh_idTipoRRHH)
+    {
+	if (($model = User::find()
+		->where(['idAutenticacion' => $idAutenticacion, 'RRHH_idRRHH' => $RRHH_idRRHH, 'tiporrhh_idTipoRRHH' => $tiporrhh_idTipoRRHH])
+		->andWhere("activate=:activate",[":activate" => 1])->one()
+	) !== null) return $model;
+        else {
+            throw new NotFoundHttpException('Usuario no desactivado del sistema.');
+        }
+    }
+
 }

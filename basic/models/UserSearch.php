@@ -12,6 +12,20 @@ use app\models\User;
  */
 class UserSearch extends User
 {
+    private $tablemode=1;
+    
+    public function setTableMode1(){
+	$this->tablemode=1;
+    }
+
+    public function setTableMode0(){
+	$this->tablemode=0;
+    }
+
+    public function getTableMode(){
+	$this->tablemode=0;
+    }
+
     /**
      * @inheritdoc
      */
@@ -61,14 +75,15 @@ class UserSearch extends User
             'tiporrhh_idTipoRRHH' => $this->tiporrhh_idTipoRRHH,
             'Fecha' => $this->Fecha,
             'Hora' => $this->Hora,
-            'activate' => $this->activate,
         ]);
 
         $query->andFilterWhere(['like', 'username', $this->username])
             ->andFilterWhere(['like', 'password', $this->password])
             ->andFilterWhere(['like', 'Mail', $this->Mail])
             ->andFilterWhere(['like', 'Authkey', $this->Authkey])
-            ->andFilterWhere(['like', 'Token', $this->Token]);
+            ->andFilterWhere(['like', 'Token', $this->Token])
+	    ->andFilterWhere(['like', 'activate', $this->tablemode])
+	;
 
         return $dataProvider;
     }

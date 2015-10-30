@@ -38,7 +38,7 @@ class User extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['username', 'password', 'Mail', 'RRHH_idRRHH', 'tiporrhh_idTipoRRHH'], 'required'],
+            [['username', 'password', 'Mail', 'RRHH_idRRHH', 'tiporrhh_idTipoRRHH','activate'], 'required'],
             [['RRHH_idRRHH', 'tiporrhh_idTipoRRHH', 'activate'], 'integer'],
             [['Fecha', 'Hora'], 'safe'],
             [['username', 'Mail'], 'string', 'max' => 45],
