@@ -90,20 +90,6 @@ class UserController extends Controller
 	echo "<meta http-equiv='refresh' content='1; ".Url::toRoute("site/register")."'>";
     }
 
-    public function actionUsernew()
-    {
-        $subModelRegister = new RegisterForm();
-        
-        if ($subModelRegister->load(Yii::$app->request->post()) && $subModelRegister->save()) {
-            return $this->actionIndex();
-        } else {
-            return $this->render('../tipocaja/create', [
-                'model' => $subModelTipo
-            ]);
-        }
-    }
-
-
     /**
      * Updates an existing User model.
      * If update is successful, the browser will be redirected to the 'view' page.
