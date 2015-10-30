@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 26-10-2015 a las 21:37:34
+-- Tiempo de generación: 30-10-2015 a las 02:01:07
 -- Versión del servidor: 5.6.26-74.0
 -- Versión de PHP: 5.6.14
 
@@ -22,14 +22,12 @@ SET time_zone = "+00:00";
 CREATE DATABASE IF NOT EXISTS `StockTransporteLogistica` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `StockTransporteLogistica`;
 
-
 --
 -- Volcado de datos para la tabla `cliente`
 --
 
 INSERT INTO `cliente` (`idCliente`, `Nombre`, `Telefono`, `Mail`, `Direccion`, `Descripcion`) VALUES
 (1, 'cli1', '44444444', 'cli1@email.org', 'calle 234', 'comentario sobre cli1');
-
 
 --
 -- Volcado de datos para la tabla `physic`
@@ -41,17 +39,19 @@ INSERT INTO `physic` (`id`, `large`, `tall`, `width`, `maxWeight`, `descript`, `
 (3, 1.2, 2.3, 3.4, 4.5, '( 1,2 x 2,3 x 3,4 )m Max=4,5Kg', 'm', 'Kg'),
 (4, 5.6, 6.7, 7.8, 8.9, '"Descipción física"', 'm', 'g'),
 (5, 1, 1, 0.5, 0.5, '( 1 x 1 x 0,5 ) m Max =  0,5 Kg', 'm', 'Kg'),
-(6, 5, 5, 2.7, 3, '"Descipción física"', 'm', 'g');
+(6, 5, 5, 2.7, 3, '"Descipción física"', 'm', 'g'),
+(7, 7, 8, 9, 50, '(7x8X9) Max 50Kg', 'm', 'Kg');
 
 --
 -- Volcado de datos para la tabla `rrhh`
 --
 
-INSERT INTO `rrhh` (`idRRHH`, `Nombre`, `Apellido`, `Edad`, `Salario`, `Jefe`, `descript`) VALUES
-(10, 'Jose', 'Perez', 22, '1500.00', NULL, 'José Perez 22 años, jefe'),
-(11, 'Alberto', 'Juarez', 40, '20000.00', 10, 'Alberto Juarez, 40 años'),
-(13, 'conf', 'configurador', 10, '10.00', NULL, 'Comentario sobre el configurador'),
-(14, 'usuario1', 'apellido1', 99, '99.00', 10, 'Usuario1 Apellido 1');
+INSERT INTO `rrhh` (`idRRHH`, `Nombre`, `Apellido`, `Edad`, `Salario`, `Jefe`, `descript`, `activate`) VALUES
+(10, 'Jose', 'Perez', 22, '1500.00', NULL, 'José Perez 22 años, jefe', 1),
+(11, 'Alberto', 'Juarez', 40, '20000.00', 10, 'Alberto Juarez, 40 años', 1),
+(13, 'conf', 'configurador', 10, '10.00', 10, 'Comentario sobre el configurador', 1),
+(14, 'usuario1', 'apellido1', 99, '99.00', 10, 'Usuario1 Apellido 1', 1),
+(15, 'Pancho', 'Ibañez', 54, '34000.00', 10, 'Pancho Ibañes, 54 años', 0);
 
 --
 -- Volcado de datos para la tabla `tipocaja`
@@ -63,7 +63,8 @@ INSERT INTO `tipocaja` (`idTipoCaja`, `Tipo`) VALUES
 (3, 'Arroz'),
 (4, 'Fideos largos pack 200'),
 (5, 'Jugo en sobres x50 unidades'),
-(6, 'Gaseosa 330ml pack x12 unidades');
+(6, 'Gaseosa 330ml pack x12 unidades'),
+(7, 'televisor');
 
 --
 -- Volcado de datos para la tabla `caja`
@@ -72,8 +73,8 @@ INSERT INTO `tipocaja` (`idTipoCaja`, `Tipo`) VALUES
 INSERT INTO `caja` (`idCaja`, `TipoCaja_idTipoCaja`, `physic`) VALUES
 (4, 4, 2),
 (2, 1, 3),
-(3, 3, 3);
-
+(3, 3, 3),
+(5, 7, 7);
 
 --
 -- Volcado de datos para la tabla `tiporrhh`
@@ -87,6 +88,7 @@ INSERT INTO `tiporrhh` (`idTipoRRHH`, `Tipo`, `descript`) VALUES
 (1004, 'op-dock', 'Operador del sistema de gestión de dársena'),
 (1005, 'op-salepoint', 'Operador del punto de venta del sistema de logística'),
 (1007, 'conf-sys', 'Configurador del sistema');
+
 
 --
 -- Volcado de datos para la tabla `func_tiporrhh`

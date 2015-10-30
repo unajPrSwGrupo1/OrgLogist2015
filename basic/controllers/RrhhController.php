@@ -33,6 +33,19 @@ class RrhhController extends Controller
     public function actionIndex()
     {
         $searchModel = new RrhhSearch();
+	$searchModel->setTableMode1();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionInactiv()
+    {
+        $searchModel = new RrhhSearch();
+	$searchModel->setTableMode0();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -61,6 +74,7 @@ class RrhhController extends Controller
     public function actionCreate()
     {
         $model = new Rrhh();
+	$model->activate = 1;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->idRRHH]);
@@ -98,9 +112,15 @@ class RrhhController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
+        $desactiv=$this->findActiv($id);
+	$desactiv->activate = 0;
+	if ($desactiv->update()!== false){
+		return $this->redirect(['index']);
+	}
+	else{
+		echo "Ha ocurrido un error al realizar el registro, redireccionando ...";
+		echo "<meta http-equiv='refresh' content='8; ".Url::toRoute("rrhh")."'>";
+	}
     }
 
     /**
@@ -118,4 +138,16 @@ class RrhhController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
+    protected function findActiv($id)
+    {
+        if (($model = Rrhh::find()->where("idRRHH=:idRRHH",[":idRRHH" => $id] )
+    		->andWhere("activate=:activate",[":activate" => 1])->one()) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('Persona desactivada del sistema.');
+        }
+    }
+
+
 }

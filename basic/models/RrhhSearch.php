@@ -12,16 +12,30 @@ use app\models\Rrhh;
  */
 class RrhhSearch extends Rrhh
 {
+    
+    private $tablemode=1;
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['idRRHH', 'Edad', 'Jefe'], 'integer'],
+            [['idRRHH', 'Edad', 'Jefe','activate'], 'integer'],
             [['Nombre', 'Apellido', 'descript'], 'safe'],
             [['Salario'], 'number'],
         ];
+    }
+
+    public function setTableMode1(){
+	$this->tablemode=1;
+    }
+
+    public function setTableMode0(){
+	$this->tablemode=0;
+    }
+
+    public function getTableMode(){
+	$this->tablemode=0;
     }
 
     /**
@@ -65,7 +79,9 @@ class RrhhSearch extends Rrhh
 
         $query->andFilterWhere(['like', 'Nombre', $this->Nombre])
             ->andFilterWhere(['like', 'Apellido', $this->Apellido])
-            ->andFilterWhere(['like', 'descript', $this->descript]);
+            ->andFilterWhere(['like', 'descript', $this->descript])
+	    ->andFilterWhere(['like', 'activate', $this->tablemode])
+	;
 
         return $dataProvider;
     }

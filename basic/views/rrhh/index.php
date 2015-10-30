@@ -30,11 +30,18 @@ $this->params['breadcrumbs'][] = $this->title;
             'Apellido',
             'Edad',
             'Salario',
-            // 'Jefe',
+            'Jefe',
             'descript',
+	    //'activate',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
+    <p>
+        <?= Html::a('Ver Desactivados', ['inactiv'], ['class' => 'btn btn-success']) ?>
+    </p>
+    <p>
+        <?= Html::a('Ver Activos', ['index'], ['class' => 'btn btn-success']) ?>
+    </p>
 
 </div>

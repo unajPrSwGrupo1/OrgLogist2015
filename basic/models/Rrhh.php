@@ -38,8 +38,8 @@ class Rrhh extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Nombre', 'Apellido', 'Edad', 'Salario', 'descript'], 'required'],
-            [['Edad', 'Jefe'], 'integer'],
+            [['Nombre', 'Apellido', 'Edad', 'Salario', 'descript','activate'], 'required'],
+            [['Edad', 'Jefe','activate'], 'integer'],
             [['Salario'], 'number'],
             [['Nombre', 'Apellido'], 'string', 'max' => 45],
             [['descript'], 'string', 'max' => 140]
@@ -59,6 +59,7 @@ class Rrhh extends \yii\db\ActiveRecord
             'Salario' => 'Salario',
             'Jefe' => 'Jefe',
             'descript' => 'Descript',
+	    'activate' => 'Activate',
         ];
     }
 
@@ -109,8 +110,20 @@ class Rrhh extends \yii\db\ActiveRecord
     {
         return $this->hasMany(User::className(), ['RRHH_idRRHH' => 'idRRHH']);
     }
+
+
     public function getAllRrhh(){
-        return Rrhh::find()->all();
+        return Rrhh::find()->where ( 
+            		"activate=:activate", 
+            		[":activate" => 1]
+            	)->all();
+    }
+
+    public function getAllRrhhZeroActivate(){
+        return Rrhh::find()->where ( 
+            		"activate=:activate", 
+            		[":activate" => 0]
+            	)->all();
     }
 
 }
