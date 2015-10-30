@@ -51,7 +51,7 @@ class SiteController extends Controller {
 	}
 	
 	public function actionNot_has_view() {
-		return $this->render ( 'not_has_view' );
+		return $this->render ( 'not_has_view',['urlhead' => Intranet::getUrlHead()] );
 	}
 	
 	public function actionLogin() {
