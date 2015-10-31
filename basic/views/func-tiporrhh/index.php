@@ -29,6 +29,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'link_func',
             'desc_func',
             'tiporrhh_idTipoRRHH',
+	    ['attribute'=>'tiporrhhIdTipoRRHH','value'=>'tiporrhhIdTipoRRHH.descript'],
+            
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

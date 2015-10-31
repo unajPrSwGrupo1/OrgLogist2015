@@ -12,6 +12,7 @@ use app\models\FuncTiporrhh;
  */
 class FuncTiporrhhSearch extends FuncTiporrhh
 {
+    public $tiporrhhIdTipoRRHH;
     /**
      * @inheritdoc
      */
@@ -19,7 +20,7 @@ class FuncTiporrhhSearch extends FuncTiporrhh
     {
         return [
             [['idFunc', 'tiporrhh_idTipoRRHH'], 'integer'],
-            [['link_func', 'desc_func'], 'safe'],
+            [['link_func', 'desc_func','tiporrhhIdTipoRRHH'], 'safe'],
         ];
     }
 
