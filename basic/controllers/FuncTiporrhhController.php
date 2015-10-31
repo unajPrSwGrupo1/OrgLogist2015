@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use app\models\FuncTiporrhh;
+use app\models\Tiporrhh;
 use app\models\FuncTiporrhhSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -61,12 +62,13 @@ class FuncTiporrhhController extends Controller
     public function actionCreate()
     {
         $model = new FuncTiporrhh();
+	$subModelTiporrhh = new Tiporrhh();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->idFunc]);
         } else {
             return $this->render('create', [
-                'model' => $model,
+                'model' => $model,'subModelTiporrhh' => $subModelTiporrhh
             ]);
         }
     }
