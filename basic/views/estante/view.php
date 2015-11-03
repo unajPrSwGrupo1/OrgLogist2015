@@ -32,6 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'Fila',
             'Columna',
             'EstanteEstado_idEstanteEstado',
+            'loadlimit',
         ],
     ]) ?>
 

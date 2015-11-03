@@ -27,10 +27,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'idTransporte',
             'Matricula',
-            'Peso',
             'TIpoTransporte_idTIpoTransporte',
             'RRHH_idRRHH',
-            // 'RRHH_TipoRRHH_idTipoRRHH',
+            'tiporrhh_idTipoRRHH',
+            // 'loadlimit',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

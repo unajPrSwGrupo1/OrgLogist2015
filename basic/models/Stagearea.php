@@ -9,7 +9,9 @@ use Yii;
  *
  * @property integer $idStageArea
  * @property integer $TipoStageArea_idTipoStageArea
+ * @property string $loadlimit
  *
+ * @property Loadlimit $loadlimit0
  * @property Tipostagearea $tipoStageAreaIdTipoStageArea
  * @property StageareaHasPallet[] $stageareaHasPallets
  * @property StockcenterHasStagearea[] $stockcenterHasStageareas
@@ -30,8 +32,8 @@ class Stagearea extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['TipoStageArea_idTipoStageArea'], 'required'],
-            [['TipoStageArea_idTipoStageArea'], 'integer']
+            [['TipoStageArea_idTipoStageArea', 'loadlimit'], 'required'],
+            [['TipoStageArea_idTipoStageArea', 'loadlimit'], 'integer']
         ];
     }
 
@@ -43,7 +45,16 @@ class Stagearea extends \yii\db\ActiveRecord
         return [
             'idStageArea' => 'Id Stage Area',
             'TipoStageArea_idTipoStageArea' => 'Tipo Stage Area Id Tipo Stage Area',
+            'loadlimit' => 'Loadlimit',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getLoadlimit0()
+    {
+        return $this->hasOne(Loadlimit::className(), ['id' => 'loadlimit']);
     }
 
     /**

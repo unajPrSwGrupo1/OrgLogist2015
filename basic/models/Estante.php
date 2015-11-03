@@ -11,8 +11,10 @@ use Yii;
  * @property string $Fila
  * @property string $Columna
  * @property integer $EstanteEstado_idEstanteEstado
+ * @property string $loadlimit
  *
  * @property Estanteestado $estanteEstadoIdEstanteEstado
+ * @property Loadlimit $loadlimit0
  * @property EstanteHasCaja[] $estanteHasCajas
  * @property StockcenterHasEstante[] $stockcenterHasEstantes
  */
@@ -32,9 +34,10 @@ class Estante extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Fila', 'Columna', 'EstanteEstado_idEstanteEstado'], 'required'],
-            [['EstanteEstado_idEstanteEstado'], 'integer'],
-            [['Fila', 'Columna'], 'string', 'max' => 45]
+            [['Fila', 'Columna', 'EstanteEstado_idEstanteEstado', 'loadlimit'], 'required'],
+            [['EstanteEstado_idEstanteEstado', 'loadlimit'], 'integer'],
+            [['Fila', 'Columna'], 'string', 'max' => 45],
+            [['loadlimit'], 'unique']
         ];
     }
 
@@ -48,6 +51,7 @@ class Estante extends \yii\db\ActiveRecord
             'Fila' => 'Fila',
             'Columna' => 'Columna',
             'EstanteEstado_idEstanteEstado' => 'Estante Estado Id Estante Estado',
+            'loadlimit' => 'Loadlimit',
         ];
     }
 
@@ -57,6 +61,14 @@ class Estante extends \yii\db\ActiveRecord
     public function getEstanteEstadoIdEstanteEstado()
     {
         return $this->hasOne(Estanteestado::className(), ['idEstanteEstado' => 'EstanteEstado_idEstanteEstado']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getLoadlimit0()
+    {
+        return $this->hasOne(Loadlimit::className(), ['id' => 'loadlimit']);
     }
 
     /**

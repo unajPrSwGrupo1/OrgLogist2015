@@ -18,7 +18,7 @@ class StageareaSearch extends Stagearea
     public function rules()
     {
         return [
-            [['idStageArea', 'TipoStageArea_idTipoStageArea'], 'integer'],
+            [['idStageArea', 'TipoStageArea_idTipoStageArea', 'loadlimit'], 'integer'],
         ];
     }
 
@@ -57,6 +57,7 @@ class StageareaSearch extends Stagearea
         $query->andFilterWhere([
             'idStageArea' => $this->idStageArea,
             'TipoStageArea_idTipoStageArea' => $this->TipoStageArea_idTipoStageArea,
+            'loadlimit' => $this->loadlimit,
         ]);
 
         return $dataProvider;

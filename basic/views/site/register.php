@@ -25,7 +25,6 @@ use yii\helpers\ArrayHelper;
 		)
 	?>
 
-
     <?=$form->field($model, 'tiporrhh_idTipoRRHH')
 	->dropDownList(
 		ArrayHelper::map($subModelTiporrhh->getAllTiporrhh(), 'idTipoRRHH', 'descript')

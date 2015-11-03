@@ -30,6 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'idStageArea',
             'TipoStageArea_idTipoStageArea',
+            'loadlimit',
         ],
     ]) ?>
 

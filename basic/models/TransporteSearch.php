@@ -18,7 +18,7 @@ class TransporteSearch extends Transporte
     public function rules()
     {
         return [
-            [['idTransporte', 'Peso', 'TIpoTransporte_idTIpoTransporte', 'RRHH_idRRHH', 'tiporrhh_idTipoRRHH'], 'integer'],
+            [['idTransporte', 'TIpoTransporte_idTIpoTransporte', 'RRHH_idRRHH', 'tiporrhh_idTipoRRHH', 'loadlimit'], 'integer'],
             [['Matricula'], 'safe'],
         ];
     }
@@ -57,10 +57,10 @@ class TransporteSearch extends Transporte
 
         $query->andFilterWhere([
             'idTransporte' => $this->idTransporte,
-            'Peso' => $this->Peso,
             'TIpoTransporte_idTIpoTransporte' => $this->TIpoTransporte_idTIpoTransporte,
             'RRHH_idRRHH' => $this->RRHH_idRRHH,
             'tiporrhh_idTipoRRHH' => $this->tiporrhh_idTipoRRHH,
+            'loadlimit' => $this->loadlimit,
         ]);
 
         $query->andFilterWhere(['like', 'Matricula', $this->Matricula]);

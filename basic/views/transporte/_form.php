@@ -14,13 +14,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'Matricula')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'Peso')->textInput() ?>
-
     <?= $form->field($model, 'TIpoTransporte_idTIpoTransporte')->textInput() ?>
 
     <?= $form->field($model, 'RRHH_idRRHH')->textInput() ?>
 
-    <?= $form->field($model, 'RRHH_TipoRRHH_idTipoRRHH')->textInput() ?>
+    <?= $form->field($model, 'tiporrhh_idTipoRRHH')->textInput() ?>
+
+    <?= $form->field($model, 'loadlimit')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

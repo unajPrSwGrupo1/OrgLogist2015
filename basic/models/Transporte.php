@@ -9,13 +9,14 @@ use Yii;
  *
  * @property integer $idTransporte
  * @property string $Matricula
- * @property integer $Peso
  * @property integer $TIpoTransporte_idTIpoTransporte
  * @property integer $RRHH_idRRHH
  * @property integer $tiporrhh_idTipoRRHH
+ * @property string $loadlimit
  *
  * @property Hojaruta[] $hojarutas
  * @property Ticket[] $tickets
+ * @property Loadlimit $loadlimit0
  * @property Rrhh $rRHHIdRRHH
  * @property Tipotransporte $tIpoTransporteIdTIpoTransporte
  * @property Tiporrhh $tiporrhhIdTipoRRHH
@@ -38,8 +39,8 @@ class Transporte extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Matricula', 'Peso', 'TIpoTransporte_idTIpoTransporte', 'RRHH_idRRHH', 'tiporrhh_idTipoRRHH'], 'required'],
-            [['Peso', 'TIpoTransporte_idTIpoTransporte', 'RRHH_idRRHH', 'tiporrhh_idTipoRRHH'], 'integer'],
+            [['Matricula', 'TIpoTransporte_idTIpoTransporte', 'RRHH_idRRHH', 'tiporrhh_idTipoRRHH', 'loadlimit'], 'required'],
+            [['TIpoTransporte_idTIpoTransporte', 'RRHH_idRRHH', 'tiporrhh_idTipoRRHH', 'loadlimit'], 'integer'],
             [['Matricula'], 'string', 'max' => 45]
         ];
     }
@@ -52,10 +53,10 @@ class Transporte extends \yii\db\ActiveRecord
         return [
             'idTransporte' => 'Id Transporte',
             'Matricula' => 'Matricula',
-            'Peso' => 'Peso',
             'TIpoTransporte_idTIpoTransporte' => 'Tipo Transporte Id Tipo Transporte',
             'RRHH_idRRHH' => 'Rrhh Id Rrhh',
             'tiporrhh_idTipoRRHH' => 'Tiporrhh Id Tipo Rrhh',
+            'loadlimit' => 'Loadlimit',
         ];
     }
 
@@ -73,6 +74,14 @@ class Transporte extends \yii\db\ActiveRecord
     public function getTickets()
     {
         return $this->hasMany(Ticket::className(), ['Transporte_idTransporte' => 'idTransporte', 'Transporte_TIpoTransporte_idTIpoTransporte' => 'TIpoTransporte_idTIpoTransporte', 'Transporte_RRHH_idRRHH' => 'RRHH_idRRHH', 'Transporte_tiporrhh_idTipoRRHH' => 'tiporrhh_idTipoRRHH']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getLoadlimit0()
+    {
+        return $this->hasOne(Loadlimit::className(), ['id' => 'loadlimit']);
     }
 
     /**

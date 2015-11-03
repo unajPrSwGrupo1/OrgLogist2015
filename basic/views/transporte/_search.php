@@ -19,13 +19,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'Matricula') ?>
 
-    <?= $form->field($model, 'Peso') ?>
-
     <?= $form->field($model, 'TIpoTransporte_idTIpoTransporte') ?>
 
     <?= $form->field($model, 'RRHH_idRRHH') ?>
 
-    <?php // echo $form->field($model, 'RRHH_TipoRRHH_idTipoRRHH') ?>
+    <?= $form->field($model, 'tiporrhh_idTipoRRHH') ?>
+
+    <?php // echo $form->field($model, 'loadlimit') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

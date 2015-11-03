@@ -27,6 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'idStageArea',
             'TipoStageArea_idTipoStageArea',
+            'loadlimit',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
