@@ -161,6 +161,7 @@ class SiteController extends Controller {
 		if ($model->validate())
 			{
 				$table = new User();
+				$table->loadDefaultValues();
 				$table->username = $model->username;
 				$table->Mail = $model->Mail;
 				$table->password = crypt($model->password, Yii::$app->params["salt"]);
