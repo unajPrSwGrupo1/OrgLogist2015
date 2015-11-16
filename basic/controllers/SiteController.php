@@ -17,6 +17,7 @@ use app\models\User;
 use app\models\Tiporrhh;
 use app\models\Rrhh;
 use app\commands\Intranet;
+use app\commands\Mailto;
 
 class SiteController extends Controller {
 	
@@ -176,7 +177,8 @@ class SiteController extends Controller {
 					$authKey = urlencode($user->Authkey);
 					$subject = "Confirmar registro";
 					$body = "<h1>Haga click en el siguiente enlace para finalizar tu registro</h1>";
-					$body .= "<a href='".Intranet::getUrlHead()."/basic/web/index.php?r=site/confirm&id=".$id."&authKey=".$authKey."'>Confirmar</a>";
+                    $link=Intranet::getUrlHead()."/basic/web/index.php?r=site/confirm&id=".$id."&authKey=".$authKey;
+					$body .= "<a href='".$link."'>Confirmar</a>";
 					Yii::$app->mailer->compose()
 							->setTo($user->Mail)
 							->setFrom([Yii::$app->params["adminEmail"] => Yii::$app->params["title"]])
@@ -187,7 +189,8 @@ class SiteController extends Controller {
 					$model->Mail = null;
 					$model->password = null;
 					$model->password_repeat = null;
-					$msg = "Enhorabuena, ahora sólo falta que confirmes tu registro en tu cuenta de correo";
+					$msg = "Enhorabuena, ahora sólo falta que confirmes tu registro en tu cuenta de correo ".
+                    Mailto::getUrlMailto($user->Mail,$subject,"","","Haga click en el siguiente enlace para finalizar tu registro",$link,"\nClick aquí para reenviar confirmación vía mailto:");
 				}
 				else{
 					$msg = "Ha ocurrido un error al llevar a cabo tu  registro\n"."username=".$model->username."\npassword=".$model->password_repeat."\nemail=".$model->Mail."\n
