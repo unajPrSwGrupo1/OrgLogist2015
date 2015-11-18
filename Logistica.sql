@@ -20,7 +20,7 @@ SET time_zone = "+00:00";
 -- Base de datos: `stocktransportelogistica`
 --
 CREATE DATABASE IF NOT EXISTS `StockTransporteLogistica` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `stocktransportelogistica`;
+USE `StockTransporteLogistica`;
 
 -- --------------------------------------------------------
 
