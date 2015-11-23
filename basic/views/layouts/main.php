@@ -19,11 +19,14 @@ AppAsset::register($this);
 </head>
 <body>
 
+ 
+    
+    
 <?php $this->beginBody() ?>
     <div class="wrap" >
         <?php
             NavBar::begin([
-                'brandLabel' => 'Home',
+                'brandLabel' => 'Inicio',
                 'brandUrl' => Yii::$app->homeUrl,
                 'options' => [
                     'class' => 'navbar-inverse navbar-fixed-top',
@@ -33,20 +36,26 @@ AppAsset::register($this);
             
             
             echo Nav::widget([
-                'options' => ['class' => 'navbar-nav navbar'],
+                'options' => ['class' => 'navbar-nav navbar-right'],
                 'items' => [
+          
+                    Yii::$app->user->isGuest ?
+                        ['label' => 'Login', 'url' => ['/site/login']] :
+                        ['label' => 'Logout (' . Yii::$app->user->identity->username . ')',
+                            'url' => ['/site/logout'],
+                            'linkOptions' => ['data-method' => 'post']],
                 ],
             ]);
             NavBar::end();
         ?>
 
-        <div class="container" >
+   
             <?= Breadcrumbs::widget([
                 'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
             ]) ?>
             <?= $content ?>
  
-        </div>
+        
     </div>
 
 
