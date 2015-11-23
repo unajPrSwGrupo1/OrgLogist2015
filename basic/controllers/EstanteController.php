@@ -62,9 +62,12 @@ class EstanteController extends Controller
     public function actionCreate()
     {
         $model = new Estante();
+	$model->loadDefaultValues();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'idEstante' => $model->idEstante, 'EstanteEstado_idEstanteEstado' => $model->EstanteEstado_idEstanteEstado]);
+            $model->descript = "(".$model->idEstante." / ".$model->Fila." x ".$model->Columna.")";
+		$model->save();
+	    return $this->redirect(['view', 'idEstante' => $model->idEstante, 'EstanteEstado_idEstanteEstado' => $model->EstanteEstado_idEstanteEstado]);
         } else {
             return $this->render('create', [
                 'model' => $model,

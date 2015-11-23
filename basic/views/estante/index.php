@@ -26,10 +26,11 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'idEstante',
-            'Fila',
-            'Columna',
+            //'Fila',
+            //'Columna',
             'EstanteEstado_idEstanteEstado',
             'loadlimit',
+            'descript',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

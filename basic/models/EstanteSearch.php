@@ -19,7 +19,7 @@ class EstanteSearch extends Estante
     {
         return [
             [['idEstante', 'EstanteEstado_idEstanteEstado', 'loadlimit'], 'integer'],
-            [['Fila', 'Columna'], 'safe'],
+            [['Fila', 'Columna', 'descript'], 'safe'],
         ];
     }
 
@@ -62,7 +62,8 @@ class EstanteSearch extends Estante
         ]);
 
         $query->andFilterWhere(['like', 'Fila', $this->Fila])
-            ->andFilterWhere(['like', 'Columna', $this->Columna]);
+            ->andFilterWhere(['like', 'Columna', $this->Columna])
+            ->andFilterWhere(['like', 'descript', $this->descript]);
 
         return $dataProvider;
     }

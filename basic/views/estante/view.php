@@ -33,6 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'Columna',
             'EstanteEstado_idEstanteEstado',
             'loadlimit',
+            'descript',
         ],
     ]) ?>
 

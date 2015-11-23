@@ -61,8 +61,12 @@ class PhysicController extends Controller
     public function actionCreate()
     {
         $model = new Physic();
+	$model->loadDefaultValues();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+	    $model->descript = "(".$model->large." x ".$model->tall." x ".$model->width.")".
+		$model->longUnit."; Peso maximo= ".$model->maxWeight." ".$model->weightUnit;
+		$model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [

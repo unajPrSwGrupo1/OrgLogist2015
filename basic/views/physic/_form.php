@@ -20,8 +20,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'maxWeight')->textInput() ?>
 
-    <?= $form->field($model, 'descript')->textInput(['maxlength' => true]) ?>
-
     <?= $form->field($model, 'longUnit')->dropDownList([ 'mm' => 'Mm', 'cm' => 'Cm', 'm' => 'M', 'hm' => 'Hm', ], ['prompt' => '']) ?>
 
     <?= $form->field($model, 'weightUnit')->dropDownList([ 'mg' => 'Mg', 'g' => 'G', 'Kg' => 'Kg', '' => '', ], ['prompt' => '']) ?>

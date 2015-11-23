@@ -12,10 +12,12 @@ use Yii;
  * @property string $Columna
  * @property integer $EstanteEstado_idEstanteEstado
  * @property string $loadlimit
+ * @property string $descript
  *
  * @property Estanteestado $estanteEstadoIdEstanteEstado
  * @property Loadlimit $loadlimit0
  * @property EstanteHasCaja[] $estanteHasCajas
+ * @property Caja[] $cajaIdCajas
  * @property StockcenterHasEstante[] $stockcenterHasEstantes
  */
 class Estante extends \yii\db\ActiveRecord
@@ -37,6 +39,7 @@ class Estante extends \yii\db\ActiveRecord
             [['Fila', 'Columna', 'EstanteEstado_idEstanteEstado', 'loadlimit'], 'required'],
             [['EstanteEstado_idEstanteEstado', 'loadlimit'], 'integer'],
             [['Fila', 'Columna'], 'string', 'max' => 45],
+            [['descript'], 'string', 'max' => 20],
             [['loadlimit'], 'unique']
         ];
     }
@@ -52,6 +55,7 @@ class Estante extends \yii\db\ActiveRecord
             'Columna' => 'Columna',
             'EstanteEstado_idEstanteEstado' => 'Estante Estado Id Estante Estado',
             'loadlimit' => 'Loadlimit',
+            'descript' => 'Descript',
         ];
     }
 
@@ -76,7 +80,15 @@ class Estante extends \yii\db\ActiveRecord
      */
     public function getEstanteHasCajas()
     {
-        return $this->hasMany(EstanteHasCaja::className(), ['Estante_idEstante' => 'idEstante', 'Estante_EstanteEstado_idEstanteEstado' => 'EstanteEstado_idEstanteEstado']);
+        return $this->hasMany(EstanteHasCaja::className(), ['Estante_idEstante' => 'idEstante']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCajaIdCajas()
+    {
+        return $this->hasMany(Caja::className(), ['idCaja' => 'Caja_idCaja'])->viaTable('estante_has_caja', ['Estante_idEstante' => 'idEstante']);
     }
 
     /**
