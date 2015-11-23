@@ -29,8 +29,6 @@ use yii\helpers\ArrayHelper;
 	?>
 
 
-    <?= $form->field($model, 'descript')->textInput(['maxlength' => true]) ?>
-
     <?= $form->field($model, 'activate')->dropDownList(['1' => 'Activo', '0' => 'Desactivado']);?>
 
     <div class="form-group">

@@ -75,8 +75,11 @@ class RrhhController extends Controller
     {
         $model = new Rrhh();
 	$model->activate = 1;
+	$model->descript = "";
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+	    $model->descript=$model->Apellido.", ".$model->Nombre.", ".$model->Edad." años";
+	    $model->save();
             return $this->redirect(['view', 'id' => $model->idRRHH]);
         } else {
             return $this->render('create', [

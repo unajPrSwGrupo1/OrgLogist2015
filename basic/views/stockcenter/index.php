@@ -4,19 +4,19 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\EstanteHasCajaSearch */
+/* @var $searchModel app\models\StockcenterSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Estante Has Cajas';
+$this->title = 'Stockcenters';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="estante-has-caja-index">
+<div class="stockcenter-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Estante Has Caja', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Stockcenter', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -25,8 +25,10 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'Estante_idEstante',
-            'Caja_idCaja',
+            'idStockCenter',
+            'CantEstantes',
+            'RRHH_idRRHH',
+            'tiporrhh_idTipoRRHH',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

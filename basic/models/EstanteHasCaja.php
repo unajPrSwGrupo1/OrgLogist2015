@@ -8,9 +8,7 @@ use Yii;
  * This is the model class for table "estante_has_caja".
  *
  * @property integer $Estante_idEstante
- * @property integer $Estante_EstanteEstado_idEstanteEstado
  * @property integer $Caja_idCaja
- * @property integer $Caja_TipoCaja_idTipoCaja
  *
  * @property Caja $cajaIdCaja
  * @property Estante $estanteIdEstante
@@ -31,8 +29,8 @@ class EstanteHasCaja extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Estante_idEstante', 'Estante_EstanteEstado_idEstanteEstado', 'Caja_idCaja', 'Caja_TipoCaja_idTipoCaja'], 'required'],
-            [['Estante_idEstante', 'Estante_EstanteEstado_idEstanteEstado', 'Caja_idCaja', 'Caja_TipoCaja_idTipoCaja'], 'integer']
+            [['Estante_idEstante', 'Caja_idCaja'], 'required'],
+            [['Estante_idEstante', 'Caja_idCaja'], 'integer']
         ];
     }
 
@@ -43,9 +41,7 @@ class EstanteHasCaja extends \yii\db\ActiveRecord
     {
         return [
             'Estante_idEstante' => 'Estante Id Estante',
-            'Estante_EstanteEstado_idEstanteEstado' => 'Estante  Estante Estado Id Estante Estado',
             'Caja_idCaja' => 'Caja Id Caja',
-            'Caja_TipoCaja_idTipoCaja' => 'Caja  Tipo Caja Id Tipo Caja',
         ];
     }
 
@@ -54,7 +50,7 @@ class EstanteHasCaja extends \yii\db\ActiveRecord
      */
     public function getCajaIdCaja()
     {
-        return $this->hasOne(Caja::className(), ['idCaja' => 'Caja_idCaja', 'TipoCaja_idTipoCaja' => 'Caja_TipoCaja_idTipoCaja']);
+        return $this->hasOne(Caja::className(), ['idCaja' => 'Caja_idCaja']);
     }
 
     /**
@@ -62,6 +58,6 @@ class EstanteHasCaja extends \yii\db\ActiveRecord
      */
     public function getEstanteIdEstante()
     {
-        return $this->hasOne(Estante::className(), ['idEstante' => 'Estante_idEstante', 'EstanteEstado_idEstanteEstado' => 'Estante_EstanteEstado_idEstanteEstado']);
+        return $this->hasOne(Estante::className(), ['idEstante' => 'Estante_idEstante']);
     }
 }

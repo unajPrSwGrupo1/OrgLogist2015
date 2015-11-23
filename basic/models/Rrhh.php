@@ -38,11 +38,12 @@ class Rrhh extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Nombre', 'Apellido', 'Edad', 'Salario', 'descript','activate'], 'required'],
+            [['Nombre', 'Apellido', 'Edad', 'Salario','activate'], 'required'],
             [['Edad', 'Jefe','activate'], 'integer'],
             [['Salario'], 'number'],
+	    ['Salario','valid_sal'],
             [['Nombre', 'Apellido'], 'string', 'max' => 45],
-            [['descript'], 'string', 'max' => 140]
+	    [['descript'], 'string', 'max' => 140]
         ];
     }
 
@@ -62,6 +63,14 @@ class Rrhh extends \yii\db\ActiveRecord
 	    'activate' => 'Activate',
         ];
     }
+
+
+    public function valid_sal($attribute, $params)
+    {
+    	if ($this->Salario<9999999999.99&&$this->Salario>0)return ;
+    	else $this->addError ( $attribute, "Salario incorrecto" );
+    }
+
 
     /**
      * @return \yii\db\ActiveQuery

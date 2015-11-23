@@ -15,8 +15,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'Estante_idEstante' => $model->Estante_idEstante, 'Estante_EstanteEstado_idEstanteEstado' => $model->Estante_EstanteEstado_idEstanteEstado, 'Caja_idCaja' => $model->Caja_idCaja, 'Caja_TipoCaja_idTipoCaja' => $model->Caja_TipoCaja_idTipoCaja], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'Estante_idEstante' => $model->Estante_idEstante, 'Estante_EstanteEstado_idEstanteEstado' => $model->Estante_EstanteEstado_idEstanteEstado, 'Caja_idCaja' => $model->Caja_idCaja, 'Caja_TipoCaja_idTipoCaja' => $model->Caja_TipoCaja_idTipoCaja], [
+        <?= Html::a('Update', ['update', 'Estante_idEstante' => $model->Estante_idEstante, 'Caja_idCaja' => $model->Caja_idCaja], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Delete', ['delete', 'Estante_idEstante' => $model->Estante_idEstante, 'Caja_idCaja' => $model->Caja_idCaja], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
@@ -29,9 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'Estante_idEstante',
-            'Estante_EstanteEstado_idEstanteEstado',
             'Caja_idCaja',
-            'Caja_TipoCaja_idTipoCaja',
         ],
     ]) ?>
 

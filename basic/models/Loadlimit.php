@@ -16,8 +16,8 @@ use Yii;
  * @property string $weightUnt
  * @property string $descript
  *
- * @property Darsena[] $darsenas
  * @property Estante $estante
+ * @property Stagearea[] $stageareas
  * @property Transporte[] $transportes
  */
 class Loadlimit extends \yii\db\ActiveRecord
@@ -36,8 +36,8 @@ class Loadlimit extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'large', 'width', 'tall', 'weight', 'weightUnt', 'descript'], 'required'],
-            [['id', 'large', 'width', 'tall', 'weight'], 'integer'],
+            [['large', 'width', 'tall', 'weight', 'weightUnt', 'descript'], 'required'],
+            [['large', 'width', 'tall', 'weight'], 'integer'],
             [['longUnit', 'weightUnt'], 'string'],
             [['descript'], 'string', 'max' => 45]
         ];
@@ -63,17 +63,17 @@ class Loadlimit extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getDarsenas()
+    public function getEstante()
     {
-        return $this->hasMany(Darsena::className(), ['loadlimit' => 'id']);
+        return $this->hasOne(Estante::className(), ['loadlimit' => 'id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getEstante()
+    public function getStageareas()
     {
-        return $this->hasOne(Estante::className(), ['loadlimit' => 'id']);
+        return $this->hasMany(Stagearea::className(), ['loadlimit' => 'id']);
     }
 
     /**

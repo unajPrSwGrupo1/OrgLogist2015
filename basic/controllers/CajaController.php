@@ -135,12 +135,16 @@ class CajaController extends Controller
     public function actionUpdate($idCaja, $TipoCaja_idTipoCaja)
     {
         $model = $this->findModel($idCaja, $TipoCaja_idTipoCaja);
+        $subModelTipo = new Tipocaja();
+        $subModelPhy = new Physic();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'idCaja' => $model->idCaja, 'TipoCaja_idTipoCaja' => $model->TipoCaja_idTipoCaja]);
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'subModelTipo' => $subModelTipo,
+                'subModelPhy' => $subModelPhy,
             ]);
         }
     }

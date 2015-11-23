@@ -172,25 +172,35 @@ class SiteController extends Controller {
 				$table->tiporrhh_idTipoRRHH = $model->tiporrhh_idTipoRRHH;
 				if ($table->insert())
 				{
-					$user = $table->find()->Where("AuthKey=:AuthKey",[":AuthKey" => $table->Authkey])->one();
+					$user = User::find()->Where("AuthKey=:AuthKey",[":AuthKey" => $table->Authkey])->one();
 					$id = urlencode($user->idAutenticacion);
 					$authKey = urlencode($user->Authkey);
 					$subject = "Confirmar registro";
 					$body = "<h1>Haga click en el siguiente enlace para finalizar tu registro</h1>";
-                    $link=Intranet::getUrlHead()."/basic/web/index.php?r=site/confirm&id=".$id."&authKey=".$authKey;
+                    			$link=Intranet::getUrlHead()."/basic/web/index.php?r=site/confirm&id=".$id."&authKey=".$authKey;
 					$body .= "<a href='".$link."'>Confirmar</a>";
-					Yii::$app->mailer->compose()
+					if(Yii::$app->params["adminEmail"] != 'email@gmail.com'){
+						Yii::$app->mailer->compose()
 							->setTo($user->Mail)
 							->setFrom([Yii::$app->params["adminEmail"] => Yii::$app->params["title"]])
 							->setSubject($subject)
 							->setHtmlBody($body)
 							->send();
+						$msg = "Enhorabuena, ahora sólo falta que confirmes tu registro en tu cuenta de correo ";
+					}
+					else{
+						$msg = "Confirmación alternativa ".Mailto::getUrlMailto(
+											$user->Mail,$subject,"","",
+											"Haga click en el siguiente enlace para finalizar tu registro",
+											$link,
+											"\nClick aquí para reenviar confirmación vía mailto:"
+						);
+					}
 					$model->username = null;
 					$model->Mail = null;
 					$model->password = null;
 					$model->password_repeat = null;
-					$msg = "Enhorabuena, ahora sólo falta que confirmes tu registro en tu cuenta de correo ".
-                    Mailto::getUrlMailto($user->Mail,$subject,"","","Haga click en el siguiente enlace para finalizar tu registro",$link,"\nClick aquí para reenviar confirmación vía mailto:");
+					
 				}
 				else{
 					$msg = "Ha ocurrido un error al llevar a cabo tu  registro\n"."username=".$model->username."\npassword=".$model->password_repeat."\nemail=".$model->Mail."\n

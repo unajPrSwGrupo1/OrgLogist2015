@@ -5,12 +5,12 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\EstanteHasCaja;
+use app\models\Stockcenter;
 
 /**
- * EstanteHasCajaSearch represents the model behind the search form about `app\models\EstanteHasCaja`.
+ * StockcenterSearch represents the model behind the search form about `app\models\Stockcenter`.
  */
-class EstanteHasCajaSearch extends EstanteHasCaja
+class StockcenterSearch extends Stockcenter
 {
     /**
      * @inheritdoc
@@ -18,7 +18,7 @@ class EstanteHasCajaSearch extends EstanteHasCaja
     public function rules()
     {
         return [
-            [['Estante_idEstante', 'Caja_idCaja'], 'integer'],
+            [['idStockCenter', 'CantEstantes', 'RRHH_idRRHH', 'tiporrhh_idTipoRRHH'], 'integer'],
         ];
     }
 
@@ -40,7 +40,7 @@ class EstanteHasCajaSearch extends EstanteHasCaja
      */
     public function search($params)
     {
-        $query = EstanteHasCaja::find();
+        $query = Stockcenter::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -55,8 +55,10 @@ class EstanteHasCajaSearch extends EstanteHasCaja
         }
 
         $query->andFilterWhere([
-            'Estante_idEstante' => $this->Estante_idEstante,
-            'Caja_idCaja' => $this->Caja_idCaja,
+            'idStockCenter' => $this->idStockCenter,
+            'CantEstantes' => $this->CantEstantes,
+            'RRHH_idRRHH' => $this->RRHH_idRRHH,
+            'tiporrhh_idTipoRRHH' => $this->tiporrhh_idTipoRRHH,
         ]);
 
         return $dataProvider;

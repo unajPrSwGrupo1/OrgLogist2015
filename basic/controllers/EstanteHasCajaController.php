@@ -44,15 +44,13 @@ class EstanteHasCajaController extends Controller
     /**
      * Displays a single EstanteHasCaja model.
      * @param integer $Estante_idEstante
-     * @param integer $Estante_EstanteEstado_idEstanteEstado
      * @param integer $Caja_idCaja
-     * @param integer $Caja_TipoCaja_idTipoCaja
      * @return mixed
      */
-    public function actionView($Estante_idEstante, $Estante_EstanteEstado_idEstanteEstado, $Caja_idCaja, $Caja_TipoCaja_idTipoCaja)
+    public function actionView($Estante_idEstante, $Caja_idCaja)
     {
         return $this->render('view', [
-            'model' => $this->findModel($Estante_idEstante, $Estante_EstanteEstado_idEstanteEstado, $Caja_idCaja, $Caja_TipoCaja_idTipoCaja),
+            'model' => $this->findModel($Estante_idEstante, $Caja_idCaja),
         ]);
     }
 
@@ -66,7 +64,7 @@ class EstanteHasCajaController extends Controller
         $model = new EstanteHasCaja();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'Estante_idEstante' => $model->Estante_idEstante, 'Estante_EstanteEstado_idEstanteEstado' => $model->Estante_EstanteEstado_idEstanteEstado, 'Caja_idCaja' => $model->Caja_idCaja, 'Caja_TipoCaja_idTipoCaja' => $model->Caja_TipoCaja_idTipoCaja]);
+            return $this->redirect(['view', 'Estante_idEstante' => $model->Estante_idEstante, 'Caja_idCaja' => $model->Caja_idCaja]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -78,17 +76,15 @@ class EstanteHasCajaController extends Controller
      * Updates an existing EstanteHasCaja model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $Estante_idEstante
-     * @param integer $Estante_EstanteEstado_idEstanteEstado
      * @param integer $Caja_idCaja
-     * @param integer $Caja_TipoCaja_idTipoCaja
      * @return mixed
      */
-    public function actionUpdate($Estante_idEstante, $Estante_EstanteEstado_idEstanteEstado, $Caja_idCaja, $Caja_TipoCaja_idTipoCaja)
+    public function actionUpdate($Estante_idEstante, $Caja_idCaja)
     {
-        $model = $this->findModel($Estante_idEstante, $Estante_EstanteEstado_idEstanteEstado, $Caja_idCaja, $Caja_TipoCaja_idTipoCaja);
+        $model = $this->findModel($Estante_idEstante, $Caja_idCaja);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'Estante_idEstante' => $model->Estante_idEstante, 'Estante_EstanteEstado_idEstanteEstado' => $model->Estante_EstanteEstado_idEstanteEstado, 'Caja_idCaja' => $model->Caja_idCaja, 'Caja_TipoCaja_idTipoCaja' => $model->Caja_TipoCaja_idTipoCaja]);
+            return $this->redirect(['view', 'Estante_idEstante' => $model->Estante_idEstante, 'Caja_idCaja' => $model->Caja_idCaja]);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -100,14 +96,12 @@ class EstanteHasCajaController extends Controller
      * Deletes an existing EstanteHasCaja model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $Estante_idEstante
-     * @param integer $Estante_EstanteEstado_idEstanteEstado
      * @param integer $Caja_idCaja
-     * @param integer $Caja_TipoCaja_idTipoCaja
      * @return mixed
      */
-    public function actionDelete($Estante_idEstante, $Estante_EstanteEstado_idEstanteEstado, $Caja_idCaja, $Caja_TipoCaja_idTipoCaja)
+    public function actionDelete($Estante_idEstante, $Caja_idCaja)
     {
-        $this->findModel($Estante_idEstante, $Estante_EstanteEstado_idEstanteEstado, $Caja_idCaja, $Caja_TipoCaja_idTipoCaja)->delete();
+        $this->findModel($Estante_idEstante, $Caja_idCaja)->delete();
 
         return $this->redirect(['index']);
     }
@@ -116,15 +110,13 @@ class EstanteHasCajaController extends Controller
      * Finds the EstanteHasCaja model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $Estante_idEstante
-     * @param integer $Estante_EstanteEstado_idEstanteEstado
      * @param integer $Caja_idCaja
-     * @param integer $Caja_TipoCaja_idTipoCaja
      * @return EstanteHasCaja the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($Estante_idEstante, $Estante_EstanteEstado_idEstanteEstado, $Caja_idCaja, $Caja_TipoCaja_idTipoCaja)
+    protected function findModel($Estante_idEstante, $Caja_idCaja)
     {
-        if (($model = EstanteHasCaja::findOne(['Estante_idEstante' => $Estante_idEstante, 'Estante_EstanteEstado_idEstanteEstado' => $Estante_EstanteEstado_idEstanteEstado, 'Caja_idCaja' => $Caja_idCaja, 'Caja_TipoCaja_idTipoCaja' => $Caja_TipoCaja_idTipoCaja])) !== null) {
+        if (($model = EstanteHasCaja::findOne(['Estante_idEstante' => $Estante_idEstante, 'Caja_idCaja' => $Caja_idCaja])) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
