@@ -28,8 +28,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'idCaja',
             'TipoCaja_idTipoCaja',
             'physic',
-            ['attribute'=>'TipoCaja_idTipoCaja','value'=>'tipoCajaIdTipoCaja.Tipo'],
-            ['attribute'=>'physic','value'=>'physic0.descript'],
+            ['attribute'=>'TipoCaja_idTipoCaja','value'=>'tipoCajaIdTipoCaja.Tipo'],//estoy metiendo las descripciones de las tablas relacionadas
+            ['attribute'=>'physic','value'=>'physic0.descript'],//estoy metiendo las descripciones de las tablas relacionadas
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

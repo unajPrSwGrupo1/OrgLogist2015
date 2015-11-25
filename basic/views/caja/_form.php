@@ -12,10 +12,10 @@ use yii\helpers\ArrayHelper;
 
     <?php $form = ActiveForm::begin(); ?>
     
-    <?=$form->field($model, 'TipoCaja_idTipoCaja')
-     ->dropDownList(
-            ArrayHelper::map($subModelTipo->getAllTipocaja(), 'idTipoCaja', 'Tipo')
-            )
+    <?=$form->field($model, 'TipoCaja_idTipoCaja')//este es el valor del campo con foreingkeys en tabla caja
+     ->dropDownList(//cambiado por un combobox
+            ArrayHelper::map($subModelTipo->getAllTipocaja(), 'idTipoCaja', 'Tipo')//los items de la lista del dropdownlist son tomados de estos campos
+            )//subModelTipo en el controlador se define que en caja voy usar el modelo de tipo caja tambien
     ?>
     
     <?=$form->field($model, 'physic')

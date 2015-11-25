@@ -75,8 +75,8 @@ class CajaController extends Controller
     public function actionCreate()
     {
         $model = new Caja();
-        $subModelTipo = new Tipocaja();
-        $subModelPhy = new Physic();
+        $subModelTipo = new Tipocaja();//son los que toma del dropddownlist
+        $subModelPhy = new Physic();//son los que toma del dropddownlist al crear
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'idCaja' => $model->idCaja, 'TipoCaja_idTipoCaja' => $model->TipoCaja_idTipoCaja]);

@@ -5,29 +5,18 @@ use yii\bootstrap\NavBar;
 
 ?>
 
-<style type="text/css">
-    body {background-image:url('http://localhost/basic/imagenes/6.jpg');
-	font-family: Gill Sans, Verdana;
-font-size: 14px;
-line-height: 17px;
-text-transform: uppercase;
-letter-spacing: 2px;
-font-weight: bold;
 
-	}
-	
-</style>
 
 <html>
 <h3>Bienvenido <?= $msg ?></h3>
 
-  <body>
+  <body style="background-image: url(imagenes/opstock.jpg)">
 	  
   
   
     <div class="container-fluid">
       <div class="row">
-        <div class="col-sm-3 col-md-5 sidebar">
+        <div class="col-sm-3 col-md-5 sidebar" style="font-family: Comic Sans MS" style="font-weight: bold">
           <ul class="nav nav-sidebar">
           	<?php 
 				foreach($arr as $key=>$link) {

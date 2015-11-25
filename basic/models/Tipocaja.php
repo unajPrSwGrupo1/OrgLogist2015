@@ -53,6 +53,6 @@ class Tipocaja extends \yii\db\ActiveRecord
     
     public function getAllTipocaja()
     {
-        return Tipocaja::find()->all();
+        return Tipocaja::find()->all();//me da al controlador el arreglo de toda la tabla
     }
 }
